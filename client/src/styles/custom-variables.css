@@ -1,0 +1,10 @@
+:root {
+  --at-green: #005635;
+  --at-light-green: #4e9518;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}

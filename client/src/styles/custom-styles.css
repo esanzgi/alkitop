@@ -1,0 +1,20 @@
+@import './custom-variables.css';
+
+/*** GREEN ***/
+
+.bg-at-green {
+  background-color: var(--at-green);
+}
+
+.text-at-green {
+  color: var(--at-green);
+}
+
+/*** LIGHT GREEN ***/
+.bg-at-lightgreen {
+  background-color: var(--at-light-green);
+}
+
+.text-at-lightgreen {
+  color: var(--at-light-green);
+}
