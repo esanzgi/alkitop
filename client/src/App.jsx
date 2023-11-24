@@ -1,11 +1,15 @@
 import './App.css'
+import { FilterNav } from './components/FilterNav'
 import { Header } from './components/Header'
 
-function App() {
-
+function App () {
   return (
-    <main className='container-fluid'>
+    <main>
+
       <Header />
+      <div className='container mt-3'>
+        <FilterNav />
+      </div>
     </main>
   )
 }
