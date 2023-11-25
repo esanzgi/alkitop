@@ -7,7 +7,7 @@ function App () {
     <main>
 
       <Header />
-      <div className='container mt-3'>
+      <div className='container-md  mt-4'>
         <FilterNav />
       </div>
     </main>

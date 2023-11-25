@@ -17,7 +17,8 @@ export function Header () {
 
         <Search />
 
-        <button className='btn btn-success rounded-pill' type='button'>Sign in
+        <button className='d-none d-sm-block btn btn-success rounded-pill' type='button'>
+          Sign in
         </button>
         <a className='d-none d-md-block btn btn-outline-success ms-2 rounded-pill' href='#'>
           <i className='fa fa-plus me-2' />

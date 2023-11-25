@@ -18,3 +18,46 @@
 .text-at-lightgreen {
   color: var(--at-light-green);
 }
+
+.nav-icons {
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s ease, opacity 0.3s ease;
+  /* Combinar las transiciones */
+}
+
+.nav-icons:hover {
+  cursor: pointer;
+  border-bottom: 2px solid gray;
+  opacity: 0.8;
+}
+
+.nav-icons-div {
+  position: relative;
+}
+
+.categorias-trigger {
+  display: none;
+}
+
+.collapsed-categories {
+  display: none;
+  position: absolute;
+  top: 100%;
+  /* Coloca el menú desplegable debajo del ícono "Categorías" */
+  left: 0;
+  width: 100%;
+  /* Ocupa todo el ancho disponible */
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Agrega sombra para un efecto visual */
+  padding: 30px;
+}
+
+.collapsed-categories:hover {
+  display: block;
+}
+
+.categorias-trigger:hover + .collapsed-categories {
+  display: block;
+}
