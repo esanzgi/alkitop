@@ -1,6 +1,14 @@
 import { useEffect } from 'react'
 import { useProducts } from '../hooks/useProducts'
-import { Products } from './Products'
+import { Loading } from './Loading'
+import ProductCarousel from './ProductCarousel'
+
+const SECCIONES = [
+  'Lo mejor, al mejor precio',
+  'Más alquilado',
+  'Populares',
+  'Invierno'
+]
 
 export function HomeContent () {
   const { products, getProducts, loading } = useProducts({ search: '' })
@@ -10,12 +18,22 @@ export function HomeContent () {
   }, [getProducts])
   return (
     loading
-      ? (
-        <div className='text-center'>
-          <span className='spinner-border spinner-border-sm me-2 mt-5' aria-hidden='true' />
-          <span role='status'>Cargando...</span>
-        </div>)
+      ? <Loading />
+      : <CargarPorSecciones products={products} />
+  )
+}
 
-      : <Products products={products} />
+function CargarPorSecciones ({ products }) {
+  return (
+    <>
+      {
+        SECCIONES.map((seccion, index) => (
+          <div key={index} className='mt-5'>
+            <h2 className='h1 ps-4 border-start border-black fw-bolder mb-4' id='masPopulares'>{seccion}</h2>
+            <ProductCarousel products={products.slice(0, 10)} />
+          </div>
+        ))
+      }
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import { ProductCard } from './ProductCard'
 
 export function Products ({ products }) {
+  console.log(products)
   const hasProducts = products?.length > 0
   return (
     hasProducts
@@ -11,10 +12,10 @@ export function Products ({ products }) {
 
 function ListOfProducts ({ products }) {
   return (
-    <div className='row'>
+    <div className='row justify-content-center'>
 
       {products.map((product, index) => (
-        <div key={index} className='col-12 col-sm-6 col-md-4 col-lg-3 g-5'>
+        <div key={index} className='col-10 col-sm-6 col-md-4 col-lg-3 g-5 product'>
           <ProductCard
             key={product.id}
             productImg={product.image}
