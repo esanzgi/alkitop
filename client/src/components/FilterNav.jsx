@@ -7,7 +7,27 @@ const navItems = [
   { icon: faMotorcycle, text: 'Motos' },
   { icon: faCar, text: 'Coches' },
   { icon: faPersonSkiing, text: 'Esquíes' },
-  { icon: faMusic, text: 'Music' }
+  { icon: faMusic, text: 'Música' }
+]
+
+const allCategories = [
+  'Coches',
+  'TV, Audio, Foto',
+  'Consolas y Videojuegos',
+  'Motos',
+  'Hogar y Jardin',
+  'Bicicletas',
+  'Construcción y Reformas',
+  'Motor y Accesorios',
+  'Informática y Electrónica',
+  'Electrodomésticos',
+  'Industria y Agricultura',
+  'Moda y Accesorios',
+  'Deporte y Ocio',
+  'Cine, Libros y Música',
+  'Inmobiliaria',
+  'Nieve',
+  'Servicios'
 ]
 
 export function FilterNav () {
@@ -15,7 +35,7 @@ export function FilterNav () {
 
   return (
     <nav className='row'>
-      <ul className='d-flex align-items-center justify-content-between mt-2 nav-icons-div'>
+      <ul className='d-flex align-items-center justify-content-evenly mt-2 nav-icons-div'>
         {navItems.map((item, index) => (
           <NavItem key={index} icon={item.icon} text={item.text} />
         ))}
@@ -24,10 +44,12 @@ export function FilterNav () {
           <span className='fs-6'>Categorías</span>
         </li>
 
-        <div className='collapsed-categories'>
-          <ul>
-            {navItems.map((item, index) => (
-              <li key={index}>{item.text}</li>
+        <div className='collapsed-categories bg-light rounded'>
+          <ul className='row list-unstyled'>
+            {allCategories.map((item, index) => (
+              <li className='col-6 col-sm-4 col-lg-3 my-2' key={index}>
+                <span className='allCategories'>{item}</span>
+              </li>
             ))}
           </ul>
         </div>

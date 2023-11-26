@@ -1,0 +1,36 @@
+import { ProductCard } from './ProductCard'
+
+export function Products ({ products }) {
+  const hasProducts = products?.length > 0
+  return (
+    hasProducts
+      ? <ListOfProducts products={products} />
+      : <NoProductsResults />
+  )
+}
+
+function ListOfProducts ({ products }) {
+  return (
+    <div className='row'>
+
+      {products.map((product, index) => (
+        <div key={index} className='col-12 col-sm-6 col-md-4 col-lg-3 g-5'>
+          <ProductCard
+            key={product.id}
+            productImg={product.image}
+            productTitle={product.title}
+            productDescr={product.description}
+            productPrice={product.price}
+          />
+        </div>
+
+      ))}
+    </div>
+  )
+}
+
+function NoProductsResults () {
+  return (
+    <p>No se encontraron productos para esta búsqueda</p>
+  )
+}

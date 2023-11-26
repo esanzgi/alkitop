@@ -40,24 +40,43 @@
 }
 
 .collapsed-categories {
-  display: none;
   position: absolute;
   top: 100%;
-  /* Coloca el menú desplegable debajo del ícono "Categorías" */
   left: 0;
   width: 100%;
-  /* Ocupa todo el ancho disponible */
   background-color: white;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* Agrega sombra para un efecto visual */
-  padding: 30px;
+  padding: 15px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  z-index: 1000;
 }
 
 .collapsed-categories:hover {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.1s;
 }
 
 .categorias-trigger:hover + .collapsed-categories {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.1s;
+}
+
+.allCategories {
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.3s ease;
+}
+
+.allCategories:hover {
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+.home-content {
+  padding-top: 200px;
 }
