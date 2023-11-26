@@ -36,10 +36,10 @@ const ProductCarousel = ({ products }) => {
   }
 
   return (
-    <div className='row'>
+    <div className='row justify-content-center'>
       <Slider {...settings}>
         {products.map((product, index) => (
-          <div key={index} className=''>
+          <div key={index} className='d-flex justify-content-center'>
             <div className='col-10 product'>
               <ProductCard
                 productImg={product.image}

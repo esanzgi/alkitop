@@ -9,7 +9,7 @@ export function ProductCard ({ productImg, productTitle, productDescr, productPr
         <img
           src={productImg}
           alt={productTitle}
-          className='img-fluid object-fit-contain'
+          className='img-fluid object-fit-contain mx-auto'
           style={{ height: '200px' }}
         />
       </div>

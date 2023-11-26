@@ -2,6 +2,7 @@
 
 import './App.css'
 import { FilterNav } from './components/FilterNav'
+import { FilteredProducts } from './components/FilteredProducts'
 import { Header } from './components/Header'
 import { HomeContent } from './components/HomeContent'
 
@@ -20,6 +21,7 @@ function App () {
 
       <div className='home-content container'>
         <HomeContent />
+        <FilteredProducts />
         {/* <FilteredProducts /> */}
       </div>
     </main>
