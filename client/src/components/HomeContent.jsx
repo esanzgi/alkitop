@@ -29,7 +29,7 @@ function CargarPorSecciones ({ products }) {
       {
         SECCIONES.map((seccion, index) => (
           <div key={index} className='mt-5'>
-            <h2 className='h1 ps-4 border-start border-black fw-bolder mb-4' id='masPopulares'>{seccion}</h2>
+            <h2 className='h1 ps-4 border-start border-black fw-bolder mb-5 border-success'>{seccion}</h2>
             <ProductCarousel products={products.slice(0, 10)} />
           </div>
         ))

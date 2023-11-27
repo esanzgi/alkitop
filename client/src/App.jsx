@@ -5,6 +5,7 @@ import { FilterNav } from './components/FilterNav'
 import { FilteredProducts } from './components/FilteredProducts'
 import { Header } from './components/Header'
 import { HomeContent } from './components/HomeContent'
+import { ProductDetails } from './components/productDetail/ProductDetails'
 
 function App () {
   return (
@@ -21,8 +22,12 @@ function App () {
 
       <div className='home-content container'>
         <HomeContent />
-        <FilteredProducts />
-        {/* <FilteredProducts /> */}
+        {/* <FilteredProducts />
+
+        <div className='mt-5'>
+          <ProductDetails />
+
+        </div> */}
       </div>
     </main>
   )

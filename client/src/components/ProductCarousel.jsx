@@ -12,7 +12,7 @@ const ProductCarousel = ({ products }) => {
     infinite: true,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
     responsive: [
       {
         breakpoint: 1024,
@@ -46,6 +46,7 @@ const ProductCarousel = ({ products }) => {
                 productTitle={product.title}
                 productDescr={product.description}
                 productPrice={product.price}
+                productRate={product.rating.rate}
               />
             </div>
           </div>

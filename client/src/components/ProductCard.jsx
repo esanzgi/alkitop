@@ -1,7 +1,7 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export function ProductCard ({ productImg, productTitle, productDescr, productPrice }) {
+export function ProductCard ({ productImg, productTitle, productDescr, productPrice, productRate }) {
   return (
     <div className=''>
 
@@ -23,7 +23,7 @@ export function ProductCard ({ productImg, productTitle, productDescr, productPr
           </div>
           <span>
             <FontAwesomeIcon className='me-1' icon={faStar} />
-            4.99
+            {productRate}
           </span>
         </div>
         <p className='text-truncate mt-2'>{productTitle}</p>

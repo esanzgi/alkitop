@@ -1,7 +1,6 @@
 import { ProductCard } from './ProductCard'
 
 export function Products ({ products }) {
-  console.log(products)
   const hasProducts = products?.length > 0
   return (
     hasProducts
@@ -22,6 +21,7 @@ function ListOfProducts ({ products }) {
             productTitle={product.title}
             productDescr={product.description}
             productPrice={product.price}
+            productRate={product.rating.rate}
           />
         </div>
 
