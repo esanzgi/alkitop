@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useProducts } from '../hooks/useProducts'
+import { Footer } from './Footer'
 import { Loading } from './Loading'
 import ProductCarousel from './ProductCarousel'
 
@@ -19,7 +20,17 @@ export function HomeContent () {
   return (
     loading
       ? <Loading />
-      : <CargarPorSecciones products={products} />
+      : (
+        <div>
+          <div className='mb-5 pb-5'>
+            <CargarPorSecciones products={products} />
+
+          </div>
+          <div className='mt-5'>
+            <Footer />
+          </div>
+
+        </div>)
   )
 }
 
