@@ -3,7 +3,7 @@ import { searchProducts } from '../services/products.js'
 
 export function useProducts ({ search = '', sort }) {
   const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [, setError] = useState(null)
   const previousSearch = useRef(search)
 

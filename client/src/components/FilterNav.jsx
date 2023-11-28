@@ -44,7 +44,7 @@ export function FilterNav () {
           <span className='fs-6'>Categorías</span>
         </li>
 
-        <div className='collapsed-categories bg-light rounded'>
+        <div className='collapsed-categories bg-light rounded-3 '>
           <ul className='row list-unstyled'>
             {allCategories.map((item, index) => (
               <li className='col-6 col-sm-4 col-lg-3 my-2' key={index}>

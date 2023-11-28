@@ -1,16 +1,26 @@
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faLeaf } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import IMAGE from '../assets/images/moto.jpg'
+import IMAGE2 from '../assets/images/moto2.jpg'
 
-export function ProductCard ({ productImg, productTitle, productDescr, productPrice, productRate }) {
+export function ProductCard ({ productImg, productTitle, productDescr, productPrice, productRate, isEco }) {
+  isEco ? productImg = IMAGE2 : productImg = IMAGE
+
   return (
     <div className=''>
+      {
+        !isEco && (
+          <span className='badge bg-success position-absolute top-0 rounded d-inline-flex align-middle'><FontAwesomeIcon icon={faLeaf} className='me-1' />ECO</span>
 
-      <div className='col-12 text-center  rounded shadow-sm'>
+        )
+      }
+
+      <div className='col-12 text-center shadow-sm '>
         <img
           src={productImg}
           alt={productTitle}
-          className='img-fluid object-fit-contain mx-auto'
-          style={{ height: '200px' }}
+          className='img-fluid object-fit-cover mx-auto rounded-3 shadow-sm'
+          style={{ height: '250px' }}
         />
       </div>
       <div className='mt-3'>

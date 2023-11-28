@@ -1,4 +1,4 @@
-export function Contact () {
+export function Footer () {
   return (
     <>
 

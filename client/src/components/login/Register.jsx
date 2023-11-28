@@ -4,6 +4,7 @@ import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 export function Register ({ show, handleClose }) {
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
   const [acceptTerms, setAcceptTerms] = useState(false)
@@ -34,6 +35,18 @@ export function Register ({ show, handleClose }) {
                 name='name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </Form.Group>
+          </Row>
+          <Row className='mb-3'>
+            <Form.Group as={Col}>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type='email'
+                className='border-1 border-success form-control-sm'
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
           </Row>

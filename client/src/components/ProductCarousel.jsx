@@ -1,18 +1,23 @@
-// ProductCarousel.jsx
-
 import React from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import { ProductCard } from './ProductCard'
 
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const ProductCarousel = ({ products }) => {
+  const isEco = (index) => { return products.length % index === 0 }
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 2,
+    nextArrow: <NextArrow style={{ backgroundColor: 'black' }} />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -42,11 +47,12 @@ const ProductCarousel = ({ products }) => {
           <div key={index} className='d-flex justify-content-center'>
             <div className='col-10 product'>
               <ProductCard
-                productImg={product.image}
+                productImg={product.images}
                 productTitle={product.title}
                 productDescr={product.description}
                 productPrice={product.price}
-                productRate={product.rating.rate}
+                productRate={product.rate}
+                isEco={isEco(index)}
               />
             </div>
           </div>
@@ -54,6 +60,30 @@ const ProductCarousel = ({ products }) => {
       </Slider>
     </div>
 
+  )
+}
+
+const NextArrow = ({ className, style, onClick }) => {
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block' }}
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faChevronRight} />
+    </div>
+  )
+}
+
+const PrevArrow = ({ className, style, onClick }) => {
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block' }}
+      onClick={onClick}
+    >
+      {/* <FontAwesomeIcon icon={faChevronLeft} /> */}
+    </div>
   )
 }
 
