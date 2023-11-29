@@ -1,7 +1,7 @@
 export function Footer () {
   return (
     <>
-      <footer className='py-4 border-top'>
+      <footer className='py-4 '>
         <div className='row'>
           <div className='col-6 col-md-2 mb-3 justify-content-center'>
             <h5>Section</h5>

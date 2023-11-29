@@ -22,15 +22,9 @@ export function HomeContent () {
       ? <Loading />
       : (
         <div>
-          <div className='mb-5 pb-5'>
-            <CargarPorSecciones products={products} />
-
-          </div>
-          <div className='mt-5'>
-            <Footer />
-          </div>
-
-        </div>)
+          <CargarPorSecciones products={products} />
+        </div>
+        )
   )
 }
 
