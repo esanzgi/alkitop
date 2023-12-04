@@ -1,28 +1,64 @@
-import React, { useState } from 'react'
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
-import { Register } from './Register'
+import React, { useState } from 'react';
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import { Register } from './Register';
 
-export function Login ({ show, handleClose }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+export function Login({ show, handleClose }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
-  const [showRegisterModal, setShowRegisterModal] = useState(false)
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const handleLogin = () => {
     // Lógica para manejar el inicio de sesión
-    console.log('Username:', username)
-    console.log('Password:', password)
-    handleClose()
-  }
+    balidatu();
+  
+    // Check if there are validation errors
+    if (!isUsernameValid || !isPasswordValid) {
+      // If there are errors, don't close the modal
+      return;
+    }
+  
+    console.log('Username:', username);
+    console.log('Password:', password);
+    handleClose();
+  };
+  
 
   const handleOpenRegisterModal = () => {
-    setShowRegisterModal(true)
-  }
+    setShowRegisterModal(true);
+  };
 
   const handleCloseRegisterModal = () => {
-    setShowRegisterModal(false)
-  }
+    setShowRegisterModal(false);
+  };
 
+  const balidatu = () => {
+    // Hasieran ondo
+    setIsUsernameValid(true);
+    setIsPasswordValid(true);
+  
+    // Implement your validation logic here
+    if (username === '') {
+      setIsUsernameValid(false);
+    }
+  
+    if (password === '') {
+      setIsPasswordValid(false);
+    }
+  
+    // Check if either username or password is empty
+    if (username === '' || password === '') {
+      // If there are errors, don't close the modal
+      return;
+    }
+  
+    // If there are no errors, close the modal
+    handleClose();
+  };
+  
+  
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -37,8 +73,14 @@ export function Login ({ show, handleClose }) {
                 type='text'
                 placeholder='Enter your username'
                 value={username}
+                className={isUsernameValid ? '' : 'is-invalid'}
                 onChange={(e) => setUsername(e.target.value)}
               />
+              {!isUsernameValid && (
+                <Form.Control.Feedback type='invalid'>
+                  Please enter a valid username.
+                </Form.Control.Feedback>
+              )}
             </Form.Group>
           </Row>
           <Row className='mb-3'>
@@ -48,8 +90,14 @@ export function Login ({ show, handleClose }) {
                 type='password'
                 placeholder='Enter your password'
                 value={password}
+                className={isPasswordValid ? '' : 'is-invalid'}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {!isPasswordValid && (
+                <Form.Control.Feedback type='invalid'>
+                  Please enter a valid password.
+                </Form.Control.Feedback>
+              )}
             </Form.Group>
           </Row>
 
@@ -60,10 +108,8 @@ export function Login ({ show, handleClose }) {
             </div>
           </div>
         </Form>
-
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-between align-items-center'>
-
         <span onClick={handleOpenRegisterModal} className='text-hover-success fst-italic' data-bs-toggle='modal' data-bs-target='#registerModal'>¿No tienes cuenta? Registrarse</span>
         <div>
           <Button variant='secondary' className='me-2' onClick={handleClose}>
@@ -73,9 +119,8 @@ export function Login ({ show, handleClose }) {
             Log In
           </Button>
         </div>
-
       </Modal.Footer>
       <Register show={showRegisterModal} handleClose={handleCloseRegisterModal} />
     </Modal>
-  )
+  );
 }
