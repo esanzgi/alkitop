@@ -11,8 +11,8 @@ export function Login({ show, handleClose }) {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const handleLogin = () => {
-    // Lógica para manejar el inicio de sesión
-    balidatu();
+    // Logic to handle login
+    validate();
   
     // Check if there are validation errors
     if (!isUsernameValid || !isPasswordValid) {
@@ -34,8 +34,8 @@ export function Login({ show, handleClose }) {
     setShowRegisterModal(false);
   };
 
-  const balidatu = () => {
-    // Hasieran ondo
+  const validate = () => {
+    // Initially set to valid
     setIsUsernameValid(true);
     setIsPasswordValid(true);
   
@@ -103,14 +103,14 @@ export function Login({ show, handleClose }) {
 
           <div className='row form-group mt-4'>
             <div className='form-check ms-3'>
-              <input type='checkbox' className='form-check-input border-1 border-success' name='remember' />
+              <input type='checkbox' className='form-check-input' name='remember' />
               <label htmlFor='remember' className='form-check-label'>Remember me</label>
             </div>
           </div>
         </Form>
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-between align-items-center'>
-        <span onClick={handleOpenRegisterModal} className='text-hover-success fst-italic' data-bs-toggle='modal' data-bs-target='#registerModal'>¿No tienes cuenta? Registrarse</span>
+        <span onClick={handleOpenRegisterModal} className='text-hover-success fst-italic' data-bs-toggle='modal' data-bs-target='#registerModal'>Don't have an account? Register</span>
         <div>
           <Button variant='secondary' className='me-2' onClick={handleClose}>
             Close
