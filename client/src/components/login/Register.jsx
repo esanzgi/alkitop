@@ -178,7 +178,7 @@ export function Register({ show, handleClose }) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <span className='me-4 me-sm-5 text-hover-success fst-italic' data-bs-toggle='modal' data-bs-target='#loginModal'>
+        <span className='me-4 me-sm-5 text-hover-success fst-italic' data-bs-toggle='modal' data-bs-target='#loginModal' onClick={handleClose}>
           Already have an account? Log In
         </span>
         <Button variant='secondary' onClick={handleClose}>
