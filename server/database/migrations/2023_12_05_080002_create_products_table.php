@@ -17,11 +17,11 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->unsignedBigInteger('id_owner');
-            $table->foreign('id_owner')->references('id_owner')->on('owners'); // Asegúrate de que 'owners' sea el nombre correcto de la tabla de Owners
             $table->boolean('isEco');
             $table->decimal('price', 10, 2);
             $table->string('location');
             $table->string('category');
+            $table->foreign('id_owner')->references('id_owner')->on('owners')->onDelete('cascade');
         });
     }
 

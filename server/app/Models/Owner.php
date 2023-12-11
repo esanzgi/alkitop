@@ -9,8 +9,6 @@ class Owner extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_owner';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -22,7 +20,7 @@ class Owner extends Model
     // Relación con el modelo User
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
+        return $this->belongsTo(User::class);
     }
 
     public function product()

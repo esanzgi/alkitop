@@ -12,8 +12,6 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_product';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -29,7 +27,7 @@ class Product extends Model
 
     public function owner()
     {
-        return $this->belongsTo(Owner::class, 'id_owner', 'id_owner'); // Reemplaza 'Owner' con el nombre real de tu modelo
+        return $this->belongsTo(Owner::class, 'id_owner', 'id_owner');
     }
 
     public function user()

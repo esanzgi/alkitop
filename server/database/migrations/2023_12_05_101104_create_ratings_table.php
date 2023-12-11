@@ -16,14 +16,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ratings', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_rating');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_product');
             $table->text('review');
             $table->integer('rating');
-
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
-            $table->foreign('id_product')->references('id_user')->on('products')->onDelete('cascade');
+            $table->foreign('id_product')->references('id_product')->on('products')->onDelete('cascade');
         });
     }
 
