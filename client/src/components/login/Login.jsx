@@ -1,64 +1,62 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
-import { Register } from './Register';
+import React, { useState } from 'react'
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
+import { Register } from './Register'
 
-export function Login({ show, handleClose }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isUsernameValid, setIsUsernameValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
+export function Login ({ show, handleClose }) {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [isUsernameValid, setIsUsernameValid] = useState(true)
+  const [isPasswordValid, setIsPasswordValid] = useState(true)
 
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
 
   const handleLogin = () => {
     // Logic to handle login
-    validate();
-  
+    validate()
+
     // Check if there are validation errors
     if (!isUsernameValid || !isPasswordValid) {
       // If there are errors, don't close the modal
-      return;
+      return
     }
-  
-    console.log('Username:', username);
-    console.log('Password:', password);
-    handleClose();
-  };
-  
+
+    console.log('Username:', username)
+    console.log('Password:', password)
+    handleClose()
+  }
 
   const handleOpenRegisterModal = () => {
-    setShowRegisterModal(true);
-  };
+    setShowRegisterModal(true)
+  }
 
   const handleCloseRegisterModal = () => {
-    setShowRegisterModal(false);
-  };
+    setShowRegisterModal(false)
+  }
 
   const validate = () => {
     // Initially set to valid
-    setIsUsernameValid(true);
-    setIsPasswordValid(true);
-  
+    setIsUsernameValid(true)
+    setIsPasswordValid(true)
+
     // Implement your validation logic here
     if (username === '') {
-      setIsUsernameValid(false);
+      setIsUsernameValid(false)
     }
-  
+
     if (password === '') {
-      setIsPasswordValid(false);
+      setIsPasswordValid(false)
     }
-  
+
     // Check if either username or password is empty
     if (username === '' || password === '') {
       // If there are errors, don't close the modal
-      return;
+      return
     }
-  
+
     // If there are no errors, close the modal
-    handleClose();
-  };
-  
-  
+    handleClose()
+  }
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -122,5 +120,5 @@ export function Login({ show, handleClose }) {
       </Modal.Footer>
       <Register show={showRegisterModal} handleClose={handleCloseRegisterModal} />
     </Modal>
-  );
+  )
 }
