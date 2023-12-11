@@ -21,12 +21,10 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->name,
             'description' => $this->faker->paragraph,
             'image' => $this->faker->imageUrl(),
-            'id_owner' => function () {
-                return \App\Models\Owner::factory()->create()->id_owner;
-            },
+            'id_owner' => \App\Models\Owner::all()->random()->id_owner,
             'isEco' => $this->faker->boolean,
             'price' => $this->faker->randomFloat(2, 1, 100),
             'location' => $this->faker->city,

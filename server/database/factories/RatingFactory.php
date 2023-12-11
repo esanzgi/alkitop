@@ -22,12 +22,8 @@ class RatingFactory extends Factory
         return [
             'review' => $this->faker->paragraph,
             'rating' => $this->faker->numberBetween(1, 5),
-            'id_user' => function () {
-                return \App\Models\User::factory()->create()->id_user;
-            },
-            'id_product' => function () {
-                return \App\Models\Product::factory()->create()->id_product;
-            },
+            'id_user' => \App\Models\User::all()->random()->id_user,
+            'id_product' => \App\Models\Product::all()->random()->id_product,
         ];
     }
 }

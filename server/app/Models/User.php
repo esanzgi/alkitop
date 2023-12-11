@@ -60,7 +60,7 @@ class User extends Authenticatable
     //     return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     // }
 
-    public function saved()
+    public function userSaved()
     {
         return $this->belongsToMany(Product::class, 'saved')->withTimestamps();
     }
@@ -69,5 +69,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rating::class);
     }
+
+        public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
 
 }

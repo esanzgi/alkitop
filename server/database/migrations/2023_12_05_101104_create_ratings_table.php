@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('rating');
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
             $table->foreign('id_product')->references('id_product')->on('products')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
