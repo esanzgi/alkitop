@@ -1,89 +1,89 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 
-export function Register({ show, handleClose }) {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordRepeat, setPasswordRepeat] = useState('');
-  const [acceptTerms, setAcceptTerms] = useState(false);
+export function Register ({ show, handleClose }) {
+  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [acceptTerms, setAcceptTerms] = useState(false)
 
-  const [isNameValid, setIsNameValid] = useState(true);
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isUsernameValid, setIsUsernameValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isPassword2Valid, setIsPassword2Valid] = useState(true);
+  const [isNameValid, setIsNameValid] = useState(true)
+  const [isEmailValid, setIsEmailValid] = useState(true)
+  const [isUsernameValid, setIsUsernameValid] = useState(true)
+  const [isPasswordValid, setIsPasswordValid] = useState(true)
+  const [isPassword2Valid, setIsPassword2Valid] = useState(true)
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleRegister = () => {
-    const validationErrors = validate();
+    const validationErrors = validate()
 
     if (validationErrors.length > 0) {
-      setErrorMessage(validationErrors.join('\n'));
-      return;
+      setErrorMessage(validationErrors.join('\n'))
+      return
     }
 
-    console.log('Name:', name);
-    console.log('Username:', username);
-    console.log('Password:', password);
-    console.log('Repeat Password:', passwordRepeat);
-    console.log('Accept Terms:', acceptTerms);
+    console.log('Name:', name)
+    console.log('Username:', username)
+    console.log('Password:', password)
+    console.log('Repeat Password:', passwordRepeat)
+    console.log('Accept Terms:', acceptTerms)
 
-    handleClose();
-  };
+    handleClose()
+  }
 
   const validate = () => {
-    const errors = [];
+    const errors = []
 
     // Check if name is not empty and does not contain numbers
     if (name.trim() === '' || containsNumbers(name)) {
-      setIsNameValid(false);
-      errors.push('Please enter a valid name without numbers. ');
+      setIsNameValid(false)
+      errors.push('Please enter a valid name without numbers. ')
     } else {
-      setIsNameValid(true);
+      setIsNameValid(true)
     }
 
     // Check if email is not empty and is in a valid format
     if (email.trim() === '') {
-      setIsEmailValid(false);
-      errors.push('Please enter your email. ');
+      setIsEmailValid(false)
+      errors.push('Please enter your email. ')
     } else if (!validateEmail(email)) {
-      setIsEmailValid(false);
-      errors.push('Invalid email format. ');
+      setIsEmailValid(false)
+      errors.push('Invalid email format. ')
     } else {
-      setIsEmailValid(true);
+      setIsEmailValid(true)
     }
 
     // Check if username is not empty
     if (username.trim() === '') {
-      setIsUsernameValid(false);
-      errors.push('Please enter a username. ');
+      setIsUsernameValid(false)
+      errors.push('Please enter a username. ')
     } else {
-      setIsUsernameValid(true);
+      setIsUsernameValid(true)
     }
 
     // Check if password is not empty
     if (password.trim() === '') {
-      setIsPasswordValid(false);
-      errors.push('Please enter your password. ');
+      setIsPasswordValid(false)
+      errors.push('Please enter your password. ')
     } else {
-      setIsPasswordValid(true);
+      setIsPasswordValid(true)
     }
 
     // Check if the repeated password is the same as the original password
     if (passwordRepeat.trim() === '' || passwordRepeat !== password) {
-      setIsPassword2Valid(false);
-      errors.push('Passwords do not match');
+      setIsPassword2Valid(false)
+      errors.push('Passwords do not match')
     } else {
-      setIsPassword2Valid(true);
+      setIsPassword2Valid(true)
     }
 
     // Add logic to check if everything is valid in the database
 
-    return errors;
-  };
+    return errors
+  }
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -171,7 +171,7 @@ export function Register({ show, handleClose }) {
             </Col>
           </Row>
           {errorMessage && (
-            <div className="alert alert-danger" role="alert">
+            <div className='alert alert-danger' role='alert'>
               {errorMessage}
             </div>
           )}
@@ -189,25 +189,25 @@ export function Register({ show, handleClose }) {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
+  )
 }
 
-function containsNumbers(text) {
-  var containsNonAlphabetic = false;
+function containsNumbers (text) {
+  let containsNonAlphabetic = false
   for (let i = 0; i < text.length; i++) {
     if (!/^[a-zA-Z]+$/.test(text[i])) {
-      containsNonAlphabetic = true;
-      break;
+      containsNonAlphabetic = true
+      break
     }
   }
-  return containsNonAlphabetic;
+  return containsNonAlphabetic
 }
 
 const validateEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-  const atSymbol = email.indexOf('@');
-  const dotSymbol = email.lastIndexOf('.');
+  const atSymbol = email.indexOf('@')
+  const dotSymbol = email.lastIndexOf('.')
 
-  return emailRegex.test(email) && atSymbol !== -1 && dotSymbol > atSymbol;
-};
+  return emailRegex.test(email) && atSymbol !== -1 && dotSymbol > atSymbol
+}

@@ -4,9 +4,12 @@ import { Login } from './login/Login'
 
 import { Search } from './Search'
 import { Register } from './login/Register'
+import { AlokatzaileRegister } from './login/AlokatzaileRegister'
+import { Link } from 'react-router-dom'
 
 export function Header () {
   const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showAlokatzaile, setShowAlokatzaile] = useState(false)
 
   const handleOpenLoginModal = () => {
     setShowLoginModal(true)
@@ -14,6 +17,14 @@ export function Header () {
 
   const handleCloseLoginModal = () => {
     setShowLoginModal(false)
+  }
+
+  const handleRegisterAlokatzaile = () => {
+    setShowAlokatzaile(true)
+  }
+
+  const handleCloseRegisterAlokatzaile = () => {
+    setShowAlokatzaile(false)
   }
 
   return (
@@ -33,13 +44,12 @@ export function Header () {
         <button onClick={handleOpenLoginModal} className='d-none d-sm-block btn btn-outline-light rounded-pill' type='button'>
           Sign in
         </button>
-        <a className='d-none d-md-block btn btn-outline-light ms-2 rounded-pill' href='#'>
-          <i className='fa fa-plus me-2' />
-          Subir producto
-        </a>
+        <Link to='/produktu-gehitu' className='d-none d-md-block btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}>
+          <i className='fa fa-plus me-2' />Subir producto
+        </Link>
 
         <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
-        {/* <Register show={showLoginModal} handleClose={handleCloseLoginModal} /> */}
+        <AlokatzaileRegister show={showAlokatzaile} handleClose={handleCloseRegisterAlokatzaile} />
       </div>
     </nav>
   )
