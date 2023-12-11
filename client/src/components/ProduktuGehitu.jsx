@@ -16,8 +16,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
   const [isPriceValid, setIsPriceValid] = useState(true)
   const [isLocationValid, setIsLocationValid] = useState(true)
   const [isCategoryValid, setIsCategoryValid] = useState(true)
-
-  // Add similar state variables for other fields
+  const [isRentalFrequencyValid, setIsRentalFrequency] = useState(true)
 
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -42,12 +41,113 @@ export function ProduktuGehitu ({ show, handleClose }) {
     setShowModal(false)
   }
 
+  const handleProduct = () => {
+    const validationErrors = validate()
+
+    if (validationErrors.length > 0) {
+      setErrorMessage(validationErrors.join('\n'))
+      return
+    }
+
+    handleClose()
+  }
+
   const validate = () => {
     const errors = []
 
-    // Add validation logic for each field
+    // Check if Tlf number is not empty and meets your specific criteria
+    if (productName.trim() === '' || !isValidProductName(productName)) {
+      setIsProductNameValid(false)
+      errors.push('Please enter a product name. ')
+    } else {
+      setIsProductNameValid(true)
+    }
+
+    // Check if ID is not empty and meets your specific criteria
+    if (description.trim() === '' || !isValidDescription(description)) {
+      setIsDescriptionValid(false)
+      errors.push('Please enter a description. ')
+    } else {
+      setIsDescriptionValid(true)
+    }
+
+    if (image.trim() === '' || !isValidImage(image)) {
+      setIsImageValid(false)
+      errors.push('Please enter a valid image. ')
+    } else {
+      setIsImageValid(true)
+    }
+
+    if (price.trim() === '' || !isValidPrice(price)) {
+      setIsPriceValid(false)
+      errors.push('Please enter a valid price. ')
+    } else {
+      setIsPriceValid(true)
+    }
+
+    if (rentalFrequency.trim() === '') {
+      setIsRentalFrequency(false)
+      errors.push('Please select the rental frequency. ')
+    } else {
+      setIsRentalFrequency(true)
+    }
+
+    if (location.trim() === '' || !isValidLocation(location)) {
+      setIsLocationValid(false)
+      errors.push('Please enter your location ')
+    } else {
+      setIsLocationValid(true)
+    }
+
+    if (category.trim() === '') {
+      setIsCategoryValid(false)
+      errors.push('Please select a category. ')
+    } else {
+      setIsCategoryValid(true)
+    }
 
     return errors
+  }
+
+  function isValidProductName (izena) {
+    let isValid = true
+    for (let i = 0; i < izena.length; i++) {
+      if (!/^[a-zA-Z]+$/.test(izena[i])) {
+        isValid = false
+        break
+      }
+    }
+    return isValid
+  }
+
+  function isValidDescription (testua) {
+    let isValid = true
+    for (let i = 0; i < testua.length; i++) {
+      if (!/^[a-zA-Z]+$/.test(testua[i])) {
+        isValid = false
+        break
+      }
+    }
+    return isValid
+  }
+
+  function isValidImage (image) {
+    return image && /\.(jpg|jpeg|png|gif)$/i.test(image)
+  }
+
+  function isValidPrice (prezioa) {
+    return (!isNaN(prezioa) && prezioa > 0)
+  }
+
+  function isValidLocation (tokia) {
+    let isValid = true
+    for (let i = 0; i < tokia.length; i++) {
+      if (!/^[a-zA-Z]+$/.test(tokia[i])) {
+        isValid = false
+        break
+      }
+    }
+    return isValid
   }
 
   return (
@@ -56,7 +156,6 @@ export function ProduktuGehitu ({ show, handleClose }) {
         <h1 className=''>Produktu bat igo</h1>
       </div>
       <Form>
-        {/* Existing code for Tlf number and ID */}
 
         <Row className='mb-3'>
           <Form.Group as={Col}>
@@ -94,20 +193,20 @@ export function ProduktuGehitu ({ show, handleClose }) {
               className={`form-control-sm ${isImageValid ? '' : 'is-invalid'}`}
               name='image'
               value={image}
-              onChange={(e) => setImage(e)}
+              onChange={(e) => setImage(e.target.value)}
             />
           </Form.Group>
         </Row>
 
         <Row className='mb-3'>
           <Form.Group as={Col} className='col-8'>
-            <Form.Label>Price</Form.Label>
+            <Form.Label>Price (€)</Form.Label>
             <Form.Control
               type='number'
               className={`form-control-sm ${isPriceValid ? '' : 'is-invalid'}`}
               name='price'
               value={price}
-              onChange={(e) => setPrice(e)}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </Form.Group>
 
@@ -119,6 +218,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
                 label='Every Day'
                 name='rentalFrequency'
                 id='daily'
+                className={`form-control-sm ${isRentalFrequencyValid ? '' : 'is-invalid'}`}
                 checked={rentalFrequency === 'daily'}
                 onChange={() => setRentalFrequency('daily')}
               />
@@ -150,7 +250,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
               className={`form-control-sm ${isLocationValid ? '' : 'is-invalid'}`}
               name='location'
               value={location}
-              onChange={(e) => setLocation(e)}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </Form.Group>
         </Row>
@@ -163,7 +263,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
               className={`form-control-sm ${isCategoryValid ? '' : 'is-invalid'}`}
               name='category'
               value={category}
-              onChange={(e) => setCategory(e)}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <option value='bizikleta'>Bizikleta</option>
               <option value='moto'>Moto</option>
@@ -239,16 +339,11 @@ export function ProduktuGehitu ({ show, handleClose }) {
         )}
       </Form>
       <div className='d-flex justify-content-center'>
-        <Button variant='outline-success'>
+        <Button variant='outline-success' onClick={handleProduct}>
           Produktua igo
         </Button>
       </div>
 
     </div>
   )
-
-  function isValidProductName (productName) {
-    // Add your validation logic for product name
-    return productName.trim() !== ''
-  }
 }
