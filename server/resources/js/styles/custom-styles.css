@@ -1,4 +1,6 @@
-@import "bootstrap/dist/css/bootstrap.css";
+@import './custom-variables.css';
+
+/*** GREEN ***/
 
 .bg-at-green {
   background-color: var(--at-green);
@@ -89,15 +91,4 @@
 
 .product:hover {
   transform: translateY(-4px);
-}
-
-:root {
-  --at-green: #005635;
-  --at-light-green: #4e9518;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
 }
