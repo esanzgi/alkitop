@@ -8,9 +8,8 @@ import { HomeContent } from '../components/HomeContent'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
 
-function App () {
+function GuriBuruz () {
   return (
-    <Router>
       <main className=''>
         <div className='fixed-top bg-white'>
           <Header />
@@ -22,10 +21,7 @@ function App () {
         </div>
 
         <div className='home-content container pb-5'>
-            <Routes>
-            <Route path='/' element={<HomeContent />} />
-            <Route path='/produktu-gehitu' element={<ProduktuGehitu />} />
-          </Routes>
+          <ProduktuGehitu />
         </div>
 
         <div className='mt-5 pt-5 bg-light border-top'>
@@ -34,8 +30,7 @@ function App () {
           </div>
         </div>
       </main>
-    </Router>
   )
 }
 
-export default App
+export default GuriBuruz 

@@ -79,6 +79,12 @@
   border-bottom: 1px solid black;
 }
 
+.logoBtn {
+  border: 'none';
+  background-color: 'transparent';
+  cursor: 'pointer';
+}
+
 .home-content {
   padding-top: 200px;
 }

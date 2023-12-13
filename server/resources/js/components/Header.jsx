@@ -37,20 +37,24 @@ export function Header () {
 
       <div className='container-fluid'>
 
-        <a className='navbar-brand me-0 d-flex align-items-center' href='#'>
+      <form action='/' method='get' className='navbar-brand me-0 d-flex align-items-center'>
+        <button type='submit' style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}>
           <img src={ALKITOP_LOGO} alt='alkitop-logo' style={{ width: '80px' }} />
-
           <span className='d-none d-md-inline text-white fs-4'>Alkitop</span>
-        </a>
+        </button>
+      </form>
+
 
         <Search />
 
         <button onClick={handleOpenLoginModal} className='d-none d-sm-block btn btn-outline-light rounded-pill' type='button'>
           Sign in
         </button>
-        <Link to='/produktu-gehitu' className='d-none d-md-block btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}>
-          <FontAwesomeIcon icon={faPlus} className='me-2' />Subir producto
-        </Link>
+          <button type="submit" className='d-none d-md-block btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}>
+              <FontAwesomeIcon icon={faPlus} className='me-2' />
+              Subir producto
+          </button>
+
 
         <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
         <AlokatzaileRegister show={showAlokatzaile} handleClose={handleCloseRegisterAlokatzaile} />

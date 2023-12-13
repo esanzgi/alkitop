@@ -112,9 +112,11 @@ export function AlokatzaileRegister ({ show, handleClose }) {
         <Button variant='secondary' onClick={handleClose}>
           Close
         </Button>
-        <Button variant='outline-success' onClick={handleRegister}>
-          Register
-        </Button>
+        <form action="/produktu-gehitu" method='get'className='btn'>
+          <Button type='submit' variant='outline-success' onClick={handleRegister}>
+            Register
+          </Button>
+        </form>
       </Modal.Footer>
     </Modal>
   )

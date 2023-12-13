@@ -218,7 +218,6 @@ export function ProduktuGehitu ({ show, handleClose }) {
                 label='Every Day'
                 name='rentalFrequency'
                 id='daily'
-                className={`form-control-sm ${isRentalFrequencyValid ? '' : 'is-invalid'}`}
                 checked={rentalFrequency === 'daily'}
                 onChange={() => setRentalFrequency('daily')}
               />
