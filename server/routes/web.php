@@ -26,7 +26,7 @@ Route::get('/', function () {
 });
 
 Route::get('/produktu-gehitu', function () {
-    return Inertia::render('ProduktuGehitu', [
+    return Inertia::render('ProduktuGehituPage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,

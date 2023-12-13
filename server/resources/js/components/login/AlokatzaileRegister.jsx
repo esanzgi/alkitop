@@ -28,6 +28,7 @@ export function AlokatzaileRegister ({ show, handleClose }) {
 
   const validate = () => {
     const errors = []
+    var balio=document.getElementById('balidazioa').value;
 
     // Check if Tlf number is not empty and meets your specific criteria
     if (tlfNumber.trim() === '' || !isValidTlfNumber(tlfNumber)) {
@@ -45,8 +46,9 @@ export function AlokatzaileRegister ({ show, handleClose }) {
       setIsIdValid(true)
     }
 
-    // Add logic to check if everything is valid in the database
-
+    if(errors.length==0){
+      balio=true
+    }
     return errors
   }
 
@@ -112,11 +114,13 @@ export function AlokatzaileRegister ({ show, handleClose }) {
         <Button variant='secondary' onClick={handleClose}>
           Close
         </Button>
-        <form action="/produktu-gehitu" method='get'className='btn'>
+        <form action="/produktu-gehitu" method='post'>
           <Button type='submit' variant='outline-success' onClick={handleRegister}>
-            Register
-          </Button>
+              Register
+            </Button>
+            <input type="hidden" value="false" name='balidazioa' id='balidazioa'/>
         </form>
+          
       </Modal.Footer>
     </Modal>
   )

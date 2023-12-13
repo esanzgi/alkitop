@@ -8,7 +8,7 @@ import { HomeContent } from '../components/HomeContent'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
 
-function GuriBuruz () {
+function ProduktuGehituPage () {
   return (
       <main className=''>
         <div className='fixed-top bg-white'>
@@ -33,4 +33,4 @@ function GuriBuruz () {
   )
 }
 
-export default GuriBuruz 
+export default ProduktuGehituPage 
