@@ -54,4 +54,13 @@ class HomeController extends Controller
         ]);
     }
 
+    public function search()
+    {
+        //$products = Product::
+
+        return Inertia::render('ProductsPage', [
+            'products' => $products,
+        ]);
+    }
+
 }

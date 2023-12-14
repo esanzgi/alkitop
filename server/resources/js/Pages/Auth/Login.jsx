@@ -32,9 +32,9 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit} className=" text-white ">
+            <form onSubmit={submit} className=" text-white">
                 <div>
-                    <InputLabel htmlFor="email" value="Email" className=' row w-100 m-auto '/>
+                    <InputLabel htmlFor="email" value="Email" className=' row w-100 m-auto ' />
 
                     <TextInput
                         id="email"
@@ -51,7 +51,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" className=' row w-100 m-auto '/>
+                    <InputLabel htmlFor="password" value="Password" className=' row w-100 m-auto ' />
 
                     <TextInput
                         id="password"
@@ -81,13 +81,15 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="underline text-sm text-white hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             Forgot your password?
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <Link href='/register' className='text-white'>¿No tienes cuenta? Registrarse</Link>
+
+                    <PrimaryButton className="ms-4 btn btn-primary" disabled={processing}>
                         Log in
                     </PrimaryButton>
                 </div>

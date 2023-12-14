@@ -29,11 +29,11 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout >            
+        <GuestLayout >
 
             <form onSubmit={submit} className=" text-white ">
                 <div className=' flex '>
-                    <InputLabel htmlFor="name" value="Name" className=' row w-100 m-auto '/>
+                    <InputLabel htmlFor="name" value="Name" className=' row w-100 m-auto ' />
 
                     <TextInput
                         id="name"
@@ -67,7 +67,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" className=' row w-100 m-auto '/>
+                    <InputLabel htmlFor="password" value="Password" className=' row w-100 m-auto ' />
 
                     <TextInput
                         id="password"
@@ -84,7 +84,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" className=' row w-100 m-auto '/>
+                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" className=' row w-100 m-auto ' />
 
                     <TextInput
                         id="password_confirmation"
@@ -108,10 +108,13 @@ export default function Register() {
                         Already registered?
                     </Link>
 
+
                     <PrimaryButton className="ms-4" disabled={processing}>
                         Register
                     </PrimaryButton>
                 </div>
+                <Link href='/login' className='btn btn-primary'>Volver al login</Link>
+
             </form>
         </GuestLayout>
     );

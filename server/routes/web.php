@@ -18,6 +18,7 @@ use Inertia\Inertia;
  */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/products/search', [HomeController::class, 'search']);
 
 // Route::get('/', function () {
 //     return Inertia::render('Home', [

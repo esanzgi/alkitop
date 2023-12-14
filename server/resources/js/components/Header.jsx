@@ -6,6 +6,7 @@ import { Register } from './login/Register';
 import { AlokatzaileRegister } from './login/AlokatzaileRegister';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Link } from '@inertiajs/react';
 
 
 export function Header() {
@@ -48,9 +49,13 @@ export function Header() {
           </button>
         ) : (
           // Erabiltzailea logeatuta ez dagoenean bakarrik login botoia agertuko da
-          <button onClick={handleOpenLoginModal} className='btn btn-outline-light rounded-pill' type='button'>
+          // <button onClick={handleOpenLoginModal} className='btn btn-outline-light rounded-pill' type='button'>
+          //   Sign in
+          // </button>
+
+          <Link href='/login' className='btn btn-outline-light rounded-pill'>
             Sign in
-          </button>
+          </Link>
         )}
 
         {isAuthenticated && (
