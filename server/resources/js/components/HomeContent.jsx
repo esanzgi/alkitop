@@ -11,24 +11,28 @@ const SECCIONES = [
   'Invierno'
 ]
 
-export function HomeContent () {
-  const { products, getProducts, loading } = useProducts({ search: '' })
+export function HomeContent({ products }) {
+  // const { products, getProducts, loading } = useProducts({ search: '' })
 
-  useEffect(() => {
-    getProducts({ search: '' })
-  }, [getProducts])
+  // useEffect(() => {
+  //   getProducts({ search: '' })
+  // }, [getProducts])
+  // return (
+  //   loading
+  //     ? <Loading />
+  //     : (
+  //       <div>
+  //         <CargarPorSecciones products={products} />
+  //       </div>
+  //     )
+  // )
+
   return (
-    loading
-      ? <Loading />
-      : (
-        <div>
-          <CargarPorSecciones products={products} />
-        </div>
-        )
+    <CargarPorSecciones products={products} />
   )
 }
 
-function CargarPorSecciones ({ products }) {
+function CargarPorSecciones({ products }) {
   return (
     <>
       {

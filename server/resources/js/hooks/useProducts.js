@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { searchProducts } from './products.js'
+import { searchProducts } from '../service/products.js'
 
 export function useProducts({ search = '', sort }) {
   const [products, setProducts] = useState([])

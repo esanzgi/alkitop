@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IMAGE from '../assets/images/moto.jpg'
 import IMAGE2 from '../assets/images/moto2.jpg'
 
-export function ProductCard ({ productImg, productTitle, productDescr, productPrice, productRate, isEco }) {
+export function ProductCard({ productImg, productTitle, productDescr, productPrice, productRate, isEco }) {
   isEco ? productImg = IMAGE2 : productImg = IMAGE
 
   return (

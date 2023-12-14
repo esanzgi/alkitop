@@ -8,7 +8,6 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ProductCarousel = ({ products }) => {
-  const isEco = (index) => { return products.length % index === 0 }
 
   const settings = {
     dots: true,
@@ -47,12 +46,12 @@ const ProductCarousel = ({ products }) => {
           <div key={index} className='d-flex justify-content-center'>
             <div className='col-10 product'>
               <ProductCard
-                productImg={product.images}
-                productTitle={product.title}
+                productImg={product.image}
+                productTitle={product.name}
                 productDescr={product.description}
                 productPrice={product.price}
-                productRate={product.rate}
-                isEco={isEco(index)}
+                productRate={product.avg_rating}
+                isEco={product.isEco}
               />
             </div>
           </div>
