@@ -6,6 +6,7 @@ import { Header } from '../components/Header'
 import { HomeContent } from '../components/HomeContent'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
 import { FilteredProducts } from '@/components/FilteredProducts'
+import { Products } from '@/components/Products'
 
 function ProductsPage({ products }) {
 
@@ -29,4 +30,4 @@ function ProductsPage({ products }) {
     )
 }
 
-export default Home 
+export default ProductsPage 

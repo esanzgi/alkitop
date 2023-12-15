@@ -18,7 +18,7 @@ use Inertia\Inertia;
  */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/products/search', [HomeController::class, 'search']);
+Route::post('/products/search', [HomeController::class, 'search']);
 
 // Route::get('/', function () {
 //     return Inertia::render('Home', [
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/panel', function(){
+Route::get('/panel', function () {
     return Inertia::render("PowerBiPage");
 });
 

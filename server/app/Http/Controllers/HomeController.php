@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -54,9 +54,18 @@ class HomeController extends Controller
         ]);
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        //$products = Product::
+        $search = $request->input('search');
+
+        // $products = Product::where('name', 'LIKE', "%$search%")
+        //     ->orWhere('description', 'LIKE', "%$search%")
+        //     ->orWhere('category', 'LIKE', "%$search%")
+        //     ->get();
+
+        $products = Product::where('name', 'LIKE', "%$search%")
+            ->with('reviews')
+            ->get();
 
         return Inertia::render('ProductsPage', [
             'products' => $products,

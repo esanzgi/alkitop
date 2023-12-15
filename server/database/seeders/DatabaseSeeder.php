@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Product;
-use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Owner;
+use App\Models\Product;
 use App\Models\Rating;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,33 +23,32 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        
+
         // Role::create([
-            
+
         // ]);
 
         Role::create([
-            'name'=>'admin',
+            'name' => 'admin',
         ]);
 
         Role::create([
-            'name'=>'moderator',
+            'name' => 'moderator',
         ]);
 
         Role::create([
-            'name'=>'user',
+            'name' => 'user',
         ]);
-
 
         User::create([
-            'name'=>'eneko',
-            'email'=>'esanzgi22wg@ikzubirimanteo.com',
-            'id_role'=> \App\Models\Role::all()->random()->id_role,
-            'password'=>'eneko',
+            'name' => 'eneko',
+            'email' => 'esanzgi22wg@ikzubirimanteo.com',
+            'id_role' => \App\Models\Role::all()->random()->id_role,
+            'password' => 'eneko',
         ]);
-        User::factory()->count(5)->create();
-        Owner::factory()->count(2)->create();
-        Product::factory()->count(10)->create();
-        Rating::factory()->count(20)->create();
+        User::factory()->count(10)->create();
+        Owner::factory()->count(5)->create();
+        Product::factory()->count(100)->create();
+        Rating::factory()->count(300)->create();
     }
 }
