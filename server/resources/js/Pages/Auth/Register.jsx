@@ -1,6 +1,5 @@
-import '@/bootstrap';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -9,31 +8,72 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-    });
-
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
+        const [formErrors, setFormErrors] = useState({});
+        const { data, setData, post, processing, errors, reset } = useForm({
+            name: '',
+            email: '',
+            password: '',
+            password_confirmation: '',
+        });
+    
+        useEffect(() => {
+            return () => {
+                reset('password', 'password_confirmation');
+            };
+        }, []);
+    
+        const validateForm = () => {
+            const errors = {};
+    
+            if (!data.name) {
+                errors.name = 'Please enter your name';
+            }
+    
+            if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
+                errors.email = 'Please enter a valid email address';
+            }
+    
+            if (!data.password) {
+                errors.password = 'Please enter a password';
+            } else if (data.password.length < 6) {
+                errors.password = 'Password must be at least 6 characters long';
+            }
+    
+            if (!data.password_confirmation || data.password !== data.password_confirmation) {
+                errors.password_confirmation = 'Passwords do not match';
+            }
+    
+            setFormErrors(errors);
+            return Object.keys(errors).length === 0;
         };
-    }, []);
+    
+        const handleChange = (field, value) => {
+            setFormErrors({
+                ...formErrors,
+                [field]: '',
+            });
+        
+            setData(field, value);
+        };
+    
+        const submit = (e) => {
+            e.preventDefault();
+    
+            const isValid = validateForm();
+    
+            if (isValid) {
+                post(route('register'));
+            }
+        };
 
-    const submit = (e) => {
-        e.preventDefault();
-
-        post(route('register'));
-    };
 
     return (
-        <GuestLayout >
+        <GuestLayout>
+            <Head title="Register" />
 
-            <form onSubmit={submit} className=" text-white ">
-                <div className=' flex '>
-                    <InputLabel htmlFor="name" value="Name" className=' row w-100 m-auto ' />
+            <form onSubmit={submit} className="text-white">
+                <div className='flex'>
+                    <InputLabel htmlFor="name" value="Name" className='row w-100 m-auto' />
 
                     <TextInput
                         id="name"
@@ -42,11 +82,11 @@ export default function Register() {
                         className="mt-1 block w-100"
                         autoComplete="name"
                         isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
+                        onChange={(e) => handleChange('name', e.target.value)}
                         required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={formErrors.name} className="mt-2" />
                 </div>
 
                 <div className="mt-4 flex">
@@ -108,7 +148,6 @@ export default function Register() {
                         Already registered?
                     </Link>
 
-
                     <PrimaryButton className="ms-4" disabled={processing}>
                         Register
                     </PrimaryButton>
@@ -119,3 +158,4 @@ export default function Register() {
         </GuestLayout>
     );
 }
+
