@@ -9,7 +9,7 @@ import { FilteredProducts } from '@/components/FilteredProducts'
 import { Products } from '@/components/Products'
 
 function ProductsPage({ products }) {
-
+    console.log(products)
 
     return (
         <main className=''>

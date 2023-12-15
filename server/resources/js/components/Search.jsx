@@ -1,15 +1,16 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
-import { router } from '@inertiajs/react'
+import { router, useForm, usePage } from '@inertiajs/react'
 
 export function Search() {
   const [search, setSearch] = useState('')
+  const { get } = useForm()
+  const { visit } = usePage()
 
   const handleOnSubmit = (event) => {
-    console.log(search)
     event.preventDefault()
-    router.post('/products/search', { search })
+    get(`/products/search?search=${search}`)
   }
 
   return (
