@@ -48,4 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/panel', function(){
+    return Inertia::render("PowerBiPage");
+});
+
 require __DIR__ . '/auth.php';
