@@ -2,10 +2,15 @@
 
 import React from 'react'
 import { Powerbi } from '@/components/Powerbi'
+import { Header } from '../components/Header'
 
 function PowerBiPage() {
   return (
-    <Powerbi/>
+    <div>
+      <Header/>
+      <Powerbi/>
+    </div>
+    
   )
 }
 
