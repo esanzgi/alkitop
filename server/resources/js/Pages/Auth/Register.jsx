@@ -24,23 +24,26 @@ export default function Register() {
     
         const validateForm = () => {
             const errors = {};
+            const atSymbol = data.email.indexOf('@')
+            const dotSymbol = data.email.lastIndexOf('.')
     
+
             if (!data.name) {
-                errors.name = 'Please enter your name';
+                errors.name = 'Zure izena ezarri';
             }
     
-            if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
-                errors.email = 'Please enter a valid email address';
+            if (!data.email || atSymbol !== -1 && dotSymbol < atSymbol) {
+                errors.email = 'Email-a gaizki dago';
             }
     
             if (!data.password) {
-                errors.password = 'Please enter a password';
-            } else if (data.password.length < 6) {
-                errors.password = 'Password must be at least 6 characters long';
+                errors.password = 'Pasahitza ezarri';
+            } else if (data.password.length < 8) {
+                errors.password = 'Pasahhitzak 8 karaktere izan behar ditu';
             }
     
             if (!data.password_confirmation || data.password !== data.password_confirmation) {
-                errors.password_confirmation = 'Passwords do not match';
+                errors.password_confirmation = 'Pasahitzak ez dute koinziditzen';
             }
     
             setFormErrors(errors);
@@ -52,7 +55,6 @@ export default function Register() {
                 ...formErrors,
                 [field]: '',
             });
-        
             setData(field, value);
         };
     
