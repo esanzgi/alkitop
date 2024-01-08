@@ -49,22 +49,20 @@ export default function DeleteUserForm({ className = '' }) {
                 <h2 className="text-lg font-medium text-gray-900">Delete Account</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Once your account is deleted, all of its resources and data will be permanently deleted. Before
-                    deleting your account, please download any data or information that you wish to retain.
+                    Behin erabiltzailea ezabatuta zure datu guztiak ezabatutak izango dira. Ezabatu baino lehen, mesedez nahi dituzun datu guztiak gorde 
                 </p>
             </header>
 
             <DangerButton onClick={confirmUserDeletion}>Delete Account</DangerButton>
 
-            <Modal show={confirmingUserDeletion} onClose={closeModal}>
-                <form onSubmit={deleteUser} className="p-6">
+            <Modal show={confirmingUserDeletion} onClose={closeModal} >
+                <form onSubmit={deleteUser} className="p-6 mb-5 bg-secondary col-8 mx-auto max-w-md">
                     <h2 className="text-lg font-medium text-gray-900">
-                        Are you sure you want to delete your account?
+                        Ziur erabilzailea ezabatu nahi duzula?
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-600">
-                        Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                        enter your password to confirm you would like to permanently delete your account.
+                        Behin erabiltzailea ezabatu dela, zure datu guztiak ezabatutak izango dira. Mesedez zure pasahitza jarri erabiltzailea betirako ezabatu nahi bada.
                     </p>
 
                     <div className="mt-6">
@@ -89,7 +87,7 @@ export default function DeleteUserForm({ className = '' }) {
                         <SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
 
                         <DangerButton className="ms-3" disabled={processing}>
-                            Delete Account
+                            Erabiltzailea ezabatu
                         </DangerButton>
                     </div>
                 </form>
