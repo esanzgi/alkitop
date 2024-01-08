@@ -1,43 +1,66 @@
-import React from 'react'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick-theme.css'
-import 'slick-carousel/slick/slick.css'
-import { ProductCard } from './ProductCard'
+import React from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import { ProductCard } from './ProductCard';
 
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const NextArrow = ({ className, style, onClick }) => {
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block' }}
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faChevronRight} style={{ color: 'black', fontSize: '24px' }} />
+    </div>
+  );
+};
+
+const PrevArrow = ({ className, style, onClick }) => {
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block' }}
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', fontSize: '24px' }} />
+    </div>
+  );
+};
 
 const ProductCarousel = ({ products }) => {
-
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 2,
-    nextArrow: <NextArrow style={{ backgroundColor: 'black' }} />,
+    nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3
-        }
+          slidesToShow: 3,
+        },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2
-        }
+          slidesToShow: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1
-        }
-      }
-    ]
-  }
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <div className='row justify-content-center'>
@@ -58,32 +81,7 @@ const ProductCarousel = ({ products }) => {
         ))}
       </Slider>
     </div>
+  );
+};
 
-  )
-}
-
-const NextArrow = ({ className, style, onClick }) => {
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block' }}
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={faChevronRight} />
-    </div>
-  )
-}
-
-const PrevArrow = ({ className, style, onClick }) => {
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block' }}
-      onClick={onClick}
-    >
-      {/* <FontAwesomeIcon icon={faChevronLeft} /> */}
-    </div>
-  )
-}
-
-export default ProductCarousel
+export default ProductCarousel;
