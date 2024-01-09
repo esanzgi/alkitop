@@ -49,6 +49,11 @@ export function ProduktuGehitu ({ show, handleClose }) {
       return
     }
 
+    if (validationErrors.length == 0) {
+      ajax();
+      return
+    }
+
     handleClose()
   }
 
@@ -148,6 +153,44 @@ export function ProduktuGehitu ({ show, handleClose }) {
       }
     }
     return isValid
+  }
+
+
+  function ajax() {
+    console.log("ajax")
+
+    var datuak = {
+      productname: productName,
+      description: description,
+      image: "image",
+      price: price,
+      rentalFrequency: rentalFrequency,
+      location: location,
+      category: category,
+      eco: isEcoProduct
+    };
+
+    const http= new XMLHttpRequest();
+
+    
+    var url= "/produktua-sartu";
+    http.open("POST",url,true);
+    http.setRequestHeader("Content-Type", "application/json");
+    
+    http.onreadystatechange= function(){
+      console.log(http.readyState);
+      console.log(http.status);
+
+      if (http.readyState==4 && http.status==200) {
+        console.log(http.responseText);
+      }
+    }
+
+
+    var jsonData = JSON.stringify({ data: datuak });
+    http.send(jsonData);
+
+
   }
 
   return (

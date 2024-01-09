@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -51,5 +52,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/panel', function () {
     return Inertia::render("PowerBiPage");
 });
+
+Route::post("/produktua-sartu", [ProductController::class, 'store']);
+
 
 require __DIR__ . '/auth.php';
