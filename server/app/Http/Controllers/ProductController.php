@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 
 class ProductController extends Controller
 {
@@ -30,28 +30,50 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //erantzunatik soilik datuak hartu
-        $jsonContent= $request->getContent();
-        
+        $jsonContent = $request->getContent();
+
         //Matritze batera pasa
-        $datuak= json_decode($jsonContent,true);
+        $datuak = json_decode($jsonContent, true);
 
         //Array batera pasa
-        $datuakArray=$datuak["data"];
+        $datuakArray = $datuak["data"];
 
         //echo $datuakArray["image"];
-        
+
         //datu basean sartu
         DB::table("products")->insert([
             'name' => $datuakArray["productname"],
             'description' => $datuakArray["description"],
             'image' => $datuakArray["image"],
-            'id_owner' => auth()->id(), 
+            'id_owner' => auth()->id(),
             'isEco' => $datuakArray["eco"],
             'price' => $datuakArray["price"],
             'location' => $datuakArray["location"],
             'category' => $datuakArray["category"],
         ]);
-        
+
+    }
+
+    public function getProductBySearch($search)
+    {
+        $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
+            ->select(
+                'products.id_product',
+                'products.name',
+                'products.description',
+                'products.image',
+                'products.id_owner',
+                'products.isEco',
+                'products.price',
+                'products.location',
+                'products.category',
+                \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
+            )
+            ->where('products.name', 'LIKE', "%$search%")
+            ->groupBy('products.id_product', 'products.name', 'products.description', 'products.image', 'products.id_owner', 'products.isEco', 'products.price', 'products.location', 'products.category')
+            ->get();
+
+        return response()->json($products);
     }
 
     /**

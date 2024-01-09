@@ -8,7 +8,7 @@ export function useProducts({ search = '', sort }) {
   const previousSearch = useRef(search)
 
   const getProducts = useCallback(async ({ search }) => {
-    // if (search === previousSearch.current) return
+    //if (search === previousSearch.current) return
 
     try {
       setLoading(true)
