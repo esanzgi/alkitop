@@ -14,6 +14,8 @@ class HomeController extends Controller
 {
     public function index()
     {
+
+        $erabiltzailea = auth()->user();
         // TODO AVG Rating-arena inner join eginez Produc-ekin
 
         //$products = Product::orderBy('category', 'desc')->paginate(8);
@@ -51,6 +53,7 @@ class HomeController extends Controller
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
             'products' => $products,
+            'user' => $erabiltzailea,
         ]);
     }
 

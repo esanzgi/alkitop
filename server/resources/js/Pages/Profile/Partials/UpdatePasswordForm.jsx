@@ -48,7 +48,7 @@ export default function UpdatePasswordForm({ className = '' }) {
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="current_password" value="Current Password" className='me-2'/>
+                    <InputLabel htmlFor="current_password" value="Oraingo pasahitza" className='me-2'/>
 
                     <TextInput
                         id="current_password"
@@ -64,7 +64,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="New Password" className='me-2'/>
+                    <InputLabel htmlFor="password" value="Pasahitza berria" className='me-2'/>
 
                     <TextInput
                         id="password"
@@ -80,7 +80,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div className='mb-3'>
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" className='me-2'/>
+                    <InputLabel htmlFor="password_confirmation" value="Pasahitza berria ziurtatu" className='me-2'/>
 
                     <TextInput
                         id="password_confirmation"

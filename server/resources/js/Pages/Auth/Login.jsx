@@ -119,7 +119,7 @@ export default function Login({ status, canResetPassword }) {
     
                         <Link href='/register' className='text-white'>¿No tienes cuenta? Registrarse</Link>
     
-                        <PrimaryButton className="ms-4 btn btn-primary" disabled={processing}>
+                        <PrimaryButton className="ms-4 btn btn-secondary" disabled={processing}>
                             Log in
                         </PrimaryButton>
                     </div>        </form>

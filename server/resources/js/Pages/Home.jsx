@@ -7,11 +7,11 @@ import { Header } from '../components/Header'
 import { HomeContent } from '../components/HomeContent'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
 
-function Home({ products }) {
+function Home({ products,user }) {
   return (
     <main className=''>
       <div className='fixed-top bg-white'>
-        <Header />
+        <Header user={user}/>
         <div className='shadow-sm bg-light'>
           <div className='container-md pt-2'>
             <FilterNav />

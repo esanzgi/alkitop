@@ -36,7 +36,7 @@ export default function Authenticated({ user, header, children }) {
                                     <span className="d-flex align-items-center">
                                         <button
                                             type="button"
-                                            className="btn btn-outline-secondary"
+                                            className="btn btn-secondary"
                                         >
                                             {user.name}
                                             <svg
