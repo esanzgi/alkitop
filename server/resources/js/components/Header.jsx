@@ -36,12 +36,12 @@ export function Header({ user }) {
   return (
     <nav className='navbar bg-at-green'>
       <div className='container-fluid'>
-        <form action='/' method='get' className='navbar-brand me-0 d-flex align-items-center'>
-          <button type='submit' style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}>
+        <Link href='/' className='navbar-brand me-0 d-flex align-items-center'>
+          <button type='button' style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}>
             <img src={ALKITOP_LOGO} alt='alkitop-logo' style={{ width: '80px' }} />
             <span className='d-none d-md-inline text-white fs-4'>Alkitop</span>
           </button>
-        </form>
+        </Link>
 
         <Search />
 

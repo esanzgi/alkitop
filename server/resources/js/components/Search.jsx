@@ -6,7 +6,6 @@ import { router, useForm, usePage } from '@inertiajs/react'
 export function Search() {
   const [search, setSearch] = useState('')
   const { get } = useForm()
-  const { visit } = usePage()
 
   const handleOnSubmit = (event) => {
     event.preventDefault()
@@ -21,7 +20,9 @@ export function Search() {
           type='search'
           placeholder='Buscar'
           aria-label='Search'
-          onChange={(e) => setSearch(e.target.value)} />
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        />
         <button className='btn btn-light px-4 rounded-start rounded-pill' type='submit'>
           <FontAwesomeIcon icon={faSearch} />
         </button>

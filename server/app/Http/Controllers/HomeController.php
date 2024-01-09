@@ -96,6 +96,7 @@ class HomeController extends Controller
 
         return Inertia::render('ProductsPage', [
             'products' => $products,
+            'search' => $search,
         ]);
     }
 
