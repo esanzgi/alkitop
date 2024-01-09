@@ -117,7 +117,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
   function isValidProductName (izena) {
     let isValid = true
     for (let i = 0; i < izena.length; i++) {
-      if (!/^[a-zA-Z]+$/.test(izena[i])) {
+      if (!/^[a-zA-Z ]+$/.test(izena[i])) {
         isValid = false
         break
       }
@@ -128,7 +128,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
   function isValidDescription (testua) {
     let isValid = true
     for (let i = 0; i < testua.length; i++) {
-      if (!/^[a-zA-Z]+$/.test(testua[i])) {
+      if (!/^[a-zA-Z ]+$/.test(testua[i])) {
         isValid = false
         break
       }
@@ -147,7 +147,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
   function isValidLocation (tokia) {
     let isValid = true
     for (let i = 0; i < tokia.length; i++) {
-      if (!/^[a-zA-Z]+$/.test(tokia[i])) {
+      if (!/^[a-zA-Z ]+$/.test(tokia[i])) {
         isValid = false
         break
       }
@@ -162,7 +162,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
     var datuak = {
       productname: productName,
       description: description,
-      image: "image",
+      image: image,
       price: price,
       rentalFrequency: rentalFrequency,
       location: location,

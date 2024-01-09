@@ -45,7 +45,7 @@ class ProductController extends Controller
             'name' => $datuakArray["productname"],
             'description' => $datuakArray["description"],
             'image' => $datuakArray["image"],
-            'id_owner' => auth()->id(),
+            'id_owner' => 1,
             'isEco' => $datuakArray["eco"],
             'price' => $datuakArray["price"],
             'location' => $datuakArray["location"],
