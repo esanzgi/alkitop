@@ -21,7 +21,9 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->string('location');
             $table->string('category');
+            $table->string('frequency');
             $table->foreign('id_owner')->references('id_owner')->on('owners')->onDelete('cascade');
+        
         });
     }
 

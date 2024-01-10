@@ -29,6 +29,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 1, 100),
             'location' => $this->faker->city,
             'category' => $this->faker->word,
+            'frequency'=>$this->faker->word
         ];
     }
 }

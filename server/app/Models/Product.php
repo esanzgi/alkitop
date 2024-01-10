@@ -23,6 +23,7 @@ class Product extends Model
         'price',
         'location',
         'category',
+        'frequency'
     ];
 
     public function owner()
