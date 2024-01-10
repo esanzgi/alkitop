@@ -8,11 +8,11 @@ import { HomeContent } from '../components/HomeContent'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
 
-function ProduktuGehituPage () {
+function ProduktuGehituPage ({user,owner}) {
   return (
       <main className=''>
         <div className='fixed-top bg-white'>
-          <Header />
+          <Header user={user} owner={owner}/>
           <div className='shadow-sm bg-light'>
             <div className='container-md pt-2'>
               <FilterNav />

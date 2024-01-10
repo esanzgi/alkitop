@@ -12,7 +12,6 @@ export function Header({ user, owner }) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAlokatzaile, setShowAlokatzaile] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(!!user);
-
   useEffect(() => {
     setIsAuthenticated(!!user);
   }, [user]);

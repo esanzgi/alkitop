@@ -14,9 +14,10 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status,owner
     });
 
     const { data: ownerData, setData: setOwnerData, patch: patchOwner, errors: errorsOwner, processing: processingOwner, recentlySuccessful: recentlySuccessfulOwner } = useForm({
-        tlf: owner.phone_number,
-        dni: owner.dni,
+        tlf: owner ? owner.phone_number : '',
+        dni: owner ? owner.dni : '',
     });
+
 
     const submitUser = (e) => {
         e.preventDefault();

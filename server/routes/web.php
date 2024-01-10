@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\OwnerControler;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,20 +32,37 @@ Route::get('/products/search', [HomeController::class, 'search']);
 // });
 
 Route::get('/produktu-gehitu', function () {
+    $erabiltzailea = auth()->user();
+    $owner = null;
+
+    if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+        $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+    }
     return Inertia::render('ProduktuGehituPage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'user' => $erabiltzailea,
+        'owner' => $owner,
     ]);
 });
 
 Route::post('/produktu-gehitu', function () {
+    $erabiltzailea = auth()->user();
+    $owner = null;
+
+    if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+        $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+    }
+
     return Inertia::render('ProduktuGehituPage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'user' => $erabiltzailea,
+        'owner' => $owner,
     ]);
 });
 
@@ -65,7 +82,17 @@ Route::middleware('auth')->group(function () {
 Route::get("/new-owner", [OwnerControler::class, "store"]);
 
 Route::get('/panel', function () {
-    return Inertia::render("PowerBiPage");
+    $erabiltzailea = auth()->user();
+    $owner = null;
+
+    if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+        $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+    }
+
+    return Inertia::render("PowerBiPage", [
+        'user' => $erabiltzailea,
+        'owner' => $owner,
+    ]);
 });
 
 Route::post("/produktua-sartu", [ProductController::class, 'store']);

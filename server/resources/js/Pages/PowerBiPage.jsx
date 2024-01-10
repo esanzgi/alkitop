@@ -4,10 +4,10 @@ import React from 'react'
 import { Powerbi } from '@/components/Powerbi'
 import { Header } from '../components/Header'
 
-function PowerBiPage() {
+function PowerBiPage({user,owner}) {
   return (
     <div>
-      <Header/>
+      <Header user={user} owner={owner}/>
       <Powerbi/>
     </div>
     
