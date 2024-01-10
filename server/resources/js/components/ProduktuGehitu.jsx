@@ -198,7 +198,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
         <h1 className=''>Produktu bat igo</h1>
       </div>
       <Form>
-        @csrf
+
         <Row className='mb-3'>
           <Form.Group as={Col}>
             <Form.Label>Product Name</Form.Label>

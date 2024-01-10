@@ -39,21 +39,25 @@ class ProductController extends Controller
         //Array batera pasa
         $datuakArray = $datuak["data"];
 
-        //echo $datuakArray["image"];
+        //ower id-a
+        $user_id=auth()->id();
+        $id_owner=DB::table("owners")->where("id_user", $user_id)->value("id_owner");
+
+        //$id_ower=auth()->owner()
 
         //datu basean sartu
         DB::table("products")->insert([
             'name' => $datuakArray["productname"],
             'description' => $datuakArray["description"],
             'image' => $datuakArray["image"],
-            'id_owner' => 1,
+            'id_owner' => $id_owner,
             'isEco' => $datuakArray["eco"],
             'price' => $datuakArray["price"],
             'location' => $datuakArray["location"],
             'category' => $datuakArray["category"],
         ]);
-        
-        return Inertia::render("home");
+
+        //return Inertia::render("home");
     }
 
     public function getProductBySearch($search)
