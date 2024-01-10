@@ -34,6 +34,11 @@ class OwnerControler extends Controller
             "id_user"=> auth()->id()
         ]);
 
+        DB::table("users")
+            ->where("id_user", auth()->id())
+            ->update(["id_role"=> 4])
+        ;
+
         return redirect("/");
 
     }

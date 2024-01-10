@@ -62,7 +62,9 @@ export function Header({ user, owner }) {
           </button>
         )}
 
+        
         <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
+        
         <AlokatzaileRegister show={showAlokatzaile} handleClose={handleCloseRegisterAlokatzaile} />
       </div>
     </nav>
