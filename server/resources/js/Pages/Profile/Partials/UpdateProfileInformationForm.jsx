@@ -123,6 +123,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status,owner
             </form>
             {user.id_role === 4 && (
             <form onSubmit={submitOwner} className='mx-5'>
+                <input type="hidden" name="user" value={user}></input>
                 <div>
                     <div>
                         <InputLabel htmlFor="tlf" value="Telefono zenbakia" className='me-2' />

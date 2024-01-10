@@ -9,6 +9,8 @@ class Owner extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_owner';
+
     public $timestamps = false;
 
     protected $fillable = [

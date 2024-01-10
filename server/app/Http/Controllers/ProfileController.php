@@ -50,10 +50,24 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit');
     }
 
-    public function updateOwner(ProfileUpdateRequest $request): RedirectResponse
+    public function updateOwner(Request $request)
     {
+        $validatedData = $request->validate([
+            'tlf' => ['required', 'numeric', 'digits:9'],
+            'dni' => ['required', 'regex:/^[0-9]{8}[a-zA-Z]$/'],
+        ]);
 
-        return view('/kaidof');
+        $owner = auth()->user()->owner;
+
+        if ($owner) {
+            $owner->phone_number = $request->input('tlf');
+            $owner->dni = $request->input('dni');
+            $owner->save();
+
+            return redirect()->route('profile.edit')->with('success', 'Información del propietario actualizada con éxito.');
+        } else {
+            return redirect()->route('dashboard')->with('error', 'Propietario no encontrado.');
+        }
     }
 
     /**
