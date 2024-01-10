@@ -40,6 +40,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'user',
         ]);
 
+        Role::create([
+            'name' => 'owner',
+        ]);
+
         User::create([
             'name' => 'eneko',
             'email' => 'esanzgi22wg@ikzubirimanteo.com',
