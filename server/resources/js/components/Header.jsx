@@ -55,18 +55,27 @@ export function Header({ user, owner }) {
           </Link>
         )}
 
-        {isAuthenticated && (
-          <button type='submit' className='btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}>
-            <FontAwesomeIcon icon={faPlus} className='me-2' />
-            Produktu igo
-          </button>
-        )}
+        {isAuthenticated && botoia(owner)}
+
 
         
-        <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
         
+        <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
         <AlokatzaileRegister show={showAlokatzaile} handleClose={handleCloseRegisterAlokatzaile} />
+      
       </div>
     </nav>
   );
+
+  function botoia(owner) {
+    if (owner==null) {
+      return <button type='submit' className='btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}> <FontAwesomeIcon icon={faPlus} className='me-2' />Produktu igo</button>
+    }else{
+      return <Link to='/produktu-gehitu' href='/produktu-gehitu' className='btn btn-outline-light ms-2 rounded-pill'> <FontAwesomeIcon icon={faPlus} className='me-2' /> Produktu igo </Link>
+    }
+  }
+
+  
 }
+
+

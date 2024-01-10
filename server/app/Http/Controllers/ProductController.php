@@ -53,6 +53,7 @@ class ProductController extends Controller
             'category' => $datuakArray["category"],
         ]);
         
+        return Inertia::render("home");
     }
 
     public function getProductBySearch($search)
