@@ -58,7 +58,7 @@ export function AlokatzaileRegister ({ show, handleClose }) {
         <Modal.Title>Alta eman produktuak alokatzen jartzeko</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form action='/new-owner' method='POST'>
+        <Form action='/new-owner'>
           <Row className='mb-3'>
             <Form.Group as={Col}>
               <Form.Label>Telefono zenbakia</Form.Label>
@@ -108,15 +108,17 @@ export function AlokatzaileRegister ({ show, handleClose }) {
               {errorMessage}
             </div>
           )}
-            <Button type='submit' variant='outline-success' onClick={handleRegister}>
+            <Button type='submit' variant='outline-success' onClick={handleRegister} className=' mt-3 '>
               Register
+            </Button>
+
+            <Button variant='secondary' onClick={handleClose} className=' mt-3 mx-5'>
+              Close
             </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer className='d-flex just'>
-        <Button variant='secondary' onClick={handleClose}>
-          Close
-        </Button>
+        
         {/* <form action="/new-owner" method='post'>
           <meta name="csrf-token" content="{{ csrf_token() }}"/>
           <Button type='submit' variant='outline-success' onClick={handleRegister}>
