@@ -2,7 +2,8 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from 'react-slick'
 
-export function ProductDetailCard ({ product }) {
+export function ProductDetailCard({ product }) {
+  console.log(product)
   const settings = {
     dots: true,
     infinite: true,
@@ -35,20 +36,21 @@ export function ProductDetailCard ({ product }) {
     <>
       <div className='col-4 text-center  rounded shadow-sm'>
 
-        <Slider {...settings}>
+        {/* <Slider {...settings}>
           {product.image.map((prodImg, index) => (
             <div key={index} className='d-flex justify-content-center'>
               <div className='col-5 product'>
                 <img
-                  src={prodImg}
-                  alt={product.title}
+                  src={product.image}
+                  alt={product.title || product.name}
                   className='img-fluid object-fit-contain mx-auto'
                   style={{ height: '300px' }}
                 />
               </div>
             </div>
           ))}
-        </Slider>
+        </Slider> */}
+        <img src={product.image || product.images} alt={product.name || product.title} />
       </div>
 
       <div className='mt-3 col-12'>
@@ -61,10 +63,10 @@ export function ProductDetailCard ({ product }) {
           </div>
           <span>
             <FontAwesomeIcon className='me-1' icon={faStar} />
-            {product.rating.rate}
+            {product.rate}
           </span>
         </div>
-        <p className='text-truncate mt-2'>{product.title}</p>
+        <p className='text-truncate mt-2'>{product.title || product.name}</p>
       </div>
 
     </>

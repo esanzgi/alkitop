@@ -4,32 +4,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { ProductCard } from './ProductCard';
 
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const NextArrow = ({ className, style, onClick }) => {
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block' }}
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={faChevronRight} style={{ color: 'black', fontSize: '24px' }} />
-    </div>
-  );
-};
-
-const PrevArrow = ({ className, style, onClick }) => {
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: 'block' }}
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', fontSize: '24px' }} />
-    </div>
-  );
-};
+import { NextArrow, PrevArrow } from './Icons';
 
 const ProductCarousel = ({ products }) => {
   const settings = {
@@ -69,12 +45,7 @@ const ProductCarousel = ({ products }) => {
           <div key={index} className='d-flex justify-content-center'>
             <div className='col-10 product'>
               <ProductCard
-                productImg={product.image}
-                productTitle={product.name}
-                productDescr={product.description}
-                productPrice={product.price}
-                productRate={product.avg_rating}
-                isEco={product.isEco}
+                product={product}
               />
             </div>
           </div>

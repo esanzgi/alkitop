@@ -6,6 +6,13 @@ export function useProducts({ search = '', sort }) {
   const [loading, setLoading] = useState(true)
   const [, setError] = useState(null)
   const previousSearch = useRef(search)
+  const [filter, setFilter] = useState({
+    minPrice: '',
+    maxPrice: '',
+    minRate: '',
+    maxRate: '',
+    isEco: ''
+  })
 
   const getProducts = useCallback(async ({ search }) => {
     //if (search === previousSearch.current) return
@@ -23,6 +30,16 @@ export function useProducts({ search = '', sort }) {
       setLoading(false)
     }
   }, [])
+
+
+  // const filterProducts = useCallback(() => {
+  //   // Aplica la lógica de filtrado a los productos aquí
+  //   const filteredProducts = products.filter(product => {
+
+
+  //   });
+  //   return filterProducts
+  // }, [filter, products])
 
   // const sortedProducts = useMemo(() => {
   //   return sort

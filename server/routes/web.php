@@ -97,4 +97,6 @@ Route::get('/panel', function () {
 
 Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
+Route::get('/product/details/{product}', [ProductController::class, 'goDetails']);
+
 require __DIR__ . '/auth.php';

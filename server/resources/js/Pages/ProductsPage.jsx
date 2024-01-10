@@ -11,6 +11,7 @@ import { FiltrarBtn } from '@/components/Icons'
 
 
 function ProductsPage({ search }) {
+
     const { products, getProducts, loading } = useProducts({ search })
     const [showFiltersModal, setShowFiltersModal] = useState(false);
 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -31,17 +31,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //erantzunatik soilik datuak hartu
-        $jsonContent= $request->getContent();
-        
+        $jsonContent = $request->getContent();
+
         //Matritze batera pasa
-        $datuak= json_decode($jsonContent,true);
+        $datuak = json_decode($jsonContent, true);
 
         //Array batera pasa
         $datuakArray = $datuak["data"];
 
         //ower id-a
-        $user_id=auth()->id();
-        $id_owner=DB::table("owners")->where("id_user", $user_id)->value("id_owner");
+        $user_id = auth()->id();
+        $id_owner = DB::table("owners")->where("id_user", $user_id)->value("id_owner");
 
         //$id_ower=auth()->owner()
 
@@ -83,35 +83,10 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function goDetails(Product $product)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return Inertia::render('ProductDetails', [
+            'product' => $product,
+        ]);
     }
 }

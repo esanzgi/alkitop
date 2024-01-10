@@ -18,13 +18,7 @@ function ListOfProducts({ products }) {
       {products.map((product, index) => (
         <div key={index} className='col-10 col-sm-6 col-md-4 col-lg-3 g-5 product'>
           <ProductCard
-            key={product.id}
-            productImg={product.image}
-            productTitle={product.title}
-            productDescr={product.description}
-            productPrice={product.price}
-            productRate={product.rate}
-            isEco={product.isEco}
+            product={product}
           />
         </div>
 
