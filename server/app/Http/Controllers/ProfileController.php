@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Owner;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,9 +19,18 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+
+        $erabiltzailea = auth()->user();
+        $owner = null;
+
+        if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+            $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+        }
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'owner' => $owner,
         ]);
     }
 
@@ -38,6 +48,12 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit');
+    }
+
+    public function updateOwner(ProfileUpdateRequest $request): RedirectResponse
+    {
+
+        return view('/kaidof');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\HomeController;
+use App\Models\Owner;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -16,6 +17,11 @@ class HomeController extends Controller
     {
 
         $erabiltzailea = auth()->user();
+        $owner = null;
+
+        if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+            $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+        }
         // TODO AVG Rating-arena inner join eginez Produc-ekin
 
         //$products = Product::orderBy('category', 'desc')->paginate(8);
@@ -54,6 +60,7 @@ class HomeController extends Controller
             'phpVersion' => PHP_VERSION,
             'products' => $products,
             'user' => $erabiltzailea,
+            'owner' => $owner,
         ]);
     }
 

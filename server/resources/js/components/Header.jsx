@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from '@inertiajs/react';
 
-export function Header({ user }) {
+export function Header({ user, owner }) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAlokatzaile, setShowAlokatzaile] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(!!user);

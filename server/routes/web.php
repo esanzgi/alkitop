@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OwnerControler;
@@ -40,7 +41,14 @@ Route::get('/produktu-gehitu', function () {
     ]);
 });
 
-Route::get("/new-owner", [OwnerControler::class, "store"]);
+Route::post('/produktu-gehitu', function () {
+    return Inertia::render('ProduktuGehituPage', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -48,15 +56,19 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profileOwner', [ProfileController::class, 'updateOwner'])->name('profileOwner.update');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get("/new-owner", [OwnerControler::class, "store"]);
 
 Route::get('/panel', function () {
     return Inertia::render("PowerBiPage");
 });
 
 Route::post("/produktua-sartu", [ProductController::class, 'store']);
-
 
 require __DIR__ . '/auth.php';
