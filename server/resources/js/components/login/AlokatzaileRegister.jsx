@@ -55,13 +55,13 @@ export function AlokatzaileRegister ({ show, handleClose }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Register to rent a product</Modal.Title>
+        <Modal.Title>Alta eman produktuak alokatzen jartzeko</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form action='/new-owner' method='POST'>
           <Row className='mb-3'>
             <Form.Group as={Col}>
-              <Form.Label>Tlf number</Form.Label>
+              <Form.Label>Telefono zenbakia</Form.Label>
               <Form.Control
                 type='tel'
                 className={`form-control-sm ${isTlfNumberValid ? '' : 'is-invalid'}`}
@@ -73,7 +73,7 @@ export function AlokatzaileRegister ({ show, handleClose }) {
           </Row>
           <Row className='mb-3'>
             <Form.Group as={Col}>
-              <Form.Label>ID</Form.Label>
+              <Form.Label>NAN</Form.Label>
               <Form.Control
                 type='text'
                 className={`form-control-sm ${isIdValid ? '' : 'is-invalid'}`}
@@ -108,18 +108,22 @@ export function AlokatzaileRegister ({ show, handleClose }) {
               {errorMessage}
             </div>
           )}
+            <Button type='submit' variant='outline-success' onClick={handleRegister}>
+              Register
+            </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer className='d-flex just'>
         <Button variant='secondary' onClick={handleClose}>
           Close
         </Button>
-        <form action="/produktu-gehitu" method='post'>
+        {/* <form action="/new-owner" method='post'>
+          <meta name="csrf-token" content="{{ csrf_token() }}"/>
           <Button type='submit' variant='outline-success' onClick={handleRegister}>
               Register
             </Button>
             <input type="hidden" value="false" name='balidazioa' id='balidazioa'/>
-        </form>
+        </form> */}
           
       </Modal.Footer>
     </Modal>

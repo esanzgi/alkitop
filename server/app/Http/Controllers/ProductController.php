@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -30,10 +31,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //erantzunatik soilik datuak hartu
-        $jsonContent = $request->getContent();
-
+        $jsonContent= $request->getContent();
+        
         //Matritze batera pasa
-        $datuak = json_decode($jsonContent, true);
+        $datuak= json_decode($jsonContent,true);
 
         //Array batera pasa
         $datuakArray = $datuak["data"];
@@ -51,7 +52,7 @@ class ProductController extends Controller
             'location' => $datuakArray["location"],
             'category' => $datuakArray["category"],
         ]);
-
+        
     }
 
     public function getProductBySearch($search)

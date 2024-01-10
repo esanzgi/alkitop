@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OwnerControler;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,7 +19,7 @@ use Inertia\Inertia;
 |
  */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products/search', [HomeController::class, 'search']);
 
 // Route::get('/', function () {
@@ -38,6 +39,8 @@ Route::get('/produktu-gehitu', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get("/new-owner", [OwnerControler::class, "store"]);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
