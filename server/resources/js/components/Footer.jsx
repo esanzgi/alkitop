@@ -40,19 +40,19 @@ export function Footer () {
 
           <div className='col-md-5 offset-md-1 mb-3 '>
             <form>
-              <h5>Contacta con nosotros!</h5>
-              <p>Cualquier duda que tenga, no dude en contactarnos.</p>
+              <h5>Jarri gurekin kontaktuan!</h5>
+              <p>Edozein zalantza izanez gero, jar zaitez gurekin harremanetan.</p>
               <div className='d-flex flex-column flex-sm-row w-100 gap-2'>
-                <label htmlFor='newsletter1' className='visually-hidden'>Correo electrónico</label>
-                <input id='newsletter1' type='email' className='form-control' placeholder='Correo electrónico' />
+                <label htmlFor='newsletter1' className='visually-hidden'>Posta elektronikoa</label>
+                <input id='newsletter1' type='email' className='form-control' placeholder='Posta elektronikoa' />
                 <label htmlFor='newsletter2' className='visually-hidden'>Email address</label>
-                <input id='newsletter2' type='text' className='form-control' placeholder='Nombre y Apellidos' />
+                <input id='newsletter2' type='text' className='form-control' placeholder='Izen abizenak' />
               </div>
               <div className='form-floating my-2'>
                 <textarea className='form-control' id='floatingTextarea2' placeholder='Comentario' />
-                <label htmlFor='floatingTextarea2'>Comentario</label>
+                <label htmlFor='floatingTextarea2'>Edukia</label>
               </div>
-              <button className='btn btn-success px-4' type='submit'>Enviar</button>
+              <button className='btn btn-success px-4' type='submit'>Bidali</button>
             </form>
           </div>
         </div>

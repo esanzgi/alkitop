@@ -201,7 +201,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
 
         <Row className='mb-3'>
           <Form.Group as={Col}>
-            <Form.Label>Product Name</Form.Label>
+            <Form.Label>Produktuaren Izena</Form.Label>
             <Form.Control
               type='text'
               className={`form-control-sm ${isProductNameValid ? '' : 'is-invalid'}`}
@@ -214,7 +214,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
 
         <Row className='mb-3'>
           <Form.Group as={Col}>
-            <Form.Label>Description</Form.Label>
+            <Form.Label>Deskripzioa</Form.Label>
             <Form.Control
               as='textarea'
               rows={3}
@@ -228,7 +228,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
 
         <Row className='mb-3'>
           <Form.Group as={Col}>
-            <Form.Label>Upload Image</Form.Label>
+            <Form.Label>Irudia Igo</Form.Label>
             <Form.Control
               type='file'
               accept='image/*'
@@ -242,7 +242,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
 
         <Row className='mb-3'>
           <Form.Group as={Col} className='col-8'>
-            <Form.Label>Price (€)</Form.Label>
+            <Form.Label>Prezioa (€)</Form.Label>
             <Form.Control
               type='number'
               className={`form-control-sm ${isPriceValid ? '' : 'is-invalid'}`}
@@ -253,11 +253,11 @@ export function ProduktuGehitu ({ show, handleClose }) {
           </Form.Group>
 
           <Form.Group as={Col} className='col-4 ml-2'>
-            <Form.Label>Rental Frequency</Form.Label>
+            <Form.Label>Prezioa zenbatero</Form.Label>
             <div>
               <Form.Check
                 type='radio'
-                label='Every Day'
+                label='Egunero'
                 name='rentalFrequency'
                 id='daily'
                 checked={rentalFrequency === 'daily'}
@@ -265,7 +265,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
               />
               <Form.Check
                 type='radio'
-                label='Every Week'
+                label='Astero'
                 name='rentalFrequency'
                 id='weekly'
                 checked={rentalFrequency === 'weekly'}
@@ -273,7 +273,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
               />
               <Form.Check
                 type='radio'
-                label='Every Month'
+                label='Hilabetero'
                 name='rentalFrequency'
                 id='monthly'
                 checked={rentalFrequency === 'monthly'}
@@ -285,7 +285,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
 
         <Row className='mb-3'>
           <Form.Group as={Col}>
-            <Form.Label>Location</Form.Label>
+            <Form.Label>Ubikazioa</Form.Label>
             <Form.Control
               type='text'
               className={`form-control-sm ${isLocationValid ? '' : 'is-invalid'}`}
@@ -298,7 +298,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
 
         <Row className='mb-3'>
           <Form.Group as={Col}>
-            <Form.Label>Category</Form.Label>
+            <Form.Label>Kategoria</Form.Label>
             <Form.Control
               as='select'
               className={`form-control-sm ${isCategoryValid ? '' : 'is-invalid'}`}

@@ -18,7 +18,7 @@ export function Search() {
         <input
           className='form-control rounded-end rounded-pill'
           type='search'
-          placeholder='Buscar'
+          placeholder='Bilatu'
           aria-label='Search'
           onChange={(e) => setSearch(e.target.value)}
           value={search}

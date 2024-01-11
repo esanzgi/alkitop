@@ -159,7 +159,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
 
         <Row className='mb-3'>
           <Form.Group as={Col}>
-            <Form.Label>Product Name</Form.Label>
+            <Form.Label>Produktuaren Izena</Form.Label>
             <Form.Control
               type='text'
               className={`form-control-sm ${isProductNameValid ? '' : 'is-invalid'}`}
@@ -295,7 +295,7 @@ export function ProduktuGehitu ({ show, handleClose }) {
           </Modal.Header>
           <Modal.Body className='d-flex flex-column'>
             <div>
-              <ul>1. Eraginkortasun energetikoa:
+              <ul>1. Eraginkortasu energetikoa:
                 Produktuak energia-eraginkortasuna erraztuko duten teknologiekin diseinatuta egon behar
                 du. Lehentasuna emango zaie energia-kontsumo txikiko ziurtagiriak dituzten gailuei.
               </ul>

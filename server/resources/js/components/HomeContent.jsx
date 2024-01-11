@@ -5,10 +5,13 @@ import { Loading } from './Loading'
 import ProductCarousel from './ProductCarousel'
 
 const SECCIONES = [
-  'Lo mejor, al mejor precio',
-  'Más alquilado',
-  'Populares',
-  'Invierno'
+  
+  'Onena, preziorik onenean',
+  'Alokatuena',
+  'Popularrenak',
+  'Negua'
+
+
 ]
 
 export function HomeContent({ products }) {

@@ -3,31 +3,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useId } from 'react'
 
 const navItems = [
-  { icon: faBicycle, text: 'Bicicletas' },
-  { icon: faMotorcycle, text: 'Motos' },
-  { icon: faCar, text: 'Coches' },
-  { icon: faPersonSkiing, text: 'Esquíes' },
-  { icon: faMusic, text: 'Música' }
+  { icon: faBicycle, text: 'Txirrindak' },
+  { icon: faMotorcycle, text: 'Motorrak' },
+  { icon: faCar, text: 'Kotxeak' },
+  { icon: faPersonSkiing, text: 'Eskiak' },
+  { icon: faMusic, text: 'Musika' }
 ]
 
 const allCategories = [
-  'Coches',
-  'TV, Audio, Foto',
-  'Consolas y Videojuegos',
-  'Motos',
-  'Hogar y Jardin',
-  'Bicicletas',
-  'Construcción y Reformas',
-  'Motor y Accesorios',
-  'Informática y Electrónica',
-  'Electrodomésticos',
-  'Industria y Agricultura',
-  'Moda y Accesorios',
-  'Deporte y Ocio',
-  'Cine, Libros y Música',
+  'Autoak',
+  'TB, audioa, argazkia',
+  'Kontsolak eta bideojokoak',
+  'Motorrak',
+  "Etxea eta Jardin",
+  'Bizikletak',
+  'Eraikuntza eta Erreformak',
+  'Motorra eta osagarriak',
+  'Informatika eta Elektronika',
+  'Etxetresna elektrikoak',
+  'Industria eta Nekazaritza',
+  'Moda eta osagarriak',
+  'Kirola eta aisialdia',
+  'Zinema, Liburuak eta Musika',
   'Inmobiliaria',
-  'Nieve',
-  'Servicios'
+  'Elurra',
+  'Zerbitzuak'
+
+
 ]
 
 export function FilterNav () {
@@ -41,7 +43,7 @@ export function FilterNav () {
         ))}
         <li id={categoriasId} className='d-inline-flex flex-column align-items-center pb-1 categorias-trigger nav-icons'>
           <FontAwesomeIcon icon={faList} className='fs-3 mb-1' />
-          <span className='fs-6'>Categorías</span>
+          <span className='fs-6'>Kategoriak</span>
         </li>
 
         <div className='collapsed-categories bg-light rounded-3 '>
