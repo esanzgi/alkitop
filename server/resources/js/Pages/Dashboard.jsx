@@ -1,7 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Footer } from '@/components/Footer';
+import { GustokoenProduktuak } from '@/components/GustokoenProduktuak';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth,products }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -16,6 +18,12 @@ export default function Dashboard({ auth }) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        <GustokoenProduktuak products={products}/>
+        <div className='mt-5 pt-5 bg-light border-top'>
+            <div className='container-md'>
+            <Footer />
+            </div>
+        </div>        
+      </AuthenticatedLayout>
     );
 }

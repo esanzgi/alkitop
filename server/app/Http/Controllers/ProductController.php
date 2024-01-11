@@ -55,7 +55,7 @@ class ProductController extends Controller
             'price' => $datuakArray["price"],
             'location' => $datuakArray["location"],
             'category' => $datuakArray["category"],
-            'frequency'=> $datuakArray["rentalFrequency"]
+            'frequency' => $datuakArray["rentalFrequency"],
         ]);
 
         //return Inertia::render("home");
@@ -88,5 +88,10 @@ class ProductController extends Controller
         return Inertia::render('ProductDetails', [
             'product' => $product,
         ]);
+    }
+
+    public function addFavourite(Product $product)
+    {
+
     }
 }

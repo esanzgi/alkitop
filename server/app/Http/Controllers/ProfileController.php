@@ -64,9 +64,7 @@ class ProfileController extends Controller
             $owner->dni = $request->input('dni');
             $owner->save();
 
-            return redirect()->route('profile.edit')->with('success', 'Información del propietario actualizada con éxito.');
-        } else {
-            return redirect()->route('dashboard')->with('error', 'Propietario no encontrado.');
+            return Redirect::route('profile.edit');
         }
     }
 

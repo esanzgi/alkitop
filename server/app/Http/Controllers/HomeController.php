@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\HomeController;
+use App\Models\Owner;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;

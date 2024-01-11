@@ -1,4 +1,4 @@
-import { faLeaf, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faLeaf, faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IMAGE from '../assets/images/moto.jpg'
 import IMAGE2 from '../assets/images/moto2.jpg'
@@ -11,6 +11,11 @@ export function ProductCard({ product }) {
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`)
   }
+  
+  const addFavourite = (e) => {
+    e.preventDefault();
+    
+};
 
   return (
     <div className='' onClick={handleOnClick}>
@@ -42,7 +47,14 @@ export function ProductCard({ product }) {
             {product.rate || product.avg_rating}
           </span>
         </div>
-        <p className='text-truncate mt-2'>{product.title || product.name}</p>
+        <div className='d-flex justify-content-between'>
+          <p className='text-truncate mt-2'>{product.title || product.name}</p>
+          <form onSubmit={'addFavourite'}>
+            <button type="submit" className='btn btn-link'>
+              <FontAwesomeIcon className=' mt-3' icon={faHeart} />
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   )

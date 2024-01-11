@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -67,7 +68,35 @@ Route::post('/produktu-gehitu', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
+        ->select(
+            'products.id_product',
+            'products.name',
+            'products.description',
+            'products.image',
+            'products.id_owner',
+            'products.isEco',
+            'products.price',
+            'products.location',
+            'products.category',
+            DB::raw("COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating")
+        )
+        ->groupBy(
+            'products.id_product',
+            'products.name',
+            'products.description',
+            'products.image',
+            'products.id_owner',
+            'products.isEco',
+            'products.price',
+            'products.location',
+            'products.category'
+        )
+        ->get();
+
+    return Inertia::render('Dashboard', [
+        'products' => $products,
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -94,6 +123,8 @@ Route::get('/panel', function () {
         'owner' => $owner,
     ]);
 });
+
+Route::get('/addFavourite', [ProductController::class, 'addFavourite']);
 
 Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
