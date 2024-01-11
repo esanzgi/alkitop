@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_owner');
             $table->string('phone_number');
             $table->string('dni');
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_user')->unique();
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

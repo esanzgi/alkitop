@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -31,32 +31,33 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //erantzunatik soilik datuak hartu
-        $jsonContent = $request->getContent();
-
+        $jsonContent= $request->getContent();
+        
         //Matritze batera pasa
-        $datuak = json_decode($jsonContent, true);
+        $datuak= json_decode($jsonContent,true);
 
         //Array batera pasa
         $datuakArray = $datuak["data"];
 
         //ower id-a
-        $user_id = auth()->id();
-        $id_owner = DB::table("owners")->where("id_user", $user_id)->value("id_owner");
+        echo $user_id=auth()->id();
+        $id_owner=DB::table("owners")->where("id_user", $user_id)->value("id_owner");
 
+        echo $id_owner;
         //$id_ower=auth()->owner()
 
         //datu basean sartu
-        DB::table("products")->insert([
-            'name' => $datuakArray["productname"],
-            'description' => $datuakArray["description"],
-            'image' => $datuakArray["image"],
-            'id_owner' => $id_owner,
-            'isEco' => $datuakArray["eco"],
-            'price' => $datuakArray["price"],
-            'location' => $datuakArray["location"],
-            'category' => $datuakArray["category"],
-            'frequency' => $datuakArray["rentalFrequency"],
-        ]);
+        // DB::table("products")->insert([
+        //     'name' => $datuakArray["productname"],
+        //     'description' => $datuakArray["description"],
+        //     'image' => $datuakArray["image"],
+        //     'id_owner' => $id_owner,
+        //     'isEco' => $datuakArray["eco"],
+        //     'price' => $datuakArray["price"],
+        //     'location' => $datuakArray["location"],
+        //     'category' => $datuakArray["category"],
+        //     'frequency'=> $datuakArray["rentalFrequency"]
+        // ]);
 
         //return Inertia::render("home");
     }
@@ -83,15 +84,35 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    public function goDetails(Product $product)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        return Inertia::render('ProductDetails', [
-            'product' => $product,
-        ]);
+        //
     }
 
-    public function addFavourite(Product $product)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
+        //
+    }
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
