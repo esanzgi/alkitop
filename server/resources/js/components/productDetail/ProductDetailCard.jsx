@@ -1,15 +1,31 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from 'react-slick'
+import { NextArrow, PrevArrow } from '../Icons'
+import RatingStars from 'react-rating-stars-component';
+import { useRatings } from '@/hooks/useRatings';
+import { useEffect } from 'react';
+
 
 export function ProductDetailCard({ product }) {
-  console.log(product)
+  const { avg, getAvgRatingByProduct } = useRatings()
+
+  useEffect(() => {
+    getAvgRatingByProduct(product.product.id_product)
+  }, [getAvgRatingByProduct])
+
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -31,10 +47,10 @@ export function ProductDetailCard({ product }) {
       }
     ]
   }
-
+  console.log('AVG --> ', avg)
   return (
     <>
-      <div className='col-4 text-center  rounded shadow-sm'>
+      <div className='col-4 text-center rounded object-'>
 
         {/* <Slider {...settings}>
           {product.image.map((prodImg, index) => (
@@ -50,23 +66,37 @@ export function ProductDetailCard({ product }) {
             </div>
           ))}
         </Slider> */}
-        <img src={product.image || product.images} alt={product.name || product.title} />
+
+        <img
+          className='img-fluid rounded-4 object-fit-cover product'
+          src={product.product.image || product.product.images}
+          alt={product.product.name || product.product.title}
+        />
+
+        <div>
+          <RatingStars
+            value={avg}
+            size={24}
+            activeColor="#ffd700"
+            edit={false}
+          />
+        </div>
       </div>
 
       <div className='mt-3 col-12'>
         <div className='d-flex justify-content-between align-items-center'>
           <div className='fw-semibold'>
             <span className='fs-6 me-1'>
-              {product.price}€
+              {product.product.price}€
             </span>
             día
           </div>
           <span>
             <FontAwesomeIcon className='me-1' icon={faStar} />
-            {product.rate}
+            {product.product.rate}
           </span>
         </div>
-        <p className='text-truncate mt-2'>{product.title || product.name}</p>
+        <p className='text-truncate mt-2'>{product.product.title || product.product.name}</p>
       </div>
 
     </>

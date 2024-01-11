@@ -7,6 +7,7 @@ import { useForm } from '@inertiajs/react'
 export function ProductCard({ product }) {
   const { get } = useForm()
   product.isEco ? product.image = IMAGE2 : product.image = IMAGE
+  
 
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`)

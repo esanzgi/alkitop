@@ -23,7 +23,7 @@ const PRODUCT = {
 }
 
 function ProductDetails({ product }) {
-
+  console.log('Product', product);
   return (
     < main className='' >
       <div className='fixed-top bg-white'>

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+<<<<<<< Updated upstream
 use Inertia\Inertia;
+=======
+use App\Models\Rating;
+>>>>>>> Stashed changes
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -97,7 +101,26 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+<<<<<<< Updated upstream
         //
+=======
+        $newProduct = [];
+        $ratings = Rating::where('id_product', $product->id_product)->get();
+
+        $media = Rating::select(
+            \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
+        )
+            ->where('id_product', $product->id_product)
+            ->get();
+
+        $newProduct['product'] = $product;
+        $newProduct['rating'] = $ratings;
+        $newProduct['avgRating'] = $media;
+
+        return Inertia::render('ProductDetails', [
+            'product' => $newProduct,
+        ]);
+>>>>>>> Stashed changes
     }
 
     /**

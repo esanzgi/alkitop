@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RestRatingController;
+use App\Http\Controllers\RestUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/products/{search}', [ProductController::class, 'getProductBySearch']);
+
+// User
+Route::get('/users/{idOwner}', [RestUserController::class, 'getUserByIdOwner']);
+
+//Rating
+Route::get('/ratings/avg/{idProduct}', [RestRatingController::class, 'getAvgRatingByIdProduct']);
