@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RestRatingController;
 use App\Http\Controllers\RestUserController;
+use App\Http\Controllers\SavedApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

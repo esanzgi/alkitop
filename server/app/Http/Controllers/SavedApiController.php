@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -77,29 +78,31 @@ class SavedApiController extends Controller
 
     public function addFavourite(Request $request, $id)
     {
-        // $userId = $request->input('user_id');
+        $userId = $request->input('user_id');
 
-        // $user = User::find($userId);
+        if ($userId === null) {
+            return response()->json(['errors' => ['user_id' => 'Betiko errorea']], 422);
+        }
 
-        // if (!$user) {
-        //     return response()->json(['message' => 'Erabiltzailea ez da aurkitu'], 404);
-        // }
+        $user = User::find($userId);
 
-        // $product = Product::find($id);
+        if (!$user) {
+            return response()->json(['message' => 'Erabiltzailea ez da aurkitu'], 404);
+        }
 
-        // if (!$product) {
-        //     return response()->json(['message' => 'Produktua ez da aurkitu'], 404);
-        // }
+        $product = Product::find($id);
 
-        // $user->userSaved()->attach($product->id_product);
+        if (!$product) {
+            return response()->json(['message' => 'Produktua ez da aurkitu'], 404);
+        }
 
-        // // Puedes devolver la lista actualizada de favoritos si es necesario
-        // $favorites = $user->userSaved;
+        $user->userSaved()->attach($product->id_product);
 
-        // return Inertia::render('Home', ['products' => $favorites])
-        //     ->toResponse(request())
-        //     ->header('X-Inertia-Partial-Data', json_encode(['products']));
-        return Indertia::render()
+        $favorites = $user->userSaved;
+
+        return Inertia::render('Home', ['products' => $favorites])
+            ->toResponse(request())
+            ->header('X-Inertia-Partial-Data', json_encode(['products']));
     }
 
 }

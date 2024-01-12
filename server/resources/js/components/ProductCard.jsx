@@ -4,13 +4,10 @@ import IMAGE from '../assets/images/moto.jpg'
 import IMAGE2 from '../assets/images/moto2.jpg'
 import { useForm } from '@inertiajs/react'
 
-export function ProductCard({ product }) {
-  const { get } = useForm()
-  //product.isEco ? product.image = IMAGE2 : product.image = IMAGE
 export function ProductCard({ product, user }) {
   console.log(user && user.id_user);
   const { get, post } = useForm()
-  product.isEco ? product.image = IMAGE2 : product.image = IMAGE
+  //product.isEco ? product.image = IMAGE2 : product.image = IMAGE
 
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`)
@@ -22,12 +19,12 @@ export function ProductCard({ product, user }) {
     const userId = user ? user.id_user : null;
   
     try {
-      await post(`/api/addFavourite/${product.id_product}`, { user_id: userId });
+      const response = await post(`/api/addFavourite/${product.id_product}`, { user_id: userId });
+  
     } catch (error) {
       console.error('Produktua gordetzerakoan errorea', error);
     }
   };
-
   
     // var http = new XMLHttpRequest();
 
@@ -90,3 +87,4 @@ export function ProductCard({ product, user }) {
     </div>
   )
 }
+
