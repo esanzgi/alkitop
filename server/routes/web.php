@@ -50,24 +50,6 @@ Route::get('/produktu-gehitu', function () {
     ]);
 });
 
-Route::post('/produktu-gehitu', function () {
-    $erabiltzailea = auth()->user();
-    $owner = null;
-
-    if ($erabiltzailea && $erabiltzailea->id_role == 4) {
-        $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
-    }
-
-    return Inertia::render('ProduktuGehituPage', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'user' => $erabiltzailea,
-        'owner' => $owner,
-    ]);
-});
-
 Route::get('/dashboard', function () {
     $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
         ->select(
@@ -100,6 +82,24 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::post('/produktu-gehitu', function () {
+    $erabiltzailea = auth()->user();
+    $owner = null;
+
+    if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+        $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+    }
+
+    return Inertia::render('ProduktuGehituPage', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+        'user' => $erabiltzailea,
+        'owner' => $owner,
+    ]);
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
@@ -124,8 +124,6 @@ Route::get('/panel', function () {
         'owner' => $owner,
     ]);
 });
-
-Route::get('/addFavourite', [ProductController::class, 'addFavourite']);
 
 Route::post("/produktua-sartu", [ProductController::class, 'store']);
 

@@ -20,7 +20,7 @@ function Home({ products,user }) {
       </div>
 
       <div className='home-content container pb-5'>
-        <HomeContent products={products} />
+        <HomeContent products={products} user={user} />
       </div>
 
       <div className='mt-5 pt-5 bg-light border-top'>

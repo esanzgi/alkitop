@@ -14,7 +14,8 @@ const SECCIONES = [
 
 ]
 
-export function HomeContent({ products }) {
+export function HomeContent({ products, user}) {
+
   // const { products, getProducts, loading } = useProducts({ search: '' })
 
   // useEffect(() => {
@@ -31,18 +32,19 @@ export function HomeContent({ products }) {
   // )
 
   return (
-    <CargarPorSecciones products={products} />
+    <CargarPorSecciones products={products} user={user} />
   )
 }
 
-function CargarPorSecciones({ products }) {
+function CargarPorSecciones({ products, user}) {
+
   return (
     <>
       {
         SECCIONES.map((seccion, index) => (
           <div key={index} className='mt-5'>
             <h2 className='h1 ps-4 border-start border-black fw-bolder mb-5 border-success'>{seccion}</h2>
-            <ProductCarousel products={products.slice(0, 10)} />
+            <ProductCarousel products={products.slice(0, 10)} user={user} />
           </div>
         ))
       }

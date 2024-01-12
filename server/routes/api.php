@@ -28,3 +28,7 @@ Route::get('/users/{idOwner}', [RestUserController::class, 'getUserByIdOwner']);
 
 //Rating
 Route::get('/ratings/avg/{idProduct}', [RestRatingController::class, 'getAvgRatingByIdProduct']);
+
+Route::middleware('auth:sanctum')->post('/addFavourite/{product_id}', [SavedApiController::class, 'addFavourite'])->name('addFavourite');
+
+//Route::get('/dashboard', [SavedApiController::class, 'favourites'])->name('dashboard');

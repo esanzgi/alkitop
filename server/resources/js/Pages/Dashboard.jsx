@@ -3,7 +3,7 @@ import { Footer } from '@/components/Footer';
 import { GustokoenProduktuak } from '@/components/GustokoenProduktuak';
 import { Head } from '@inertiajs/react';
 
-export default function Dashboard({ auth,products }) {
+export default function Dashboard({ auth, products }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -18,12 +18,20 @@ export default function Dashboard({ auth,products }) {
                     </div>
                 </div>
             </div>
-        <GustokoenProduktuak products={products}/>
-        <div className='mt-5 pt-5 bg-light border-top'>
-            <div className='container-md'>
-            <Footer />
+
+            {products ? (
+                <GustokoenProduktuak products={products} />
+            ) : (
+                <div className="text-red-600 mx-3 my-4 d-flex justify-content-center">
+                    <h4>Ez dituzu gordetako produkturik</h4>
+                    </div>
+            )}
+
+            <div className='mt-5 pt-5 bg-light border-top'>
+                <div className='container-md'>
+                    <Footer />
+                </div>
             </div>
-        </div>        
-      </AuthenticatedLayout>
+        </AuthenticatedLayout>
     );
 }

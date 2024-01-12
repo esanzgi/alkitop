@@ -7,15 +7,44 @@ import { useForm } from '@inertiajs/react'
 export function ProductCard({ product }) {
   const { get } = useForm()
   //product.isEco ? product.image = IMAGE2 : product.image = IMAGE
+export function ProductCard({ product, user }) {
+  console.log(user && user.id_user);
+  const { get, post } = useForm()
+  product.isEco ? product.image = IMAGE2 : product.image = IMAGE
 
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`)
   }
   
-  const addFavourite = (e) => {
+  const addFavourite = async (e) => {
     e.preventDefault();
-    
-};
+  
+    const userId = user ? user.id_user : null;
+  
+    try {
+      await post(`/api/addFavourite/${product.id_product}`, { user_id: userId });
+    } catch (error) {
+      console.error('Produktua gordetzerakoan errorea', error);
+    }
+  };
+
+  
+    // var http = new XMLHttpRequest();
+
+    // http.onreadystatechange = function () {
+    //   if (http.readyState === 4) {
+    //     if (http.status === 200) {
+    //       console.log(JSON.parse(http.responseText).message);
+    //     } else {
+    //       console.error(JSON.parse(http.responseText).error);
+    //     }
+    //   }
+    // };
+    // http.open('POST', `/api/addFavourite/${product.id_product}`,true);
+    // http.send();
+  //};
+
+
 
   return (
     <div className='' onClick={handleOnClick}>
@@ -49,10 +78,13 @@ export function ProductCard({ product }) {
         <div className='d-flex justify-content-between'>
           <p className='text-truncate mt-2'>{product.title || product.name}</p>
           <form onSubmit={addFavourite}>
+            <input type='hidden' value={user ? user.id_user : ''} name='user_id' />
             <button type="submit" className='btn btn-link'>
               <FontAwesomeIcon className=' mt-3' icon={faHeart} />
             </button>
           </form>
+
+
         </div>
       </div>
     </div>

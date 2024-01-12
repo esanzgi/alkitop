@@ -7,7 +7,8 @@ import { ProductCard } from './ProductCard';
 
 import { NextArrow, PrevArrow } from './Icons';
 
-const ProductCarousel = ({ products }) => {
+const ProductCarousel = ({ products, user }) => {
+
   const settings = {
     dots: true,
     infinite: true,
@@ -46,6 +47,7 @@ const ProductCarousel = ({ products }) => {
             <div className='col-10 product'>
               <ProductCard
                 product={product}
+                user={user}
               />
             </div>
           </div>
