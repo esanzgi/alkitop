@@ -1,6 +1,5 @@
 import { Footer } from "@/components/Footer"
 import { Header } from "@/components/Header"
-import { ProductDetailCard } from "@/components/productDetail/ProductDetailCard"
 import { ProductDetailsContent } from "@/components/productDetail/ProductDetailsContent"
 
 
@@ -22,8 +21,7 @@ const PRODUCT = {
   }
 }
 
-function ProductDetails({ product }) {
-  console.log('Product', product);
+const ProductDetails = ({ product }) => {
   return (
     < main className='' >
       <div className='fixed-top bg-white'>
@@ -43,6 +41,6 @@ function ProductDetails({ product }) {
   )
 }
 
-export default ProductDetails
+export default ProductDetails;
 
 

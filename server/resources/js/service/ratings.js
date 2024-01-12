@@ -1,5 +1,5 @@
 export const getAvgRatingByProductService = async ({ idProduct }) => {
-  //if (!idProduct) return null
+  if (!idProduct) return null
   console.log('Service idproduct', idProduct)
 
   try {

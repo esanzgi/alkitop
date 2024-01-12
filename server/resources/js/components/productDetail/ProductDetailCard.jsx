@@ -3,16 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from 'react-slick'
 import { NextArrow, PrevArrow } from '../Icons'
 import RatingStars from 'react-rating-stars-component';
-import { useRatings } from '@/hooks/useRatings';
-import { useEffect } from 'react';
+
 
 
 export function ProductDetailCard({ product }) {
-  const { avg, getAvgRatingByProduct } = useRatings()
+  const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
-  useEffect(() => {
-    getAvgRatingByProduct(product.product.id_product)
-  }, [getAvgRatingByProduct])
+  console.log(product)
 
   const ratingChanged = (newRating) => {
     console.log(newRating);
@@ -47,7 +44,6 @@ export function ProductDetailCard({ product }) {
       }
     ]
   }
-  console.log('AVG --> ', avg)
   return (
     <>
       <div className='col-4 text-center rounded object-'>
@@ -74,12 +70,19 @@ export function ProductDetailCard({ product }) {
         />
 
         <div>
+          <span className='fs-4'>{product.product.name || product.product.title}</span>
+        </div>
+        <div>
           <RatingStars
-            value={avg}
+            value={avgRatingValue}
             size={24}
             activeColor="#ffd700"
             edit={false}
           />
+        </div>
+
+        <div className='badge bg-secondary'>
+          <span className=''>ENEKO</span>
         </div>
       </div>
 
@@ -118,3 +121,5 @@ export function ProductDetailCard({ product }) {
 //   </div>
 //   <p className='text-truncate mt-2'>{product.title}</p>
 // </div>
+
+

@@ -2,8 +2,8 @@ import { getAvgRatingByProductService } from "@/service/ratings"
 import { useCallback } from "react"
 import { useState } from "react"
 
-export function useRatings() {
-  const [avg, setAvg] = useState()
+export function useRatings({ idProduct }) {
+  const [avg, setAvg] = useState([])
 
   const getAvgRatingByProduct = useCallback(async ({ idProduct }) => {
 
