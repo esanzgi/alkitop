@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-<<<<<<< Updated upstream
-use Inertia\Inertia;
-=======
 use App\Models\Rating;
->>>>>>> Stashed changes
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,17 +31,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //erantzunatik soilik datuak hartu
-        $jsonContent= $request->getContent();
-        
+        $jsonContent = $request->getContent();
+
         //Matritze batera pasa
-        $datuak= json_decode($jsonContent,true);
+        $datuak = json_decode($jsonContent, true);
 
         //Array batera pasa
         $datuakArray = $datuak["data"];
 
         //ower id-a
-        echo $user_id=auth()->id();
-        $id_owner=DB::table("owners")->where("id_user", $user_id)->value("id_owner");
+        echo $user_id = auth()->id();
+        $id_owner = DB::table("owners")->where("id_user", $user_id)->value("id_owner");
 
         echo $id_owner;
         //$id_ower=auth()->owner()
@@ -101,9 +97,6 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-<<<<<<< Updated upstream
-        //
-=======
         $newProduct = [];
         $ratings = Rating::where('id_product', $product->id_product)->get();
 
@@ -120,7 +113,6 @@ class ProductController extends Controller
         return Inertia::render('ProductDetails', [
             'product' => $newProduct,
         ]);
->>>>>>> Stashed changes
     }
 
     /**
