@@ -1,6 +1,6 @@
 import { useUser } from "@/hooks/useUser"
 import { useEffect } from "react"
-import { ProductDetailCard } from "./ProductDetailCard"
+import ProductDetailCard  from "./ProductDetailCard";
 
 export function ProductDetailsContent({ product }) {
   const { users, getUserByIdOwner } = useUser()

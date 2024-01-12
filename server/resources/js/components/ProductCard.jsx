@@ -6,8 +6,7 @@ import { useForm } from '@inertiajs/react'
 
 export function ProductCard({ product }) {
   const { get } = useForm()
-  product.isEco ? product.image = IMAGE2 : product.image = IMAGE
-  
+  //product.isEco ? product.image = IMAGE2 : product.image = IMAGE
 
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`)
@@ -21,9 +20,8 @@ export function ProductCard({ product }) {
   return (
     <div className='' onClick={handleOnClick}>
       {
-        !product.isEco && (
+        product.isEco === 1 && (
           <span className='badge bg-success position-absolute top-0 rounded d-inline-flex align-middle'><FontAwesomeIcon icon={faLeaf} className='me-1' />ECO</span>
-
         )
       }
 
@@ -50,7 +48,7 @@ export function ProductCard({ product }) {
         </div>
         <div className='d-flex justify-content-between'>
           <p className='text-truncate mt-2'>{product.title || product.name}</p>
-          <form onSubmit={'addFavourite'}>
+          <form onSubmit={addFavourite}>
             <button type="submit" className='btn btn-link'>
               <FontAwesomeIcon className=' mt-3' icon={faHeart} />
             </button>

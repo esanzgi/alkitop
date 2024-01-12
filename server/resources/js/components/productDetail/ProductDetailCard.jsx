@@ -1,4 +1,4 @@
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faLocation, faLocationDot, faLeaf } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from 'react-slick'
 import { NextArrow, PrevArrow } from '../Icons'
@@ -45,8 +45,8 @@ export function ProductDetailCard({ product }) {
     ]
   }
   return (
-    <>
-      <div className='col-4 text-center rounded object-'>
+    <div className='row'>
+      <div className='col-4'>
 
         {/* <Slider {...settings}>
           {product.image.map((prodImg, index) => (
@@ -69,10 +69,11 @@ export function ProductDetailCard({ product }) {
           alt={product.product.name || product.product.title}
         />
 
-        <div>
+        <div className='d-flex justify-content-between align-items-center pe-2 ps-2 mt-2'>
           <span className='fs-4'>{product.product.name || product.product.title}</span>
+          <span className='badge bg-secondary px-3 fs-7'>{product.product.category}</span>
         </div>
-        <div>
+        <div className='ps-2'>
           <RatingStars
             value={avgRatingValue}
             size={24}
@@ -80,32 +81,40 @@ export function ProductDetailCard({ product }) {
             edit={false}
           />
         </div>
-
-        <div className='badge bg-secondary'>
-          <span className=''>ENEKO</span>
+        <div className='ps-2 mt-2'>
+          <FontAwesomeIcon className='text-success' icon={faLocationDot}/>
+          <span className='fs-6 fst-italic ms-2'>{product.product.location}</span>
         </div>
+
       </div>
 
-      <div className='mt-3 col-12'>
+
+      <div className=' col-8'>
         <div className='d-flex justify-content-between align-items-center'>
-          <div className='fw-semibold'>
-            <span className='fs-6 me-1'>
-              {product.product.price}€
-            </span>
-            día
-          </div>
-          <span>
-            <FontAwesomeIcon className='me-1' icon={faStar} />
-            {product.product.rate}
-          </span>
-        </div>
-        <p className='text-truncate mt-2'>{product.product.title || product.product.name}</p>
-      </div>
+          <span className='fs-4 me-1 fw-bold'>
+            {product.product.price}€ <span className='font-normal'>/ Eguna</span>
+          </span> 
 
-    </>
+          {
+            product.product.isEco === 1 && (
+              <span className='d-flex fst-italic'>
+                <FontAwesomeIcon className='me-2 fs-4 text-success' icon={faLeaf} />
+                ECO
+              </span>
+            )
+          }
+        </div>
+
+        <div className='mt-3'>
+          {product.product.description}
+        </div>
+        {/* <p className='text-truncate mt-2'>{product.product.title || product.product.name}</p> */}
+      </div>
+    </div>
   )
 }
 
+export default ProductDetailCard
 // <div className='mt-3'>
 //   <div className='d-flex justify-content-between align-items-center'>
 //     <div className='fw-semibold'>

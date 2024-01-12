@@ -21,7 +21,7 @@ const PRODUCT = {
   }
 }
 
-const ProductDetails = ({ product }) => {
+ function ProductDetails ({ product }) {
   return (
     < main className='' >
       <div className='fixed-top bg-white'>
@@ -41,6 +41,6 @@ const ProductDetails = ({ product }) => {
   )
 }
 
-export default ProductDetails;
+export default ProductDetails
 
 
