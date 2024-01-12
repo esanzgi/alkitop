@@ -1,4 +1,4 @@
-export function ProductOpinion({ ratings }) {
+export function ProductOpinions({ ratings }) {
   console.log('ratings', ratings)
 
 }

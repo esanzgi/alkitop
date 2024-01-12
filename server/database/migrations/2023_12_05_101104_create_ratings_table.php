@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id('id_rating');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_product');
+            $table->string('title');
             $table->text('review');
             $table->integer('rating');
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');

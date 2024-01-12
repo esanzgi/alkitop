@@ -111,3 +111,8 @@ body {
 .fa-heart {
   color: green;
 }
+
+.pointer-at {
+  cursor: pointer;
+
+}

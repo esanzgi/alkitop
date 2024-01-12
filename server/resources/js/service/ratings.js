@@ -1,9 +1,11 @@
+import { APP_URL } from "@/assets/utils/constants"
+
 export const getAvgRatingByProductService = async ({ idProduct }) => {
   if (!idProduct) return null
   console.log('Service idproduct', idProduct)
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/ratings/avg/${idProduct}`)
+    const response = await fetch(`${APP_URL}/api/ratings/avg/${idProduct}`)
     const avg = await response.json()
     console.log('API Response:', avg); // Log the API response
     return {

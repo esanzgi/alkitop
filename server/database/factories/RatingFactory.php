@@ -19,8 +19,11 @@ class RatingFactory extends Factory
      */
     public function definition(): array
     {
+        $titleLength = $this->faker->numberBetween(10, 50);
+
         return [
             'review' => $this->faker->paragraph,
+            'title' => $this->faker->text($titleLength),
             'rating' => $this->faker->numberBetween(1, 5),
             'id_user' => \App\Models\User::all()->random()->id_user,
             'id_product' => \App\Models\Product::all()->random()->id_product,

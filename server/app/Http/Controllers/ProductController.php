@@ -48,8 +48,9 @@ class ProductController extends Controller
         //return Inertia::render("home");
     }
 
-    public function getProductBySearch($search)
-    {
+    public function getProductBySearch(Request $request)
+    {   $search = $request->search;
+        $perPage = $request->input('perPage', 10); 
         $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
             ->select(
                 'products.id_product',
@@ -65,7 +66,7 @@ class ProductController extends Controller
             )
             ->where('products.name', 'LIKE', "%$search%")
             ->groupBy('products.id_product', 'products.name', 'products.description', 'products.image', 'products.id_owner', 'products.isEco', 'products.price', 'products.location', 'products.category')
-            ->get();
+            ->paginate($perPage);
 
         return response()->json($products);
     }

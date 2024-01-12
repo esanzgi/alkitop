@@ -69,7 +69,7 @@ class HomeController extends Controller
         $search = $request->input('search');
 
         return Inertia::render('ProductsPage', [
-            'search' => $search,
+            'search' => $search
         ]);
     }
 

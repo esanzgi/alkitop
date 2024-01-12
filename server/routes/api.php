@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/products/{search}', [ProductController::class, 'getProductBySearch']);
+Route::get('/products', [ProductController::class, 'getProductBySearch']);
 
 // User
 Route::get('/users/{idOwner}', [RestUserController::class, 'getUserByIdOwner']);

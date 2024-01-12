@@ -21,7 +21,7 @@ class OwnerFactory extends Factory
         return [
             'phone_number' => $this->faker->phoneNumber,
             'dni' => $this->faker->unique()->randomNumber(8),
-            'id_user' => \App\Models\User::all()->random()->id_user,
+            'id_user' => \App\Models\User::all()->unique()->random()->id_user,
         ];
     }
 }

@@ -37,3 +37,12 @@ export const PrevArrow = ({ className, style, onClick }) => {
     </div>
   );
 };
+
+export const UserProfileCircle = ({ imageUrl, width, height }) => {
+  return (
+    <div className="d-flex align-items-center justify-content-center rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
+      <img src={imageUrl} alt="Imagen de perfil" className="w-100 h-100 object-fit-cover rounded-circle" />
+    </div>
+  );
+};
+

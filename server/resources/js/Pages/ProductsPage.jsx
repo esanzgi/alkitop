@@ -10,9 +10,8 @@ import { Loading } from '@/components/Loading'
 import { FiltrarBtn } from '@/components/Icons'
 
 
-function ProductsPage({ search }) {
-
-    const { products, getProducts, loading } = useProducts({ search })
+function ProductsPage({ search, page}) {
+    const { products, getProducts, loading,setPage } = useProducts({ searchProd: search })
     const [showFiltersModal, setShowFiltersModal] = useState(false);
 
     useEffect(() => {
@@ -28,6 +27,10 @@ function ProductsPage({ search }) {
         setShowFiltersModal(false);
     };
 
+    const handleLoadMore = () => {
+        setPage((prevPage) => prevPage + 1);
+    };
+
     return (
         <main className=''>
             <div className='fixed-top bg-white'>
@@ -40,11 +43,21 @@ function ProductsPage({ search }) {
                     <FiltrarBtn handleOpenModal={handleOpenFiltersModal} />
                 </div>
 
-                {loading ? <Loading /> : (
+                {/* {loading ? <Loading /> : (
                     <div>
                         <Products products={products} />
                     </div>
+                )} */}
+                
+                {loading ? <Loading /> : (
+                    <div>
+                    <Products products={products} />
+                    <button onClick={handleLoadMore} disabled={loading}>
+                        Cargar más
+                    </button>
+                    </div>
                 )}
+
             </div>
 
             <FiltroProductos show={showFiltersModal} handleClose={handleCloseFiltersModal} />

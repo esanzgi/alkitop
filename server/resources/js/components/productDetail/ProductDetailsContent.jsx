@@ -1,10 +1,26 @@
 import { useUser } from "@/hooks/useUser"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import ProductDetailCard from "./ProductDetailCard";
-import { ProductOpinion } from "./ProductOpinion";
+import { ProductOpinions } from "./ProductOpinions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faArrowRightLong, faStar } from "@fortawesome/free-solid-svg-icons";
+import { UserProfileCircle } from "../Icons";
+import { intlFormatDistance, parseISO } from "date-fns";
 
 export function ProductDetailsContent({ product }) {
   const { users, getUserByIdOwner } = useUser()
+  const [formatedData, setFormatedData] = useState()
+
+  useEffect(() => {
+    if (users.createdAt) {
+      const data = intlFormatDistance(parseISO(users.createdAt), new Date())
+      setFormatedData(data)
+    }
+  }, [users])
+  
+  const avgRatingValue = product.avgRating.length > 0
+  ? product.avgRating[0].avg_rating.replace('.', ',')
+  : '0';
 
   useEffect(() => {
     getUserByIdOwner({ idOwner: product.product.id_owner })
@@ -12,9 +28,12 @@ export function ProductDetailsContent({ product }) {
 
   return (
     <div className="mt-5">
-      <div className="border-bottom d-flex justify-content-between align-items-center">
-        <h2 className="h2">{product.product.name}</h2>
-        <span className="fs-5">{users.name}</span>
+      <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
+        <h2 className="h2 fw-bold">{product.product.name}</h2>
+        <div className="d-flex align-items-center">
+          <span className="fs-5 me-2">{users.name}</span>
+          <UserProfileCircle width={55} height={55} imageUrl={'https://via.placeholder.com/640x480.png/0011dd?text=pariatur'}/>
+        </div>
       </div>
 
       <div className="mt-4">
@@ -22,12 +41,19 @@ export function ProductDetailsContent({ product }) {
       </div>
 
       <div className='row mt-5'>
-        <div className='d-flex align-items-center border-bottom'>
-          <span className='h2'>Iritziak</span>
+        <div className='d-flex align-items-center justify-content-between border-bottom'>
+          <span className='h2 fw-bold'>Iritziak</span>
+          <div className="fs-3 fw-bold fst-italic text-align">
+            <FontAwesomeIcon className="text-warning" icon={faStar}/>
+            <span className="ms-2 ">{avgRatingValue}</span>
+            <FontAwesomeIcon className="ms-3" icon={faArrowRightLong} />
+            <span className="ms-3 ">{product.rating.length} balorazio</span>
+          </div>
+
         </div>
 
         <div className="col-12">
-          <ProductOpinion ratings={product.rating} />
+          <ProductOpinions ratings={product.rating} />
         </div>
       </div>
     </div>

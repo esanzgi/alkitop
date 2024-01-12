@@ -1,11 +1,12 @@
 import { useCallback, useRef, useState } from 'react'
 import { searchProducts } from '../service/products.js'
 
-export function useProducts({ search = '', sort }) {
+export function useProducts({ searchProd = '', sort }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1);
   const [, setError] = useState(null)
-  const previousSearch = useRef(search)
+  const previousSearch = useRef(searchProd)
   const [filter, setFilter] = useState({
     minPrice: '',
     maxPrice: '',
@@ -14,6 +15,9 @@ export function useProducts({ search = '', sort }) {
     isEco: ''
   })
 
+  console.log('page')
+  console.log('products', products)
+
   const getProducts = useCallback(async ({ search }) => {
     //if (search === previousSearch.current) return
 
@@ -21,15 +25,17 @@ export function useProducts({ search = '', sort }) {
       setLoading(true)
       setError(null)
       previousSearch.current = search
-      const newProducts = await searchProducts({ search })
-      setProducts(newProducts)
+      const newProducts = await searchProducts({ search, page })
+      setProducts((prevProducts) => [...prevProducts, ...newProducts])
+
     } catch (e) {
       setError(e.message)
     } finally {
       // tanto en el try como en el catch
+      console.log('Page Products', products)
       setLoading(false)
     }
-  }, [])
+  }, [searchProd])
 
 
   // const filterProducts = useCallback(() => {
@@ -47,5 +53,5 @@ export function useProducts({ search = '', sort }) {
   //     : products
   // }, [sort, products])
   // return { products: sortedProducts, getProducts, loading }
-  return { products, getProducts, loading }
+  return { products, getProducts, loading, page, setPage }
 }
