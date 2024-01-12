@@ -6,24 +6,10 @@ use App\Models\Product;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -84,18 +70,7 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function goDetails(Product $product)
     {
         $newProduct = [];
         $ratings = Rating::where('id_product', $product->id_product)->get();
@@ -115,19 +90,4 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
