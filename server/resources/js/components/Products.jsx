@@ -1,6 +1,7 @@
 import { ProductCard } from './ProductCard'
 
 import PRODUCT_NOT_FOUND from '../assets/images/product_not_found.png'
+import { useForm } from '@inertiajs/react'
 
 export function Products({ products }) {
   const hasProducts = products?.length > 0

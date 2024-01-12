@@ -1,6 +1,7 @@
 import { useUser } from "@/hooks/useUser"
 import { useEffect } from "react"
-import ProductDetailCard  from "./ProductDetailCard";
+import ProductDetailCard from "./ProductDetailCard";
+import { ProductOpinion } from "./ProductOpinion";
 
 export function ProductDetailsContent({ product }) {
   const { users, getUserByIdOwner } = useUser()
@@ -18,6 +19,16 @@ export function ProductDetailsContent({ product }) {
 
       <div className="mt-4">
         <ProductDetailCard product={product} />
+      </div>
+
+      <div className='row mt-5'>
+        <div className='d-flex align-items-center border-bottom'>
+          <span className='h2'>Iritziak</span>
+        </div>
+
+        <div className="col-12">
+          <ProductOpinion ratings={product.rating} />
+        </div>
       </div>
     </div>
   )

@@ -82,7 +82,7 @@ export function ProductDetailCard({ product }) {
           />
         </div>
         <div className='ps-2 mt-2'>
-          <FontAwesomeIcon className='text-success' icon={faLocationDot}/>
+          <FontAwesomeIcon className='text-success' icon={faLocationDot} />
           <span className='fs-6 fst-italic ms-2'>{product.product.location}</span>
         </div>
 
@@ -93,19 +93,19 @@ export function ProductDetailCard({ product }) {
         <div className='d-flex justify-content-between align-items-center'>
           <span className='fs-4 me-1 fw-bold'>
             {product.product.price}€ <span className='font-normal'>/ Eguna</span>
-          </span> 
+          </span>
 
           {
             product.product.isEco === 1 && (
               <span className='d-flex fst-italic'>
                 <FontAwesomeIcon className='me-2 fs-4 text-success' icon={faLeaf} />
-                ECO
+                ECO Produktua
               </span>
             )
           }
         </div>
 
-        <div className='mt-3'>
+        <div className='mt-4'>
           {product.product.description}
         </div>
         {/* <p className='text-truncate mt-2'>{product.product.title || product.product.name}</p> */}
