@@ -36,7 +36,7 @@ const NoProductsResults = () => {
           <h3>No se encontraron productos para esta búsqueda</h3>
 
           <img
-            src={PRODUCT_NOT_FOUND} // Reemplaza esto con una imagen apropiada
+            src={PRODUCT_NOT_FOUND} 
             alt="product-not-found"
             className="img-fluid "
           />

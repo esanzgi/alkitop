@@ -20,7 +20,7 @@ const ListOfOpinions = ({ ratings }) => {
 
 const NoOpinionsMessage = () => (
   <div className="text-center mt-3">
-    <p className="fw-bold fs-5">No hay opiniones disponibles</p>
-    <p className="text-muted">Sé el primero en dejar tu opinión.</p>
+    <p className="fw-bold fs-5">Ez dago iritzirik eskuragarri</p>
+    <p className="text-muted">Izan zaitez lehena zure iritzia uzten.</p>
   </div>
 );

@@ -1,4 +1,4 @@
-import { faStar, faLocation, faLocationDot, faLeaf } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faLocation, faLocationDot, faLeaf, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from 'react-slick'
 import { AlkitopTooltip, NextArrow, PrevArrow } from '../Icons'
@@ -85,46 +85,42 @@ export function ProductDetailCard({ product }) {
       </div>
 
 
-      <div className=' col-8'>
-        <div className='d-flex justify-content-between align-items-center'>
-          <span className='fs-4 me-1 fw-bold'>
-            {product.product.price}€ <span className='font-normal'>/ Eguna</span>
-          </span>
+      <div className='col-8 d-flex flex-column justify-content-between'>
+        <div className='d-flex justify-content-between flex-column '>
+          <div className='d-flex justify-content-between align-items-center'>
+            <span className='fs-4 me-1 fw-bold'>
+              {product.product.price}€ <span className='font-normal'>/ Eguna</span>
+            </span>
 
-          {
-            product.product.isEco === 1 && (
-              <span className='d-flex fst-italic'>
-                <FontAwesomeIcon className='me-2 fs-4 text-success' icon={faLeaf} />
-                ECO Produktua
-              </span>
-            )
-          }
+            {
+              product.product.isEco === 1 && (
+                <span className='d-flex fst-italic'>
+                  <FontAwesomeIcon className='me-2 fs-4 text-success' icon={faLeaf} />
+                  ECO Produktua
+                </span>
+              )
+            }
+          </div>
+          
+          <div className='mt-4'>
+            <p className='fs-5'>{product.product.description}</p>
+            
+          </div>
         </div>
 
-        <div className='mt-4'>
-          {product.product.description}
+        
+
+        <div className="mt-3 mb-5 d-flex justify-content-end me-5 pb-5 align-items-center">
+          <button className="btn btn-success me-3 px-5 fs-5 ">Alokatu</button>
+          <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment}/></button>
+          <span className='pointer-at'><FontAwesomeIcon className='fs-2' icon={faBookmark}/></span>
+           
         </div>
-        {/* <p className='text-truncate mt-2'>{product.product.title || product.product.name}</p> */}
       </div>
     </div>
   )
 }
 
 export default ProductDetailCard
-// <div className='mt-3'>
-//   <div className='d-flex justify-content-between align-items-center'>
-//     <div className='fw-semibold'>
-//       <span className='fs-6 me-1'>
-//         {product.price}€
-//       </span>
-//       día
-//     </div>
-//     <span>
-//       <FontAwesomeIcon className='me-1' icon={faStar} />
-//       {product.rating.rate}
-//     </span>
-//   </div>
-//   <p className='text-truncate mt-2'>{product.title}</p>
-// </div>
 
 

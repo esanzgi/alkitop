@@ -12,6 +12,8 @@ export function ProductDetailsContent({ product }) {
   const { users, getUserByIdOwner } = useUser()
   const [formatedData, setFormatedData] = useState()
 
+  console.log('RATING', product)
+
   useEffect(() => {
     if (users.createdAt) {
       const data = intlFormatDistance(parseISO(users.createdAt), new Date())
@@ -52,7 +54,7 @@ export function ProductDetailsContent({ product }) {
           </div>
         </div>
 
-        <div className="d-flex justify-content-center mt-5 mb-4 ">
+        <div className="d-flex justify-content-center mt-5 mb-4">
           <OpinionInput />
         </div>
         <div className="col-12">

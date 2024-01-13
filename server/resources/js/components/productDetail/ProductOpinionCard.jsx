@@ -1,16 +1,21 @@
 import { useUser } from "@/hooks/useUser";
 import { UserProfileCircle } from "../Icons";
 import RatingStars from 'react-rating-stars-component';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format } from 'date-fns';
+import { getUserDetailsByIdUserService } from "@/service/users";
 
 export const ProductOpinionCard = ({rating}) => {
+  const {userDetails, getUserDetailsByIdUser} = useUser()
   const [showFullText, setShowFullText] = useState(rating.review.length <= 200);
   const [readMoreText, setReadMoreText] = useState("Gehiago irakurri");
 
+
+  useEffect(() => {
+    getUserDetailsByIdUser({idUser: rating.id_user})
+  }, [rating])
+
   const formattedDate = format(new Date(rating.created_at), 'yyyy/MM/dd', { awareOfUnicodeTokens: true });
- console.log('No formatted data', rating.created_at)
-console.log('data',formattedDate);
 
   const toggleText = () => {
     setShowFullText(!showFullText);
@@ -21,10 +26,10 @@ console.log('data',formattedDate);
     <div className="row bg-light p-4 rounded-5">
       <div className="col-lg-3 col-12 mb-3 mb-md-0">
         <div className="d-flex align-items-center">
-          <UserProfileCircle imageUrl='https://via.placeholder.com/640x480.png/0011dd?text=USER' width={65} height={65}/>
+          <UserProfileCircle imageUrl={userDetails.profileImage} width={65} height={65}/>
           <div className="ms-3 d-flex flex-column">
-            <span className="mb-1">Eneko Sanz</span>
-            <em>Oiartzun, Gipuzkoa</em>
+            <span className="mb-1 fs-5">{userDetails.name}</span>
+            <em>{userDetails.city}, {userDetails.country}</em>
           </div>
         </div>
         

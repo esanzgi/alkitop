@@ -26,6 +26,7 @@ Route::get('/products', [ProductController::class, 'getProductBySearch']);
 
 // User
 Route::get('/users/{idOwner}', [RestUserController::class, 'getUserByIdOwner']);
+Route::get('/users/details/{id}', [RestUserController::class, 'getUserDetailsByIdUser']);
 
 //Rating
 Route::get('/ratings/avg/{idProduct}', [RestRatingController::class, 'getAvgRatingByIdProduct']);
