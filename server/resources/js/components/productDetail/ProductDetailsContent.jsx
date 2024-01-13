@@ -3,9 +3,10 @@ import { useEffect, useState } from "react"
 import ProductDetailCard from "./ProductDetailCard";
 import { ProductOpinions } from "./ProductOpinions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faArrowRightLong, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faStar } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
+import { OpinionInput } from "./OpinionInput";
 
 export function ProductDetailsContent({ product }) {
   const { users, getUserByIdOwner } = useUser()
@@ -46,15 +47,18 @@ export function ProductDetailsContent({ product }) {
           <div className="fs-3 fw-bold fst-italic text-align">
             <FontAwesomeIcon className="text-warning" icon={faStar}/>
             <span className="ms-2 ">{avgRatingValue}</span>
-            <FontAwesomeIcon className="ms-3" icon={faArrowRightLong} />
+            <FontAwesomeIcon className="ms-3" icon={faMinus} />
             <span className="ms-3 ">{product.rating.length} balorazio</span>
           </div>
-
         </div>
 
+        <div className="d-flex justify-content-center mt-5 mb-4 ">
+          <OpinionInput />
+        </div>
         <div className="col-12">
           <ProductOpinions ratings={product.rating} />
         </div>
+
       </div>
     </div>
   )

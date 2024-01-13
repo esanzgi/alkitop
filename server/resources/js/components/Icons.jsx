@@ -42,7 +42,7 @@ export const PrevArrow = ({ className, style, onClick }) => {
 
 export const UserProfileCircle = ({ imageUrl, width, height }) => {
   if(!imageUrl) {
-    
+    imageUrl = 'https://via.placeholder.com/640x480.png/0011dd?text=pariatur'
   }
   const tooltipText = 'Perfila ikusi';
 

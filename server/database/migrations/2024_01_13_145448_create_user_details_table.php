@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('users', 'id_user');
+            $table->unsignedBigInteger('id_user')->unique(); 
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
+            $table->string('name')->nullable();
             $table->string('country')->nullable();
             $table->string('province')->nullable();
             $table->string('city')->nullable();

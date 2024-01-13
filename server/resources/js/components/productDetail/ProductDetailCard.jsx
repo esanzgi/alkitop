@@ -9,8 +9,6 @@ import RatingStars from 'react-rating-stars-component';
 export function ProductDetailCard({ product }) {
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
-  console.log(product)
-
   const settings = {
     dots: true,
     infinite: true,

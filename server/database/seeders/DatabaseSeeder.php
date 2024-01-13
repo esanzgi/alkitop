@@ -51,10 +51,10 @@ class DatabaseSeeder extends Seeder
             'id_role' => \App\Models\Role::all()->random()->id_role,
             'password' => 'eneko',
         ]);
-        User::factory()->count(10)->create();
+        UserDetail::factory()->count(10)->create();
+        //User::factory()->count(10)->create();
         Owner::factory()->count(5)->create();
         Product::factory()->count(100)->create();
         Rating::factory()->count(300)->create();
-        UserDetail::factory()->count(10)->create();
     }
 }

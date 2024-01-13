@@ -2,7 +2,6 @@ import { ProductOpinionCard } from "./ProductOpinionCard"
 
 export function ProductOpinions({ ratings }) {
   const hasRatings = ratings.length > 0 ? true : false
-  console.log('ratings', hasRatings)
   return hasRatings ? <ListOfOpinions ratings={ratings} /> : <NoOpinionsMessage />;
 }
 

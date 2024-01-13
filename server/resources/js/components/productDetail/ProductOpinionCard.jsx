@@ -56,7 +56,7 @@ console.log('data',formattedDate);
           </>
           
         ) : (
-          <p className="fs-5 mt-3">{`${rating.review.slice(0, 280)}... `}
+          <p className="fs-5 mt-3">{`${rating.review.slice(0, 200)}... `}
             <span
               className="text-dark fw-bold nav-icons fst-italic"
               style={{ cursor: 'pointer' }}
