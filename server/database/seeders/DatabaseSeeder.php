@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Rating;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserDetail;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -54,5 +55,6 @@ class DatabaseSeeder extends Seeder
         Owner::factory()->count(5)->create();
         Product::factory()->count(100)->create();
         Rating::factory()->count(300)->create();
+        UserDetail::factory()->count(10)->create();
     }
 }

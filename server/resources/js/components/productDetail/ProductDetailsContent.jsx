@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import ProductDetailCard from "./ProductDetailCard";
 import { ProductOpinions } from "./ProductOpinions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowRightLong, faStar } from "@fortawesome/free-solid-svg-icons";
+import {  faArrowRightLong, faStar } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
 
@@ -41,7 +41,7 @@ export function ProductDetailsContent({ product }) {
       </div>
 
       <div className='row mt-5'>
-        <div className='d-flex align-items-center justify-content-between border-bottom'>
+        <div className='d-flex align-items-center justify-content-between border-bottom pb-2'>
           <span className='h2 fw-bold'>Iritziak</span>
           <div className="fs-3 fw-bold fst-italic text-align">
             <FontAwesomeIcon className="text-warning" icon={faStar}/>

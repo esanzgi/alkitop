@@ -1,5 +1,7 @@
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 
 
@@ -39,10 +41,45 @@ export const PrevArrow = ({ className, style, onClick }) => {
 };
 
 export const UserProfileCircle = ({ imageUrl, width, height }) => {
+  if(!imageUrl) {
+    
+  }
+  const tooltipText = 'Perfila ikusi';
+
   return (
-    <div className="d-flex align-items-center justify-content-center rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
-      <img src={imageUrl} alt="Imagen de perfil" className="w-100 h-100 object-fit-cover rounded-circle" />
-    </div>
+    <AlkitopTooltip text={tooltipText} placement="bottom" bgColor="bg-success">
+      <div className="d-flex align-items-center justify-content-center rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
+        <img src={imageUrl} alt="Imagen de perfil" className="w-100 h-100 object-fit-cover rounded-circle" />
+      </div>
+    </AlkitopTooltip>
   );
+};
+
+
+
+export const AlkitopTooltip = ({ text, placement, delay, bgColor, children }) => {
+  const tooltip = (
+    <Tooltip id={`tooltip-${placement}`} style={{ backgroundColor: bgColor }}>
+      {text}
+    </Tooltip>
+  );
+
+  return (
+    <OverlayTrigger
+      key={placement}
+      placement={placement}
+      overlay={tooltip}
+      delay={delay}
+    >
+      {children}
+    </OverlayTrigger>
+  );
+};
+
+AlkitopTooltip.defaultProps = {
+  text: 'Default Tooltip Text',
+  placement: 'bottom',
+  delay: { show: 600, hide: 100 },
+  bgColor: 'dark',
 };
 

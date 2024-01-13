@@ -1,7 +1,7 @@
 import { faStar, faLocation, faLocationDot, faLeaf } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from 'react-slick'
-import { NextArrow, PrevArrow } from '../Icons'
+import { AlkitopTooltip, NextArrow, PrevArrow } from '../Icons'
 import RatingStars from 'react-rating-stars-component';
 
 
@@ -10,10 +10,6 @@ export function ProductDetailCard({ product }) {
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
   console.log(product)
-
-  const ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
 
   const settings = {
     dots: true,
@@ -62,12 +58,14 @@ export function ProductDetailCard({ product }) {
             </div>
           ))}
         </Slider> */}
-
-        <img
-          className='img-fluid rounded-4 object-fit-cover product'
-          src={product.product.image || product.product.images}
-          alt={product.product.name || product.product.title}
-        />
+        <AlkitopTooltip text='Handitu'>
+          <img
+            className='img-fluid rounded-4 object-fit-cover product'
+            src={product.product.image || product.product.images}
+            alt={product.product.name || product.product.title}
+          />
+        </AlkitopTooltip>
+        
 
         <div className='d-flex justify-content-between align-items-center pe-2 ps-2 mt-2'>
           <span className='fs-4'>{product.product.name || product.product.title}</span>

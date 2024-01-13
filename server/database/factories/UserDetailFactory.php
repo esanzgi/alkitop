@@ -1,0 +1,34 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\UserDetail; 
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserDetail>
+ */
+class UserDetailFactory extends Factory
+{
+    protected $model = UserDetail::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'id_user' => \App\Models\User::factory(),
+            'country' => $this->faker->country,
+            'province' => $this->faker->state,
+            'city' => $this->faker->city,
+            'profile_image' => $this->faker->imageUrl(),
+            'birthdate' => $this->faker->date,
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'bio' => $this->faker->paragraph,
+            'phone_number' => $this->faker->phoneNumber,
+        ];
+    }
+}
