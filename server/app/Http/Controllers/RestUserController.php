@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Owner;
 use App\Models\UserDetail;
 
 class RestUserController extends Controller
 {
     public function getUserByIdOwner($idOwner)
     {
-
-        return response()->json(User::find($idOwner));
+        $owner = Owner::find($idOwner);
+        $userDetails = UserDetail::where('id_user', $owner->id_user)->first();
+        return response()->json($userDetails);
     }
 
     public function addUser(Request $request)

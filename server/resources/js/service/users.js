@@ -1,6 +1,6 @@
 import { APP_URL } from "@/assets/utils/constants";
 
-export const getUserByIdOwnerService = async ({ idOwner }) => {
+export const getUserDetailsByIdOwnerService = async ({ idOwner }) => {
   if (!idOwner) return null
   //127.0.0.1
   //
@@ -8,10 +8,19 @@ export const getUserByIdOwnerService = async ({ idOwner }) => {
     const response = await fetch(`${APP_URL}/api/users/${idOwner}`)
     const user = await response.json()
     return {
-      id: user.id_user,
+      idUser: user.id_user,
       name: user.name,
       email: user.email,
-      createdAt: user.created_at
+      createdAt: user.created_at,
+      birthdate: user.birthdate,
+      country: user.country,
+      city: user.city,
+      gender: user.gender,
+      idDetail: user.id,
+      province: user.province,
+      profileImage: user.profile_image,
+      bio: user.bio,
+      phoneNumber: user.phone_number,
     };
   } catch (error) {
     throw new Error('Error searching user with idOwner:  ' + idOwner)

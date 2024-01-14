@@ -1,4 +1,4 @@
-import { getUserByIdOwnerService, getUserDetailsByIdUserService } from "@/service/users"
+import { getUserDetailsByIdOwnerService, getUserDetailsByIdUserService } from "@/service/users"
 import { useCallback } from "react"
 import { useState } from "react"
 
@@ -10,7 +10,7 @@ export function useUser() {
 
     try {
 
-      const newUsers = await getUserByIdOwnerService({ idOwner })
+      const newUsers = await getUserDetailsByIdOwnerService({ idOwner })
       setUsers(newUsers)
     } catch (e) {
       console.error('Error al obtener el usuario:');

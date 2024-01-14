@@ -1,5 +1,7 @@
+import { DEFAULT_USER_PROFILE } from '@/assets/utils/constants';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from '@inertiajs/react';
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
@@ -40,17 +42,22 @@ export const PrevArrow = ({ className, style, onClick }) => {
   );
 };
 
-export const UserProfileCircle = ({ imageUrl, width, height }) => {
-  if(!imageUrl) {
-    imageUrl = 'https://via.placeholder.com/640x480.png/0011dd?text=pariatur'
-  }
+export const UserProfileCircle = ({ user, width, height }) => {
+  if(!user) return
+  console.log('userdetails', user)
+  
   const tooltipText = 'Perfila ikusi';
 
   return (
     <AlkitopTooltip text={tooltipText} placement="bottom" bgColor="bg-success">
-      <div className="d-flex align-items-center justify-content-center rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
-        <img src={imageUrl} alt="Imagen de perfil" className="w-100 h-100 object-fit-cover rounded-circle" />
-      </div>
+      <Link href={`/users/profile/${user.idUser}`}>
+        <div className="d-flex align-items-center justify-content-center rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
+          <img 
+            src={user.profileImage ?? DEFAULT_USER_PROFILE} 
+            alt="Imagen de perfil" 
+            className="w-100 h-100 object-fit-cover rounded-circle" />
+        </div>
+      </Link>
     </AlkitopTooltip>
   );
 };

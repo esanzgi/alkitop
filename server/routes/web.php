@@ -33,6 +33,8 @@ Route::get('/products/search', [HomeController::class, 'search']);
 //     ]);
 // });
 
+Route::get('/users/profile/{idUser}', [ProfileController::class, 'userPublicProfile']);
+
 Route::get('/produktu-gehitu', function () {
     $erabiltzailea = auth()->user();
     $owner = null;

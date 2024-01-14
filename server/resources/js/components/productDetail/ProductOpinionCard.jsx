@@ -26,7 +26,7 @@ export const ProductOpinionCard = ({rating}) => {
     <div className="row bg-light p-4 rounded-5">
       <div className="col-lg-3 col-12 mb-3 mb-md-0">
         <div className="d-flex align-items-center">
-          <UserProfileCircle imageUrl={userDetails.profileImage} width={65} height={65}/>
+          <UserProfileCircle user={userDetails} width={65} height={65}/>
           <div className="ms-3 d-flex flex-column">
             <span className="mb-1 fs-5">{userDetails.name}</span>
             <em>{userDetails.city}, {userDetails.country}</em>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\UserDetail;
 
 class ProfileController extends Controller
 {
@@ -87,5 +88,13 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function userPublicProfile($idUser)
+    {
+        $user = UserDetail::find($idUser);
+        return Inertia::render('UserPublicProfile', [
+            'user' => $user
+        ]);
     }
 }

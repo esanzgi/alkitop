@@ -8,6 +8,7 @@ import { HomeContent } from '../components/HomeContent'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
 
 function Home({ products,user }) {
+  console.log('USER', user)
   return (
     <main className=''>
       <div className='fixed-top bg-white'>

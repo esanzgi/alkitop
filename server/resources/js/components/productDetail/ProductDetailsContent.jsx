@@ -12,7 +12,7 @@ export function ProductDetailsContent({ product }) {
   const { users, getUserByIdOwner } = useUser()
   const [formatedData, setFormatedData] = useState()
 
-  console.log('RATING', product)
+  console.log('RATING', users)
 
   useEffect(() => {
     if (users.createdAt) {
@@ -29,13 +29,14 @@ export function ProductDetailsContent({ product }) {
     getUserByIdOwner({ idOwner: product.product.id_owner })
   }, [getUserByIdOwner])
 
+  console.log('user api', users)
   return (
     <div className="mt-5">
       <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
         <h2 className="h2 fw-bold">{product.product.name}</h2>
         <div className="d-flex align-items-center">
           <span className="fs-5 me-2">{users.name}</span>
-          <UserProfileCircle width={55} height={55} imageUrl={'https://via.placeholder.com/640x480.png/0011dd?text=pariatur'}/>
+          <UserProfileCircle width={55} height={55} user={users}/>
         </div>
       </div>
 
