@@ -92,7 +92,7 @@ class ProfileController extends Controller
 
     public function userPublicProfile($idUser)
     {
-        $user = UserDetail::find($idUser);
+        $user = UserDetail::where('id_user', $idUser)->first();
         return Inertia::render('UserPublicProfile', [
             'user' => $user
         ]);

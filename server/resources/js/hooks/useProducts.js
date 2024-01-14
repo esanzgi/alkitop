@@ -27,7 +27,6 @@ export function useProducts({ searchProd = '', sort }) {
       previousSearch.current = search
       const newProducts = await searchProducts({ search, page })
       setProducts((prevProducts) => [...prevProducts, ...newProducts])
-
     } catch (e) {
       setError(e.message)
     } finally {
@@ -35,7 +34,7 @@ export function useProducts({ searchProd = '', sort }) {
       console.log('Page Products', products)
       setLoading(false)
     }
-  }, [searchProd])
+  }, [])
 
 
   // const filterProducts = useCallback(() => {

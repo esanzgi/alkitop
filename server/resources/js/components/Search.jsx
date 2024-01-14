@@ -9,6 +9,7 @@ export function Search() {
 
   const handleOnSubmit = (event) => {
     event.preventDefault()
+    if(!search) return
     get(`/products/search?search=${search}`)
   }
 

@@ -5,8 +5,8 @@ import IMAGE2 from '../assets/images/moto2.jpg'
 import { useForm } from '@inertiajs/react'
 
 export function ProductCard({ product, user }) {
-  console.log(user && user.id_user);
-  console.log('Product image',product)
+  // console.log(user && user.id_user);
+  // console.log('Product image',product)
   const { get, post } = useForm()
   //product.isEco ? product.image = IMAGE2 : product.image = IMAGE
 

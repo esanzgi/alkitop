@@ -42,29 +42,41 @@ export const PrevArrow = ({ className, style, onClick }) => {
   );
 };
 
-export const UserProfileCircle = ({ user, width, height }) => {
-  if(!user) return
-  console.log('userdetails', user)
-  
+export const UserProfileCircle = ({ user, width, height, enableTooltip = true , enableLink = true }) => {
+  if (!user) return null;
+
   const tooltipText = 'Perfila ikusi';
 
+  const renderContent = () => (
+    <div className="d-flex align-items-center justify-content-center border-success rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
+      <img 
+        src={(user.profileImage || user.profile_image) ?? DEFAULT_USER_PROFILE} 
+        alt="Imagen de perfil" 
+        className="w-100 h-100 object-fit-cover rounded-circle" />
+    </div>
+  );
+
   return (
-    <AlkitopTooltip text={tooltipText} placement="bottom" bgColor="bg-success">
-      <Link href={`/users/profile/${user.idUser}`}>
-        <div className="d-flex align-items-center justify-content-center rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
-          <img 
-            src={user.profileImage ?? DEFAULT_USER_PROFILE} 
-            alt="Imagen de perfil" 
-            className="w-100 h-100 object-fit-cover rounded-circle" />
-        </div>
-      </Link>
-    </AlkitopTooltip>
+    <>
+      {enableTooltip ? (
+        <AlkitopTooltip text={tooltipText} placement="bottom" bgColor="bg-success">
+          {enableLink ? (
+            <Link href={`/users/profile/${user.idUser}`}>
+              {renderContent()}
+            </Link>
+          ) : (
+            renderContent()
+          )}
+        </AlkitopTooltip>
+      ) : (
+        renderContent()
+      )}
+    </>
   );
 };
 
-
-
 export const AlkitopTooltip = ({ text, placement, delay, bgColor, children }) => {
+
   const tooltip = (
     <Tooltip id={`tooltip-${placement}`} style={{ backgroundColor: bgColor }}>
       {text}
@@ -87,6 +99,6 @@ AlkitopTooltip.defaultProps = {
   text: 'Default Tooltip Text',
   placement: 'bottom',
   delay: { show: 600, hide: 100 },
-  bgColor: 'dark',
+  bgColor: 'dark'
 };
 

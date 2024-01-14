@@ -15,6 +15,7 @@ export const searchProducts = async ({ search, page }) => {
   try {
     const response = await fetch(`${APP_URL}/api/products/?search=${search}&page=${page}`)
     const products = await response.json()
+    console.log('API PRODUCTS P', products)
     return products?.map(product => ({
       id: product.id_product,
       title: product.name,

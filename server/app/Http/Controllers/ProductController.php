@@ -50,7 +50,7 @@ class ProductController extends Controller
 
     public function getProductBySearch(Request $request)
     {   $search = $request->search;
-        $perPage = $request->input('perPage', 10); 
+        $perPage = $request->input('perPage', 20); 
         $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
             ->select(
                 'products.id_product',
