@@ -1,68 +1,48 @@
 import { faStar, faLocation, faLocationDot, faLeaf, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Slider from 'react-slick'
 import { AlkitopTooltip, NextArrow, PrevArrow } from '../Icons'
 import RatingStars from 'react-rating-stars-component';
+import { useState } from 'react';
+import ImagesModal from './ImagesModal';
 
 
 
 export function ProductDetailCard({ product }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1
-        }
-      }
-    ]
-  }
-  return (
-    <div className='row'>
-      <div className='col-4'>
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-        {/* <Slider {...settings}>
-          {product.image.map((prodImg, index) => (
-            <div key={index} className='d-flex justify-content-center'>
-              <div className='col-5 product'>
-                <img
-                  src={product.image}
-                  alt={product.title || product.name}
-                  className='img-fluid object-fit-contain mx-auto'
-                  style={{ height: '300px' }}
-                />
-              </div>
-            </div>
-          ))}
-        </Slider> */}
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const IMAGES_PRUEBA = [
+    'https://via.placeholder.com/640x480.png/0011dd?text=Oihan',
+    'https://via.placeholder.com/640x480.png/0011dd?text=Eneko',
+    'https://via.placeholder.com/640x480.png/0011dd?text=Hodei',
+    'https://via.placeholder.com/640x480.png/0011dd?text=Jon',
+  ] 
+
+
+  
+  return (
+    <div className='row justify-content-center'>
+      <div className='col-10 col-sm-8 col-md-4'>
+
+        
         <AlkitopTooltip text='Handitu'>
           <img
             className='img-fluid rounded-4 object-fit-cover product'
             src={product.product.image || product.product.images}
             alt={product.product.name || product.product.title}
+            onClick={openModal}
           />
         </AlkitopTooltip>
+
+        <ImagesModal isOpen={isModalOpen} onClose={closeModal} images={IMAGES_PRUEBA} />
         
 
         <div className='d-flex justify-content-between align-items-center pe-2 ps-2 mt-2'>
@@ -85,7 +65,7 @@ export function ProductDetailCard({ product }) {
       </div>
 
 
-      <div className='col-8 d-flex flex-column justify-content-between'>
+      <div className='col-10 col-md-8 d-flex flex-column justify-content-between mt-5 mt-md-0'>
         <div className='d-flex justify-content-between flex-column '>
           <div className='d-flex justify-content-between align-items-center'>
             <span className='fs-4 me-1 fw-bold'>
@@ -110,7 +90,7 @@ export function ProductDetailCard({ product }) {
 
         
 
-        <div className="mt-3 mb-5 d-flex justify-content-end me-5 pb-5 align-items-center">
+        <div className="mt-3 mb-2 md-mb-5 d-flex justify-content-center  me-5 pb-5 align-items-center">
           <button className="btn btn-success me-3 px-5 fs-5 ">Alokatu</button>
           <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment}/></button>
           <span className='pointer-at'><FontAwesomeIcon className='fs-2' icon={faBookmark}/></span>

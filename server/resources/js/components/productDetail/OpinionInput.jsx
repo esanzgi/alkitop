@@ -19,7 +19,7 @@ export const OpinionInput = ({ onSubmit }) => {
   };
 
   return (
-    <div className="d-flex align-items-center col-12 col-md-8">
+    <div className="d-flex align-items-center col-10 col-md-8">
       <UserProfileCircle height={50} width={50}/>
       <input
         ref={inputRef}
