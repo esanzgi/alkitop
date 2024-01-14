@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceGrinBeam, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
 
-export const OpinionInput = ({ onSubmit }) => {
+export const OpinionInput = ({ onSubmit, user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const inputRef = useRef(null);
 
@@ -20,7 +20,7 @@ export const OpinionInput = ({ onSubmit }) => {
 
   return (
     <div className="d-flex align-items-center col-10 col-md-8">
-      <UserProfileCircle height={50} width={50}/>
+      <UserProfileCircle user={user} height={50} width={50}/>
       <input
         ref={inputRef}
         type="text"

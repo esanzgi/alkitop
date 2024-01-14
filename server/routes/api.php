@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RestRatingController;
 use App\Http\Controllers\RestUserController;
+use App\Http\Controllers\RestProductController;
 use App\Http\Controllers\SavedApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/products', [ProductController::class, 'getProductBySearch']);
 
 // User
 Route::get('/users/{idOwner}', [RestUserController::class, 'getUserByIdOwner']);
@@ -34,3 +34,7 @@ Route::get('/ratings/avg/{idProduct}', [RestRatingController::class, 'getAvgRati
 Route::middleware('auth:sanctum')->post('/addFavourite/{product_id}', [SavedApiController::class, 'addFavourite'])->name('addFavourite');
 
 //Route::get('/dashboard', [SavedApiController::class, 'favourites'])->name('dashboard');
+
+// Product
+Route::get('/products/user/{idUser}', [RestProductController::class, 'getProductByIdUser']);
+Route::get('/products', [ProductController::class, 'getProductBySearch']);

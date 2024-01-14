@@ -53,7 +53,7 @@ export function ProductDetailsContent({ product }) {
         </div>
 
         <div className="d-flex justify-content-center mt-5 mb-4">
-          <OpinionInput />
+          <OpinionInput user={users}/>
         </div>
         <div className="col-12">
           <ProductOpinions ratings={product.rating} />

@@ -42,11 +42,11 @@ function ProductsPage({ search, page }) {
         {loading ? (
           <Loading />
         ) : (
-          <div>
+          <div className='text-center'>
             <Products products={products} />
             {currentPage < totalPages && (
-                <button onClick={loadNextPage} disabled={loading}>
-                    Cargar más
+                <button onClick={loadNextPage} disabled={loading} className='btn btn-success mt-5 px-4'>
+                    Gehiago ikusi
                 </button>
             )}
           </div>
