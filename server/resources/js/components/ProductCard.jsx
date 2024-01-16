@@ -56,7 +56,7 @@ export function ProductCard({ product, user }) {
         <div className='d-flex justify-content-between'>
           <p className='text-truncate mt-2'>{product.title || product.name}</p>
           <form onSubmit={addFavourite}>
-            <input type='hidden' value={loggedUser.id_user} name='user_id' />
+            {/* <input type='hidden' value={loggedUser.id_user} name='user_id' /> */}
             <input type='hidden' value={product.id_product} name='product_id' />
             <button type="submit" className='btn btn-link'>
               <FontAwesomeIcon className=' mt-3' icon={faHeart} />

@@ -7,9 +7,12 @@ import { Header } from '../components/Header'
 import { HomeContent } from '../components/HomeContent'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
+import { useUserContext } from '@/context/userContext'
 
 function ProduktuGehituPage ({user,owner}) {
-  return (
+  const { loggedUser, login, logout } = useUserContext()
+  login(user)
+    return (
       <main className=''>
         <div className='fixed-top bg-white'>
           <Header user={user} owner={owner}/>
