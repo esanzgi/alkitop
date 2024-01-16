@@ -5,9 +5,10 @@ import { Search } from './Search';
 import { Register } from './login/Register';
 import { AlokatzaileRegister } from './login/AlokatzaileRegister';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Link } from '@inertiajs/react';
+import { faPlus, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { useUserContext } from '@/context/userContext';
+import { Dropdown } from 'react-bootstrap';
 
 export function Header({ user, owner }) {
   const { loggedUser } = useUserContext()
@@ -47,9 +48,10 @@ export function Header({ user, owner }) {
         <Search />
 
         {isAuthenticated ? (
-          <Link className='btn btn-outline-light rounded-pill' type='button' href="/profile">
-            <label>{loggedUser.name}</label>
-          </Link>
+          // <Link className='btn btn-outline-light rounded-pill' type='button' href="/profile">
+          //   <label>{loggedUser?.name}</label>
+          // </Link>
+          <UserDropdown />
         ) : (
           <Link href='/login' className='btn btn-outline-light rounded-pill'>
             Sign in
@@ -80,3 +82,41 @@ export function Header({ user, owner }) {
 }
 
 
+function UserDropdown() {
+  const { post } = useForm()
+  const { loggedUser, logout } = useUserContext();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleLogout = () => {
+    post(route('logout'))
+      .then(() => {
+        logout();
+        setShowDropdown(false);
+      })
+      .catch((error) => {
+        console.error('Logout error:', error);
+      });
+  };
+
+  return (
+    <Dropdown show={showDropdown} onToggle={handleDropdownToggle}>
+      <Dropdown.Toggle variant='outline-light' id='user-dropdown' className='rounded-pill'>
+        <FontAwesomeIcon icon={faUser} className='me-2' />
+        {loggedUser?.name}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item as={Link} href='/profile' onClick={() => setShowDropdown(false)}>
+          Profile
+        </Dropdown.Item>
+        <Dropdown.Item as="button" onClick={handleLogout}>
+          Logout <FontAwesomeIcon icon={faSignOutAlt} className='ms-2' />
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+}

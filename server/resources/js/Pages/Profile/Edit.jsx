@@ -3,16 +3,15 @@ import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import { Head } from '@inertiajs/react';
+import { Header } from '@/components/Header';
 
-export default function Edit({ auth, mustVerifyEmail, status,owner }) {
+export default function Edit({ auth, mustVerifyEmail, status, owner }) {
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
-        >
-            <Head title="Profile" />
-
-            <div className="py-12 mt-4">
+        <div>
+            <div className='fixed-top bg-white'>
+                <Header user={auth.user} />
+            </div>
+            <div className="py-12 mt-5 pt-5">
                 <div className="container mx-auto space-y-6">
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <UpdateProfileInformationForm
@@ -32,6 +31,8 @@ export default function Edit({ auth, mustVerifyEmail, status,owner }) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </div>
+
+
     );
 }
