@@ -14,16 +14,44 @@ export const OpinionModal = ({ isOpen, onClose, onSubmit, product }) => {
   });
   console.log('OPINION MODAL LOGGED', loggedUser)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    post('/api/rating/create', {
-      data: {
-        id_product: product.id_product,
-        ...data,
-      },
-    });
+    try {
+      const response = await fetch('/api/rating/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if needed
+        },
+        body: JSON.stringify({
+          id_user: loggedUser.id_user,
+          id_product: product.id_product,
+          ...data,
+        }),
+      });
+
+      console.log('Response status:', response.status);
+
+      if (response.status === 201) {
+        console.log('Post successful:', response);
+        setData({
+          title: '',
+          review: '',
+          rating: 0,
+        });
+        onClose();
+      } else {
+        console.log('Post unsuccessful:', response);
+        // Handle the error, e.g., display an error message
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Handle the error, e.g., display an error message
+    }
   };
+
+
 
   return (
     <Modal show={isOpen} onHide={onClose} size="lg">

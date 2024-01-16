@@ -21,14 +21,15 @@ class RestRatingController extends Controller
     public function createRating(Request $request)
     {
         $request->validate([
-            'id_product' => 'required|exists:products,id',
+            'id_user' => 'required|exists:users,id_user',
+            'id_product' => 'required|exists:products,id_product',
             'title' => 'required|string',
             'review' => 'required|string',
             'rating' => 'required|numeric|between:0,5',
         ]);
 
         $rating = Rating::create([
-            'id_user' => auth()->id(),
+            'id_user' => $request->input('id_user'),
             'id_product' => $request->input('id_product'),
             'title' => $request->input('title'),
             'review' => $request->input('review'),

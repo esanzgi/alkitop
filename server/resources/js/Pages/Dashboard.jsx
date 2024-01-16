@@ -2,9 +2,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Footer } from '@/components/Footer';
 import { GustokoenProduktuak } from '@/components/GustokoenProduktuak';
 import { Header } from '@/components/Header';
+import { useUserContext } from '@/context/userContext';
 import { Head } from '@inertiajs/react';
 
 export default function Dashboard({ auth, products }) {
+    const { login } = useUserContext()
+    login(auth.user)
     return (
         <div>
             <div className='fixed-top bg-white'>

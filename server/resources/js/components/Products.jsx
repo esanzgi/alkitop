@@ -33,10 +33,8 @@ const NoProductsResults = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6 text-center">
-          <h3>No se encontraron productos para esta búsqueda</h3>
-
           <img
-            src={PRODUCT_NOT_FOUND} 
+            src={PRODUCT_NOT_FOUND}
             alt="product-not-found"
             className="img-fluid "
           />

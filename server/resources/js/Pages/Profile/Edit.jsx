@@ -4,8 +4,11 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import { Head } from '@inertiajs/react';
 import { Header } from '@/components/Header';
+import { useUserContext } from '@/context/userContext';
 
 export default function Edit({ auth, mustVerifyEmail, status, owner }) {
+    const { login } = useUserContext()
+    login(auth.user)
     return (
         <div>
             <div className='fixed-top bg-white'>
