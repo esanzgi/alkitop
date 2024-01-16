@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -89,6 +90,14 @@ class ProductController extends Controller
         return Inertia::render('ProductDetails', [
             'product' => $newProduct,
         ]);
+    }
+    public function addFavourite(Request $request){
+        $user=User::find($request->input('user_id'));
+        $product=Product::find($request->input('product_id'));
+
+        if(!$user){
+            return Inertia::render('Dashboard');
+        }
     }
 
 }

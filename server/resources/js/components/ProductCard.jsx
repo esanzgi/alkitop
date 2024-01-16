@@ -3,47 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IMAGE from '../assets/images/moto.jpg'
 import IMAGE2 from '../assets/images/moto2.jpg'
 import { useForm } from '@inertiajs/react'
+import { useUserContext } from '@/context/userContext'
 
 export function ProductCard({ product, user }) {
-  // console.log(user && user.id_user);
-  // console.log('Product image',product)
-  const { get, post } = useForm()
-  //product.isEco ? product.image = IMAGE2 : product.image = IMAGE
+  const { } = useUserContext();
+  console.log(user && user.id_user);
+  const { get, post } = useForm();
 
   const handleOnClick = () => {
-    get(`/product/details/${product.id_product || product.id}`)
+    get(`/product/details/${product.id_product || product.id}`);
   }
-  
-  const addFavourite = async (e) => {
+
+  const addFavourite = (e) => {
     e.preventDefault();
   
-    const userId = user ? user.id_user : null;
-  
     try {
-      const response = await post(`/api/addFavourite/${product.id_product}`, { user_id: userId });
-  
+      const response = post(`/addFavourite`);
     } catch (error) {
-      console.error('Produktua gordetzerakoan errorea', error);
+      console.error('Error al guardar el producto como favorito', error);
     }
   };
-  
-    // var http = new XMLHttpRequest();
-
-    // http.onreadystatechange = function () {
-    //   if (http.readyState === 4) {
-    //     if (http.status === 200) {
-    //       console.log(JSON.parse(http.responseText).message);
-    //     } else {
-    //       console.error(JSON.parse(http.responseText).error);
-    //     }
-    //   }
-    // };
-    // http.open('POST', `/api/addFavourite/${product.id_product}`,true);
-    // http.send();
-  //};
-
-
-
   return (
     <div className='' onClick={handleOnClick}>
       {
@@ -76,7 +55,8 @@ export function ProductCard({ product, user }) {
         <div className='d-flex justify-content-between'>
           <p className='text-truncate mt-2'>{product.title || product.name}</p>
           <form onSubmit={addFavourite}>
-            <input type='hidden' value={user ? user.id_user : ''} name='user_id' />
+            <input type='hidden' value={user.id_user} name='user_id' />
+            <input type='hidden' value={product.id_product} name='product_id' />
             <button type="submit" className='btn btn-link'>
               <FontAwesomeIcon className=' mt-3' icon={faHeart} />
             </button>
@@ -88,4 +68,3 @@ export function ProductCard({ product, user }) {
     </div>
   )
 }
-

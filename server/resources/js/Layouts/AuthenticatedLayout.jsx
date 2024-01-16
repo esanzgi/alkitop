@@ -10,7 +10,7 @@ export default function Authenticated({ user, header, children }) {
 
     return (
         <div className="min-vh-100 bg-light">
-            <nav className="navbar navbar-expand-lg navbar-light bg-at-green border-bottom fixed-top"> 
+            <nav className="navbar navbar-expand-lg navbar-light bg-at-green border-bottom "> 
                 <div className="container-fluid">
                     <Link className="navbar-brand " href="/" style={{ width: '150px' }}>
                         <ApplicationLogo className="navbar-brand" />

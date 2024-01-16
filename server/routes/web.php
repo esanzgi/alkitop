@@ -4,11 +4,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SavedApiController;
+use App\Models\Owner;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Models\Owner;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,5 +131,7 @@ Route::get('/panel', function () {
 Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
 Route::get('/product/details/{product}', [ProductController::class, 'goDetails']);
+
+Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
 
 require __DIR__ . '/auth.php';
