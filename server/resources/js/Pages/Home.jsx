@@ -6,13 +6,17 @@ import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { HomeContent } from '../components/HomeContent'
 import { ProduktuGehitu } from '../components/ProduktuGehitu'
+import { useUserContext } from '@/context/userContext'
 
-function Home({ products,user }) {
+function Home({ products, user }) {
+  const { loggedUser, login, logout } = useUserContext()
+  login(user)
   console.log('USER', user)
+  console.log('LOGGED USER', loggedUser)
   return (
     <main className=''>
       <div className='fixed-top bg-white'>
-        <Header user={user}/>
+        <Header user={user} />
         <div className='shadow-sm bg-light'>
           <div className='container-md pt-2'>
             <FilterNav />

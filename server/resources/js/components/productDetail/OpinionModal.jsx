@@ -1,21 +1,28 @@
+import { useUserContext } from "@/context/userContext";
+import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap"; 
+import { Modal, Button, Form } from "react-bootstrap";
 import RatingStars from 'react-rating-stars-component';
 
 
-export const OpinionModal = ({ isOpen, onClose, onSubmit }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [rating, setRating] = useState(0);
+export const OpinionModal = ({ isOpen, onClose, onSubmit, product }) => {
+  const { loggedUser } = useUserContext()
+  const { data, setData, post, errors } = useForm({
+    title: '',
+    review: '',
+    rating: 0,
+  });
+  console.log('OPINION MODAL LOGGED', loggedUser)
 
-  const handleSubmit = () => {
-    // Aquí puedes realizar alguna validación antes de enviar la opinión
-    onSubmit({ title, content, rating });
-    // Limpia el estado y cierra el modal
-    setTitle("");
-    setContent("");
-    setRating(0);
-    onClose();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    post('/api/rating/create', {
+      data: {
+        id_product: product.id_product,
+        ...data,
+      },
+    });
   };
 
   return (
@@ -27,20 +34,33 @@ export const OpinionModal = ({ isOpen, onClose, onSubmit }) => {
         <Form>
           <Form.Group controlId="formTitle">
             <Form.Label>Tituloa:</Form.Label>
-            <Form.Control type="text" autoFocus value={title} required onChange={(e) => setTitle(e.target.value)} />
+            <Form.Control
+              type="text"
+              autoFocus
+              required
+              value={data.title}
+              onChange={(e) => setData('title', e.target.value)}
+            />
           </Form.Group>
 
-          <Form.Group controlId="formContent"  className="mt-3">
+          <Form.Group controlId="formContent" className="mt-3">
             <Form.Label>Iritzia:</Form.Label>
-            <Form.Control as="textarea" maxLength={1000} rows={10} required value={content} onChange={(e) => setContent(e.target.value)} />
+            <Form.Control
+              as="textarea"
+              maxLength={1000}
+              rows={10}
+              required
+              value={data.review}
+              onChange={(e) => setData('review', e.target.value)} />
           </Form.Group>
 
           <Form.Group controlId="formRating" className="mt-3 d-flex align-items-center">
             <Form.Label className="pt-3 me-2">Balorazioa:</Form.Label>
             <RatingStars
-              value={rating}
               size={40}
               activeColor="#ffd700"
+              value={data.rating}
+              onChange={(newRating) => setData('rating', newRating)}
             />
           </Form.Group>
         </Form>

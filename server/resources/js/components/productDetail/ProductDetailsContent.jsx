@@ -18,10 +18,10 @@ export function ProductDetailsContent({ product }) {
       setFormatedData(data)
     }
   }, [users])
-  
+
   const avgRatingValue = product.avgRating.length > 0
-  ? product.avgRating[0].avg_rating.replace('.', ',')
-  : '0';
+    ? product.avgRating[0].avg_rating.replace('.', ',')
+    : '0';
 
   useEffect(() => {
     getUserByIdOwner({ idOwner: product.product.id_owner })
@@ -33,7 +33,7 @@ export function ProductDetailsContent({ product }) {
         <h2 className="h2 fw-bold">{product.product.name}</h2>
         <div className="d-flex align-items-center">
           <span className="fs-5 me-2">{users.name}</span>
-          <UserProfileCircle width={55} height={55} user={users}/>
+          <UserProfileCircle width={55} height={55} user={users} />
         </div>
       </div>
 
@@ -45,7 +45,7 @@ export function ProductDetailsContent({ product }) {
         <div className='d-flex align-items-center justify-content-between border-bottom pb-2'>
           <span className='h2 fw-bold'>Iritziak</span>
           <div className="fs-3 fw-bold fst-italic text-align">
-            <FontAwesomeIcon className="text-warning" icon={faStar}/>
+            <FontAwesomeIcon className="text-warning" icon={faStar} />
             <span className="ms-2 ">{avgRatingValue}</span>
             <FontAwesomeIcon className="ms-3" icon={faMinus} />
             <span className="ms-3 ">{product.rating.length} balorazio</span>
@@ -53,7 +53,7 @@ export function ProductDetailsContent({ product }) {
         </div>
 
         <div className="d-flex justify-content-center mt-5 mb-4">
-          <OpinionInput user={users}/>
+          <OpinionInput user={users} product={product.product} />
         </div>
         <div className="col-12">
           <ProductOpinions ratings={product.rating} />

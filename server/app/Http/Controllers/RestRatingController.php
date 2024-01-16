@@ -18,8 +18,23 @@ class RestRatingController extends Controller
         return response()->json($media);
     }
 
-    public function aa(Request $request)
+    public function createRating(Request $request)
     {
+        $request->validate([
+            'id_product' => 'required|exists:products,id',
+            'title' => 'required|string',
+            'review' => 'required|string',
+            'rating' => 'required|numeric|between:0,5',
+        ]);
 
+        $rating = Rating::create([
+            'id_user' => auth()->id(),
+            'id_product' => $request->input('id_product'),
+            'title' => $request->input('title'),
+            'review' => $request->input('review'),
+            'rating' => $request->input('rating'),
+        ]);
+
+        return response()->json($rating, 201);
     }
 }

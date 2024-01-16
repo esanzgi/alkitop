@@ -3,11 +3,11 @@ import { createContext, useContext, useState } from "react";
 const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
-  const { user, setUser } = useState(null)
-  const { role, setRole } = useState(null)
+  const [loggedUser, setLoggedUser] = useState(null)
+  const [role, setRole] = useState(null)
 
   const login = (userData, userRole) => {
-    setUser(userData)
+    setLoggedUser(userData)
     setRole(userRole)
   }
 
@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, role, login, logout }}>
+    <UserContext.Provider value={{ loggedUser, role, login, logout }}>
       {children}
     </UserContext.Provider>
   )

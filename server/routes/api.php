@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RestProductController;
 use App\Http\Controllers\RestRatingController;
 use App\Http\Controllers\RestUserController;
-use App\Http\Controllers\RestProductController;
 use App\Http\Controllers\SavedApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,13 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 // User
 Route::get('/users/{idOwner}', [RestUserController::class, 'getUserByIdOwner']);
 Route::get('/users/details/{id}', [RestUserController::class, 'getUserDetailsByIdUser']);
 
 //Rating
 Route::get('/ratings/avg/{idProduct}', [RestRatingController::class, 'getAvgRatingByIdProduct']);
+Route::post('/rating/create', [RestRatingController::class, 'createRating']);
 
 
 //Route::get('/dashboard', [SavedApiController::class, 'favourites'])->name('dashboard');

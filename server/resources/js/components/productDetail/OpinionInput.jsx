@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { OpinionModal } from "./OpinionModal"; 
+import { OpinionModal } from "./OpinionModal";
 import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceGrinBeam, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
+import { useUserContext } from "@/context/userContext";
 
-export const OpinionInput = ({ onSubmit, user }) => {
+export const OpinionInput = ({ onSubmit, user, product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const inputRef = useRef(null);
+  console.log('RATINGS OPINION', product)
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -20,7 +22,7 @@ export const OpinionInput = ({ onSubmit, user }) => {
 
   return (
     <div className="d-flex align-items-center col-10 col-md-8">
-      <UserProfileCircle user={user} height={50} width={50}/>
+      <UserProfileCircle user={user} height={50} width={50} />
       <input
         ref={inputRef}
         type="text"
@@ -30,7 +32,7 @@ export const OpinionInput = ({ onSubmit, user }) => {
         readOnly
       />
 
-      <OpinionModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={onSubmit} />
+      <OpinionModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={onSubmit} product={product} />
     </div>
   );
 };
