@@ -7,14 +7,16 @@ import { AlokatzaileRegister } from './login/AlokatzaileRegister';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from '@inertiajs/react';
+import { useUserContext } from '@/context/userContext';
 
 export function Header({ user, owner }) {
+  const { loggedUser } = useUserContext()
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAlokatzaile, setShowAlokatzaile] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!user);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!loggedUser);
   useEffect(() => {
-    setIsAuthenticated(!!user);
-  }, [user]);
+    setIsAuthenticated(!!loggedUser);
+  }, [loggedUser]);
 
   const handleOpenLoginModal = () => {
     setShowLoginModal(true);
@@ -46,7 +48,7 @@ export function Header({ user, owner }) {
 
         {isAuthenticated ? (
           <Link className='btn btn-outline-light rounded-pill' type='button' href="/profile">
-            <label>{user.name}</label>
+            <label>{loggedUser.name}</label>
           </Link>
         ) : (
           <Link href='/login' className='btn btn-outline-light rounded-pill'>
@@ -57,24 +59,24 @@ export function Header({ user, owner }) {
         {isAuthenticated && botoia(owner)}
 
 
-        
-        
+
+
         <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
         <AlokatzaileRegister show={showAlokatzaile} handleClose={handleCloseRegisterAlokatzaile} />
-      
+
       </div>
     </nav>
   );
 
   function botoia(owner) {
-    if (owner==null) {
+    if (owner == null) {
       return <button type='submit' className='btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}> <FontAwesomeIcon icon={faPlus} className='me-2' />Produktu igo</button>
-    }else{
+    } else {
       return <Link to='/produktu-gehitu' href='/produktu-gehitu' className='btn btn-outline-light ms-2 rounded-pill'> <FontAwesomeIcon icon={faPlus} className='me-2' /> Produktu igo </Link>
     }
   }
 
-  
+
 }
 
 

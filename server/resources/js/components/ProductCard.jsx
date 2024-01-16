@@ -6,7 +6,8 @@ import { useForm } from '@inertiajs/react'
 import { useUserContext } from '@/context/userContext'
 
 export function ProductCard({ product, user }) {
-  const { } = useUserContext();
+  const { loggedUser } = useUserContext();
+  console.log('LOGED USER', loggedUser)
   console.log(user && user.id_user);
   const { get, post } = useForm();
 
@@ -16,7 +17,7 @@ export function ProductCard({ product, user }) {
 
   const addFavourite = (e) => {
     e.preventDefault();
-  
+
     try {
       const response = post(`/addFavourite`);
     } catch (error) {
@@ -55,7 +56,7 @@ export function ProductCard({ product, user }) {
         <div className='d-flex justify-content-between'>
           <p className='text-truncate mt-2'>{product.title || product.name}</p>
           <form onSubmit={addFavourite}>
-            <input type='hidden' value={user.id_user} name='user_id' />
+            <input type='hidden' value={loggedUser.id_user} name='user_id' />
             <input type='hidden' value={product.id_product} name='product_id' />
             <button type="submit" className='btn btn-link'>
               <FontAwesomeIcon className=' mt-3' icon={faHeart} />

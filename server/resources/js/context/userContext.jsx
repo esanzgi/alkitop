@@ -4,20 +4,17 @@ const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
   const [loggedUser, setLoggedUser] = useState(null)
-  const [role, setRole] = useState(null)
 
-  const login = (userData, userRole) => {
+  const login = (userData) => {
     setLoggedUser(userData)
-    setRole(userRole)
   }
 
   const logout = () => {
     setUser(null)
-    setRole(null)
   }
 
   return (
-    <UserContext.Provider value={{ loggedUser, role, login, logout }}>
+    <UserContext.Provider value={{ loggedUser, login, logout }}>
       {children}
     </UserContext.Provider>
   )
