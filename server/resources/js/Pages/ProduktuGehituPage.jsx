@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react'
 import { FilterNav } from '../components/FilterNav'
 import { Footer } from '../components/Footer'

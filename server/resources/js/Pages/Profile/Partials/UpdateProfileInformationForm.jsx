@@ -1,12 +1,17 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import Avatar from '../../../assets/images/moto.jpg'
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+import { useState } from 'react';
+import { useUser } from '@/hooks/useUser';
+import { useEffect } from 'react';
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status,owner, className = '' }) {
+export default function UpdateProfileInformation({ mustVerifyEmail, status, owner, className = '' }) {
     const user = usePage().props.auth.user; 
+    const { getUserDetailsByIdUser, userDetails } = useUser()
 
     const { data: userData, setData: setUserData, patch: patchUser, errors: errorsUser, processing: processingUser, recentlySuccessful: recentlySuccessfulUser } = useForm({
         name: user.name,
@@ -18,6 +23,13 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status,owner
         dni: owner ? owner.dni : '',
     });
 
+    useEffect(() => {
+        getUserDetailsByIdUser({idUser: user.id_user})
+    }, [getUserDetailsByIdUser])
+
+    const handleImageChange = (e) => {
+        e.preventDefault();
+    };
 
     const submitUser = (e) => {
         e.preventDefault();
@@ -29,31 +41,31 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status,owner
         patchOwner(route('profileOwner.update'));
     };
 
+
     return (
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">Zure perfilaren informazioa</h2>
-                {user.id_role !== 4 && (
-                    <p className="mt-1 text-sm text-gray-600">
-                        Zure email-a eguneratu
-                    </p>
-                )}
-                {user.id_role === 4 && (
-                <div className='d-flex justify-content-around mt-3'>
-                    <label className="mt-1 text-gray-600 mb-3">
-                        Zure email-a eguneratu
-                    </label>
-                    <label className="mt-1 text-gray-600 mb-3">
-                        Alokatzaile bezala duzun informazioa eguneratu
-                    </label>
-                    
-                </div>
-                )}
-                
             </header>
 
-            <div className={user.id_role === 4 ? 'd-flex justify-content-around' : ''}>        
-            <form onSubmit={submitUser} className="mt-6 space-y-6">
+            <div className={`d-flex justify-content-around align-items-center ${user.id_role === 4 ? '' : 'flex-column'}`}>
+                <div className='my-5'>
+                    <form className='d-flex justify-content-center flex-column align-items-center border rounded p-4 bg-light'>
+
+                        <img src={user.avatar_url || Avatar} alt="User Avatar" className="rounded-circle mb-3" style={{ width: '200px', height: '200px' }} />
+
+                        <div className="my-3">
+                            <label htmlFor="newImage" className="form-label">Aukeratu irudi berria:</label>
+                            <input type="file" id="newImage" onChange={handleImageChange} className="form-control" />
+                        </div>
+
+                        <PrimaryButton disabled={processingOwner}>Irudi berria ezarri</PrimaryButton>
+                    </form>
+                </div>
+
+                <div className='d-flex flex-column'>
+                <label className='text-center'>Erabiltzaile datuak</label>
+                <form onSubmit={submitOwner} className='ms-5'>
                 <div>
                     <InputLabel htmlFor="name" value="Izena" className='me-2' />
 
@@ -70,7 +82,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status,owner
                     <InputError className="mt-2" message={errorsUser.name} />
                 </div>
 
-                <div className='mb-3'>
+                <div>
                     <InputLabel htmlFor="email" value="Email-a" className='me-2' />
 
                     <TextInput
@@ -85,6 +97,49 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status,owner
 
                     <InputError className="mt-2" message={errorsUser.email} />
                 </div>
+                <div>
+                    <InputLabel htmlFor="name" value="Country" className='me-2' />
+
+                    <TextInput
+                        id="country"
+                        className="mt-1 block w-full"
+                        value={userDetails.country}
+                        //onChange={(e) => setUserData('name', e.target.value)}
+                        required
+                        autoComplete="name"
+                    />
+
+                    <InputError className="mt-2" message={errorsUser.name} />
+                </div>
+                <div>
+                    <InputLabel htmlFor="name" value="Province" className='me-2' />
+
+                    <TextInput
+                        id="province"
+                        className="mt-1 block w-full"
+                        //value={userData.name}
+                        //onChange={(e) => setUserData('name', e.target.value)}
+                        required
+                        autoComplete="name"
+                    />
+
+                    <InputError className="mt-2" message={errorsUser.name} />
+                </div>
+                <div  className='mb-3'>
+                    <InputLabel htmlFor="name" value="City" className='me-2' />
+
+                    <TextInput
+                        id="city"
+                        className="mt-1 block w-full"
+                        //value={userData.name}
+                        //onChange={(e) => setUserData('name', e.target.value)}
+                        required
+                        autoComplete="name"
+                    />
+
+                    <InputError className="mt-2" message={errorsUser.name} />
+                </div>
+               
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div >
@@ -121,57 +176,63 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status,owner
                         <p className="text-sm text-gray-600">Eguneratuta.</p>
                     </Transition>
                 </div>
-            </form>
-            {user.id_role === 4 && (
-            <form onSubmit={submitOwner} className='mx-5'>
-                <input type="hidden" name="user" value={user}></input>
-                <div>
+                </form>
+                {user.id_role === 4 && (
+                <div className='d-flex flex-column mt-5'>
+                    <label className='text-center'>Owner datuak</label>
+                    <form onSubmit={submitOwner} className='ms-5'>
+                    <input type="hidden" name="user" value={user}></input>
                     <div>
-                        <InputLabel htmlFor="tlf" value="Telefono zenbakia" className='me-2' />
+                        <div>
+                            <InputLabel htmlFor="tlf" value="Telefono zenbakia" className='me-2' />
 
-                        <TextInput
-                            id="tlf"
-                            className="mt-1 block w-full"
-                            value={ownerData.tlf}
-                            onChange={(e) => setOwnerData('tlf', e.target.value)}
-                            required
-                            autoComplete="tlf"
-                        />
+                            <TextInput
+                                id="tlf"
+                                className="mt-1 block w-full"
+                                value={ownerData.tlf}
+                                onChange={(e) => setOwnerData('tlf', e.target.value)}
+                                required
+                                autoComplete="tlf"
+                            />
 
-                        <InputError className="mt-2" message={errorsOwner.tlf} />
+                            <InputError className="mt-2" message={errorsOwner.tlf} />
+                        </div>
+
+                        <div className='mb-3'>
+                            <InputLabel htmlFor="dni" value="NAN-a" className='me-2' />
+
+                            <TextInput
+                                id="dni"
+                                type="text"
+                                className="mt-1 block w-full"
+                                value={ownerData.dni}
+                                onChange={(e) => setOwnerData('dni', e.target.value)}
+                                required
+                                autoComplete="dni"
+                            />
+
+                            <InputError className="mt-2" message={errorsOwner.dni} />
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <PrimaryButton disabled={processingOwner}>Eguneratu</PrimaryButton>
+
+                            <Transition
+                                show={recentlySuccessfulOwner}
+                                enter="transition ease-in-out"
+                                enterFrom="opacity-0"
+                                leave="transition ease-in-out"
+                                leaveTo="opacity-0"
+                            >
+                                <p className="text-sm text-gray-600">Eguneratuta.</p>
+                            </Transition>
+                        </div>
                     </div>
-
-                    <div className='mb-3'>
-                        <InputLabel htmlFor="dni" value="NAN-a" className='me-2' />
-
-                        <TextInput
-                            id="dni"
-                            type="text"
-                            className="mt-1 block w-full"
-                            value={ownerData.dni}
-                            onChange={(e) => setOwnerData('dni', e.target.value)}
-                            required
-                            autoComplete="dni"
-                        />
-
-                        <InputError className="mt-2" message={errorsOwner.dni} />
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <PrimaryButton disabled={processingOwner}>Eguneratu</PrimaryButton>
-
-                        <Transition
-                            show={recentlySuccessfulOwner}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-gray-600">Eguneratuta.</p>
-                        </Transition>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
+                
             )}
+                </div>       
+                
         </div>
             
         </section>

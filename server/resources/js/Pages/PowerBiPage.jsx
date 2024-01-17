@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react'
 import { Powerbi } from '@/components/Powerbi'
 import { Header } from '../components/Header'

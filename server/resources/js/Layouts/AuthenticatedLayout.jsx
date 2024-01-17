@@ -9,7 +9,7 @@ export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-vh-100 bg-light">
+        <div className="min-vh-100 bg-light ">
             <nav className="navbar navbar-expand-lg navbar-light bg-at-green border-bottom "> 
                 <div className="container-fluid">
                     <Link className="navbar-brand " href="/" style={{ width: '150px' }}>
