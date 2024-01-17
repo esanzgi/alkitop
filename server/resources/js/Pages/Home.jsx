@@ -3,11 +3,11 @@
 import React, { useEffect } from 'react'
 import { FilterNav } from '../components/FilterNav'
 import { Footer } from '../components/Footer'
-import { Header } from '../components/Header'
+import  {Header}  from '../components/Header'
 import { HomeContent } from '../components/HomeContent'
 import { useUserContext } from '@/context/userContext'
 
-function Home({ products, user }) {
+export default function Home({ products, user, owner}) {
   const { login } = useUserContext()
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function Home({ products, user }) {
   return (
     <main className=''>
       <div className='fixed-top bg-white'>
-        <Header user={user} />
+        <Header user={user} owner={owner} />
         <div className='shadow-sm bg-light'>
           <div className='container-md pt-2'>
             <FilterNav />
@@ -39,4 +39,4 @@ function Home({ products, user }) {
   )
 }
 
-export default Home 
+
