@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('profile_image')->nullable();
             $table->date('birthdate')->nullable();
-            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->enum('gender', ['Gizona', 'Emakumea', 'Beste bat'])->nullable();
             $table->text('bio')->nullable();
             $table->string('phone_number')->nullable();
             $table->timestamps();

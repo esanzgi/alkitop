@@ -10,22 +10,25 @@ import { useUser } from '@/hooks/useUser';
 import { useEffect } from 'react';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, owner, className = '' }) {
-    const user = usePage().props.auth.user; 
-    const { getUserDetailsByIdUser, userDetails } = useUser()
+    const user = usePage().props.auth.user;
+    const { getUserDetailsByIdUser, userDetails } = useUser();
 
-    const { data: userData, setData: setUserData, patch: patchUser, errors: errorsUser, processing: processingUser, recentlySuccessful: recentlySuccessfulUser } = useForm({
-        name: user.name,
-        email: user.email,
+    const { data: userData, setData: setUserData, post: postUser, errors: errorsUser, processing: processingUser, recentlySuccessful: recentlySuccessfulUser } = useForm({
+        name: user.name || '',  
+        email: user.email || '', 
+        country: userDetails.country || '',
+        province: userDetails.province || '',
+        city: userDetails.city || '', 
     });
 
-    const { data: ownerData, setData: setOwnerData, patch: patchOwner, errors: errorsOwner, processing: processingOwner, recentlySuccessful: recentlySuccessfulOwner } = useForm({
-        tlf: owner ? owner.phone_number : '',
-        dni: owner ? owner.dni : '',
+    const { data: ownerData, setData: setOwnerData, post: postOwner, errors: errorsOwner, processing: processingOwner, recentlySuccessful: recentlySuccessfulOwner } = useForm({
+        tlf: owner ? owner.phone_number || '' : '',
+        dni: owner ? owner.dni || '' : '', 
     });
 
     useEffect(() => {
-        getUserDetailsByIdUser({idUser: user.id_user})
-    }, [getUserDetailsByIdUser])
+        getUserDetailsByIdUser({ idUser: user.id_user });
+    }, [getUserDetailsByIdUser]);
 
     const handleImageChange = (e) => {
         e.preventDefault();
@@ -33,12 +36,12 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
 
     const submitUser = (e) => {
         e.preventDefault();
-        patchUser(route('profile.update'));
+        postUser(route('profile.update'));
     };
 
     const submitOwner = (e) => {
         e.preventDefault();
-        patchOwner(route('profileOwner.update'));
+        postOwner(route('profileOwner.update'));
     };
 
 
@@ -48,8 +51,9 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
                 <h2 className="text-lg font-medium text-gray-900">Zure perfilaren informazioa</h2>
             </header>
 
-            <div className={`d-flex justify-content-around align-items-center ${user.id_role === 4 ? '' : 'flex-column'}`}>
-                <div className='my-5'>
+            <div className={`d-flex justify-content-around align-items-center ${user.id_role === 4 ? '' : 'flex-row'}`}>
+                {/* Formulario de la foto */}
+                <div className={`my-5 ${user.id_role !== 4 ? 'order-1 order-md-0' : ''}`}>
                     <form className='d-flex justify-content-center flex-column align-items-center border rounded p-4 bg-light'>
 
                         <img src={user.avatar_url || Avatar} alt="User Avatar" className="rounded-circle mb-3" style={{ width: '200px', height: '200px' }} />
@@ -104,40 +108,42 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
                         id="country"
                         className="mt-1 block w-full"
                         value={userDetails.country}
-                        //onChange={(e) => setUserData('name', e.target.value)}
+                        onChange={(e) => setUserData('country', e.target.value)}
                         required
                         autoComplete="name"
                     />
 
-                    <InputError className="mt-2" message={errorsUser.name} />
+                    <InputError className="mt-2" message={errorsUser.country} />
                 </div>
-                <div>
-                    <InputLabel htmlFor="name" value="Province" className='me-2' />
+
+                <div >
+                    <InputLabel htmlFor="province" value="Province" className='me-2' />
 
                     <TextInput
                         id="province"
                         className="mt-1 block w-full"
-                        //value={userData.name}
-                        //onChange={(e) => setUserData('name', e.target.value)}
+                        value={userDetails.province}
+                        onChange={(e) => setUserData('province', e.target.value)}
                         required
-                        autoComplete="name"
+                        autoComplete="province"
                     />
 
-                    <InputError className="mt-2" message={errorsUser.name} />
+                    <InputError className="mt-2" message={errorsUser.country} />
                 </div>
-                <div  className='mb-3'>
-                    <InputLabel htmlFor="name" value="City" className='me-2' />
+
+                <div className='mb-3'>
+                    <InputLabel htmlFor="city" value="City" className='me-2' />
 
                     <TextInput
                         id="city"
                         className="mt-1 block w-full"
-                        //value={userData.name}
-                        //onChange={(e) => setUserData('name', e.target.value)}
+                        value={userDetails.city}
+                        onChange={(e) => setUserData('city', e.target.value)}
                         required
-                        autoComplete="name"
+                        autoComplete="city"
                     />
 
-                    <InputError className="mt-2" message={errorsUser.name} />
+                    <InputError className="mt-2" message={errorsUser.country} />
                 </div>
                
 
