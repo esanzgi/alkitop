@@ -5,8 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Owner;
 use App\Models\Product;
-use App\Models\UserDetail;
 use App\Models\Rating;
+use App\Models\Rental;
+use App\Models\UserDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -81,6 +82,11 @@ class User extends Authenticatable
     public function userDetails()
     {
         return $this->hasOne(UserDetail::class, 'id_user', 'id_user');
+    }
+
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class, 'id_user');
     }
 
 }

@@ -4,7 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SavedApiController;
+use App\Http\Controllers\RatingController;
 use App\Models\Owner;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
@@ -130,8 +130,11 @@ Route::get('/panel', function () {
 
 Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
-Route::get('/product/details/{product}', [ProductController::class, 'goDetails']);
+Route::get('/product/details/{product}', [ProductController::class, 'goDetails'])->name('productDetails');
 
 Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
+
+// RATING ROUTES
+Route::post('ratings/create', [RatingController::class, 'createRating']);
 
 require __DIR__ . '/auth.php';

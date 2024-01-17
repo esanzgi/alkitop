@@ -1,18 +1,20 @@
 // App.js
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FilterNav } from '../components/FilterNav'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { HomeContent } from '../components/HomeContent'
-import { ProduktuGehitu } from '../components/ProduktuGehitu'
 import { useUserContext } from '@/context/userContext'
 
 function Home({ products, user }) {
-  const { loggedUser, login, logout } = useUserContext()
+  const { login } = useUserContext()
+
+  useEffect(() => {
+    login(user)
+  }, [])
   login(user)
-  console.log('USER', user)
-  console.log('LOGGED USER', loggedUser)
+
   return (
     <main className=''>
       <div className='fixed-top bg-white'>

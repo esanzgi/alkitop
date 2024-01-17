@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Product;
 use App\Models\Rating;
+use App\Models\Rental;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +26,7 @@ class Product extends Model
         'price',
         'location',
         'category',
-        'frequency'
+        'frequency',
     ];
 
     public function owner()
@@ -41,6 +42,16 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Rating::class, 'id_product');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
+
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class, 'id_product');
     }
 
 }

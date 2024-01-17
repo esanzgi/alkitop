@@ -10,13 +10,13 @@ const ListOfOpinions = ({ ratings }) => {
   return (
     <div className="row">
       {ratings.map(rate => (
-      <div className="mt-5" key={rate.id_rating}>
-        <ProductOpinionCard rating={rate}/>
-      </div> 
+        <div className="mt-5" key={rate.id_rating}>
+          <ProductOpinionCard rating={rate} />
+        </div>
       ))}
     </div>
   )
-} 
+}
 
 const NoOpinionsMessage = () => (
   <div className="text-center mt-3">

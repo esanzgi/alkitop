@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -29,7 +30,18 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 1, 100),
             'location' => $this->faker->city,
             'category' => $this->faker->word,
-            'frequency'=>$this->faker->word
+            'frequency' => $this->faker->word,
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Product $product) {
+            $imageCount = $this->faker->numberBetween(1, 7);
+
+            ProductImage::factory($imageCount)->create([
+                'product_id' => $product->id_product,
+            ]);
+        });
     }
 }

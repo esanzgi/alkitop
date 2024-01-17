@@ -116,3 +116,7 @@ body {
   cursor: pointer;
 
 }
+
+.overflow-wrap-break {
+  overflow-wrap: break-word;
+}

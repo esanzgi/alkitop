@@ -3,7 +3,6 @@ import { UserProfileCircle } from "../Icons";
 import RatingStars from 'react-rating-stars-component';
 import { useEffect, useState } from "react";
 import { format } from 'date-fns';
-import { getUserDetailsByIdUserService } from "@/service/users";
 
 export const ProductOpinionCard = ({ rating }) => {
   const { userDetails, getUserDetailsByIdUser } = useUser()
@@ -48,7 +47,7 @@ export const ProductOpinionCard = ({ rating }) => {
         <h3 className="fw-bold">{rating.title}</h3>
         {showFullText ? (
           <>
-            <p className="fs-5 mt-3">{rating.review}</p>
+            <p className="fs-6 mt-3 overflow-wrap-break">{rating.review}</p>
             {readMoreText === 'Gutxiago irakurri' && (
               <span
                 className="text-dark fw-bold nav-icons fst-italic fs-6"
@@ -61,7 +60,7 @@ export const ProductOpinionCard = ({ rating }) => {
           </>
 
         ) : (
-          <p className="fs-6 mt-3">{`${rating.review.slice(0, 200)}... `}
+          <p className="fs-6 mt-3 overflow-wrap-break">{`${rating.review.slice(0, 200)}... `}
             <span
               className="text-dark fw-bold nav-icons fst-italic"
               style={{ cursor: 'pointer' }}

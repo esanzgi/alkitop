@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Owner;
 use App\Models\Product;
 use App\Models\Rating;
+use App\Models\Rental;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserDetail;
@@ -56,5 +57,6 @@ class DatabaseSeeder extends Seeder
         Owner::factory()->count(5)->create();
         Product::factory()->count(100)->create();
         Rating::factory()->count(300)->create();
+        Rental::factory()->count(200)->create();
     }
 }
