@@ -1,13 +1,15 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
-import Avatar from '../../../assets/images/moto.jpg'
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import { useState } from 'react';
 import { useUser } from '@/hooks/useUser';
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, owner, className = '' }) {
     const user = usePage().props.auth.user;
@@ -19,6 +21,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
         country: userDetails.country || '',
         province: userDetails.province || '',
         city: userDetails.city || '', 
+        img: userDetails.profile_image || '', 
+
     });
 
     const { data: ownerData, setData: setOwnerData, post: postOwner, errors: errorsOwner, processing: processingOwner, recentlySuccessful: recentlySuccessfulOwner } = useForm({
@@ -32,7 +36,32 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
 
     const handleImageChange = (e) => {
         e.preventDefault();
+    
+        const file = e.target.files[0];
+    
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                console.log('Es una imagen. Puedes llamar a la ruta ahora.');
+    
+            } else {
+                console.log('El archivo seleccionado no es una imagen.');
+            }
+        }
     };
+    
+    const argazkiBerri =  (e) => {
+        try {
+            post('/panel', {
+               
+                userData,
+                ownerData,
+            });
+            console.log('Respuesta de la ruta /edit:', response.data);
+        } catch (error) {
+            console.error('Error al llamar a la ruta /edit:', error);
+        }
+    };
+
 
     const submitUser = (e) => {
         e.preventDefault();
@@ -44,6 +73,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
         postOwner(route('profileOwner.update'));
     };
 
+    const Avatar = userDetails.profile_image || faUser;
+
 
     return (
         <section className={className}>
@@ -52,11 +83,14 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
             </header>
 
             <div className={`d-flex justify-content-around align-items-center ${user.id_role === 4 ? '' : 'flex-row'}`}>
-                {/* Formulario de la foto */}
                 <div className={`my-5 ${user.id_role !== 4 ? 'order-1 order-md-0' : ''}`}>
-                    <form className='d-flex justify-content-center flex-column align-items-center border rounded p-4 bg-light'>
+                    <form onSubmit={argazkiBerri} className='d-flex justify-content-center flex-column align-items-center border rounded p-4 bg-light'>
 
-                        <img src={user.avatar_url || Avatar} alt="User Avatar" className="rounded-circle mb-3" style={{ width: '200px', height: '200px' }} />
+                        {typeof Avatar === 'string' ? (
+                            <img src={user.avatar_url || Avatar} alt="User Avatar" className="rounded-circle mb-3" style={{ width: '200px', height: '200px' }} />
+                        ) : (
+                            <FontAwesomeIcon icon={Avatar} size="5x" className="rounded-circle mb-3" style={{ width: '200px', height: '200px' }} />
+                        )}
 
                         <div className="my-3">
                             <label htmlFor="newImage" className="form-label">Aukeratu irudi berria:</label>

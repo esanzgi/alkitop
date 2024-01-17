@@ -15,7 +15,7 @@ export default function Edit({ auth, mustVerifyEmail, status, owner }) {
                 <Header user={auth.user} />
             </div>
             <div className="py-12 mt-5 pt-5">
-                <div className="container mx-auto space-y-6">
+                <div className="container mx-auto space-y-6 mt-4">
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
