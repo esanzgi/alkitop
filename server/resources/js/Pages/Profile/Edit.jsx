@@ -12,7 +12,7 @@ export default function Edit({ auth, mustVerifyEmail, status, owner }) {
     return (
         <div>
             <div className='fixed-top bg-white'>
-                <Header user={auth.user} />
+                <Header user={auth.user} owner={owner}/>
             </div>
             <div className="py-12 mt-5 pt-5">
                 <div className="container mx-auto space-y-6 mt-4">

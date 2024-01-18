@@ -97,4 +97,24 @@ class ProfileController extends Controller
             'user' => $user
         ]);
     }
+
+    public function avatarEguneratu(Request $request)
+{
+    $userDetailsId = $request->input('userDetails');
+
+    $userDetail = UserDetail::findOrFail($userDetailsId);
+
+    $profileImage = $request->input('irudi');
+
+    $userDetail->profile_image = $profileImage;
+
+    $userDetail->save();
+    
+}
+
+
+
+
+
+
 }

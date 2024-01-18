@@ -11,7 +11,6 @@ import { useUserContext } from '@/context/userContext';
 import { Dropdown } from 'react-bootstrap';
 
  export function Header({ user, owner }) {
-  console.log(owner);
   const { loggedUser } = useUserContext()
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAlokatzaile, setShowAlokatzaile] = useState(false);
@@ -72,7 +71,6 @@ import { Dropdown } from 'react-bootstrap';
   );
 
   function botoia(owner) {
-    console.log(owner);
     if (owner == null) {
       return <button type='submit' className='btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}> <FontAwesomeIcon icon={faPlus} className='me-2' />Produktu igo</button>
     } else {

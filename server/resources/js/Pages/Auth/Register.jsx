@@ -168,7 +168,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="country" value="Herria" className=' row w-100 m-auto ' />
+                    <InputLabel htmlFor="country" value="Herrialdea" className=' row w-100 m-auto ' />
                     <TextInput
                         id="country"
                         name="country"
@@ -194,7 +194,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="city" value="Hiria" className=' row w-100 m-auto ' />
+                    <InputLabel htmlFor="city" value="Herria" className=' row w-100 m-auto ' />
                     <TextInput
                         id="city"
                         name="city"

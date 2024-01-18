@@ -106,8 +106,15 @@ Route::post('/produktu-gehitu', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::patch('/profileOwner', [ProfileController::class, 'updateOwner'])->name('profileOwner.update');
+
+    Route::post('/profileOwner', [ProfileController::class, 'updateOwner'])->name('profileOwner.update');
+
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -133,6 +140,10 @@ Route::post("/produktua-sartu", [ProductController::class, 'store']);
 Route::get('/product/details/{product}', [ProductController::class, 'goDetails'])->name('productDetails');
 
 Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
+
+Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
+
+
 
 // RATING ROUTES
 Route::post('ratings/create', [RatingController::class, 'createRating']);

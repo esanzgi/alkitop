@@ -14,6 +14,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 export default function UpdateProfileInformation({ mustVerifyEmail, status, owner, className = '' }) {
     const user = usePage().props.auth.user;
     const { getUserDetailsByIdUser, userDetails } = useUser();
+    const {post}=useForm();
 
     const { data: userData, setData: setUserData, post: postUser, errors: errorsUser, processing: processingUser, recentlySuccessful: recentlySuccessfulUser } = useForm({
         name: user.name || '',  
@@ -33,36 +34,12 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
     useEffect(() => {
         getUserDetailsByIdUser({ idUser: user.id_user });
     }, [getUserDetailsByIdUser]);
-
-    const handleImageChange = (e) => {
+    
+    const argazkiBerri = async (e) => {
         e.preventDefault();
+        post('/avatarEguneratu');
     
-        const file = e.target.files[0];
-    
-        if (file) {
-            if (file.type.startsWith('image/')) {
-                console.log('Es una imagen. Puedes llamar a la ruta ahora.');
-    
-            } else {
-                console.log('El archivo seleccionado no es una imagen.');
-            }
         }
-    };
-    
-    const argazkiBerri =  (e) => {
-        try {
-            post('/panel', {
-               
-                userData,
-                ownerData,
-            });
-            console.log('Respuesta de la ruta /edit:', response.data);
-        } catch (error) {
-            console.error('Error al llamar a la ruta /edit:', error);
-        }
-    };
-
-
     const submitUser = (e) => {
         e.preventDefault();
         postUser(route('profile.update'));
@@ -85,7 +62,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
             <div className={`d-flex justify-content-around align-items-center ${user.id_role === 4 ? '' : 'flex-row'}`}>
                 <div className={`my-5 ${user.id_role !== 4 ? 'order-1 order-md-0' : ''}`}>
                     <form onSubmit={argazkiBerri} className='d-flex justify-content-center flex-column align-items-center border rounded p-4 bg-light'>
-
+                        <input type='hidden' name='userDetails' value={userDetails}></input>
                         {typeof Avatar === 'string' ? (
                             <img src={user.avatar_url || Avatar} alt="User Avatar" className="rounded-circle mb-3" style={{ width: '200px', height: '200px' }} />
                         ) : (
@@ -94,7 +71,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
 
                         <div className="my-3">
                             <label htmlFor="newImage" className="form-label">Aukeratu irudi berria:</label>
-                            <input type="file" id="newImage" onChange={handleImageChange} className="form-control" />
+                            <input type="file" id="newImage" className="form-control" name='irudi'/>
                         </div>
 
                         <PrimaryButton disabled={processingOwner}>Irudi berria ezarri</PrimaryButton>
@@ -103,7 +80,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
 
                 <div className='d-flex flex-column'>
                 <label className='text-center'>Erabiltzaile datuak</label>
-                <form onSubmit={submitOwner} className='ms-5'>
+                <form onSubmit={submitUser} className='ms-5'>
                 <div>
                     <InputLabel htmlFor="name" value="Izena" className='me-2' />
 
