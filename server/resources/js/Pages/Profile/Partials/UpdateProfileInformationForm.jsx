@@ -57,6 +57,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">Zure perfilaren informazioa</h2>
+                <Link>Zure produktuak</Link>
             </header>
 
             <div className={`d-flex justify-content-around align-items-center ${user.id_role === 4 ? '' : 'flex-row'}`}>
