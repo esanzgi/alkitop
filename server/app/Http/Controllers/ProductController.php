@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\User;
 use App\Models\Rating;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -12,46 +12,60 @@ use Inertia\Inertia;
 class ProductController extends Controller
 {
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //erantzunatik soilik datuak hartu
-        $jsonContent = $request->getContent();
+        try {
+            // Obtener los datos del cuerpo de la solicitud
+            $jsonContent = $request->getContent();
 
-        //Matritze batera pasa
-        $datuak = json_decode($jsonContent, true);
+            // Convertir el contenido JSON a un array asociativo
+            $datuakArray = json_decode($jsonContent, true);
 
-        //Array batera pasa
-        $datuakArray = $datuak["data"];
+            // Obtener el ID del usuario autenticado (propietario)
+            $user_id = auth()->id();
+            $id_owner = DB::table("owners")->where("id_user", $user_id)->value("id_owner");
 
-        //ower id-a
-        echo $user_id = auth()->id();
-        $id_owner = DB::table("owners")->where("id_user", $user_id)->value("id_owner");
+            // Crear un nuevo producto en la base de datos
+            $product = new Product();
+            $product->name = $datuakArray["name"];
+            $product->description = $datuakArray["description"];
+            $product->id_owner = $id_owner;
+            $product->isEco = $datuakArray["isEco"];
+            $product->price = $datuakArray["price"];
+            $product->location = $datuakArray["location"];
+            $product->category = $datuakArray["category"];
+            $product->frequency = $datuakArray["frequency"];
+            $product->image = 'http://hutsa.jpg';
+            $product->save();
 
-        echo $id_owner;
-        //$id_ower=auth()->owner()
+            // Obtener el ID del nuevo producto
+            $product_id = $product->id;
 
-        //datu basean sartu
-        // DB::table("products")->insert([
-        //     'name' => $datuakArray["productname"],
-        //     'description' => $datuakArray["description"],
-        //     'image' => $datuakArray["image"],
-        //     'id_owner' => $id_owner,
-        //     'isEco' => $datuakArray["eco"],
-        //     'price' => $datuakArray["price"],
-        //     'location' => $datuakArray["location"],
-        //     'category' => $datuakArray["category"],
-        //     'frequency'=> $datuakArray["rentalFrequency"]
-        // ]);
+            // Procesar y guardar las imágenes asociadas al producto
+            $images = $datuakArray["images"];
+            foreach ($images as $image) {
+                // Generar un nombre único para la imagen
+                $imageName = uniqid('image_') . '.' . $image->getClientOriginalExtension();
 
-        //return Inertia::render("home");
+                // Guardar la imagen en el directorio public/images
+                $imagePath = $image->storeAs('public/images', $imageName);
+
+                // Guardar la ruta de la imagen en la base de datos
+                DB::table("product_images")->insert([
+                    'product_id' => $product_id,
+                    'image_path' => $imagePath,
+                ]);
+            }
+
+            return response()->json(['message' => 'Producto creado con éxito'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function getProductBySearch(Request $request)
-    {   $search = $request->search;
-        $perPage = $request->input('perPage', 20); 
+    {$search = $request->search;
+        $perPage = $request->input('perPage', 20);
         $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
             ->select(
                 'products.id_product',
@@ -91,11 +105,12 @@ class ProductController extends Controller
             'product' => $newProduct,
         ]);
     }
-    public function addFavourite(Request $request){
-        $user=User::find($request->input('user_id'));
-        $product=Product::find($request->input('product_id'));
+    public function addFavourite(Request $request)
+    {
+        $user = User::find($request->input('user_id'));
+        $product = Product::find($request->input('product_id'));
 
-        if(!$user){
+        if (!$user) {
             return Inertia::render('Dashboard');
         }
     }
