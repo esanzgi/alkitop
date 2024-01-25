@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Form, Button, ListGroup } from 'react-bootstrap';
 
 export const ProductForm = () => {
-  const { data: productData, setData, post } = useForm({
+  const { data: productData, setData, post, errors } = useForm({
     name: '',
     description: '',
     images: [],
@@ -13,6 +13,7 @@ export const ProductForm = () => {
     category: '',
     frequency: '',
   });
+  console.log('errors:', errors)
   console.log('data:', productData)
 
   const handleInputChange = (e) => {
@@ -43,7 +44,10 @@ export const ProductForm = () => {
 
   };
 
-
+  const handleRemoveImage = (indexToRemove) => {
+    const updatedImages = productData.images.filter((_, index) => index !== indexToRemove);
+    setData('images', updatedImages);
+  };
 
   return (
     <Form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -55,7 +59,7 @@ export const ProductForm = () => {
           name="name"
           value={productData.name}
           onChange={handleInputChange}
-          required
+          isInvalid={!!errors?.name}
         />
       </Form.Group>
 
@@ -67,19 +71,19 @@ export const ProductForm = () => {
           name="description"
           value={productData.description}
           onChange={handleInputChange}
-          required
+          isInvalid={!!errors?.description}
         />
       </Form.Group>
 
       <Form.Group controlId="formProductPrice">
         <Form.Label>Precio</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           placeholder="Ingrese el precio del producto"
           name="price"
           value={productData.price}
           onChange={handleInputChange}
-          required
+          isInvalid={!!errors?.price}
         />
       </Form.Group>
 
@@ -90,6 +94,7 @@ export const ProductForm = () => {
           name="frequency"
           value={productData.frequency}
           onChange={handleInputChange}
+          isInvalid={!!errors?.frequency}
         >
           <option value="">Aukeratu</option>
           <option value="daily">Egunero</option>
@@ -106,6 +111,7 @@ export const ProductForm = () => {
           name="isEco"
           checked={productData.isEco}
           onChange={(e) => setData('isEco', e.target.checked)}
+          isInvalid={!!errors?.isEco}
         />
       </Form.Group>
 
@@ -118,7 +124,7 @@ export const ProductForm = () => {
           name="location"
           value={productData.location}
           onChange={handleInputChange}
-          required
+          isInvalid={!!errors?.location}
         />
       </Form.Group>
 
@@ -130,7 +136,7 @@ export const ProductForm = () => {
           name="category"
           value={productData.category}
           onChange={handleInputChange}
-          required
+          isInvalid={!!errors?.category}
         />
       </Form.Group>
 
@@ -144,6 +150,7 @@ export const ProductForm = () => {
           multiple
           onChange={handleImageChange}
           accept="image/*"
+          isInvalid={!!errors?.images}
         />
       </Form.Group>
 
@@ -151,7 +158,17 @@ export const ProductForm = () => {
       {productData.images.length > 0 && (
         <ListGroup className="mt-3">
           {productData.images.map((file, index) => (
-            <ListGroup.Item key={index}>{file.name}</ListGroup.Item>
+            <ListGroup.Item key={index} className='d-flex justify-content-between'>
+              <span>{file.name}</span>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                className="float-right"
+                onClick={() => handleRemoveImage(index)}
+              >
+                X
+              </Button>
+            </ListGroup.Item>
           ))}
         </ListGroup>
       )}
