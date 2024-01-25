@@ -36,6 +36,11 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        if ($user->soft_deleted) {
+            $error = "Zure kontua ezabatuta izan da.";
+            return redirect()->route('login')->withErrors(['login' => $error]);
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME)->with('user', );
     }
 

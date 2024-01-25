@@ -95,6 +95,8 @@ class ProfileController extends Controller
 
         $user->soft_deleted = true;
 
+        $user->save();
+
         Auth::logout();
 
         return Redirect::to('/');
