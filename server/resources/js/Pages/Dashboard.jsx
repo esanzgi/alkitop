@@ -10,12 +10,12 @@ export default function Dashboard({ auth, products }) {
     const { login } = useUserContext()
     login(auth.user)
 
-   
+
 
     return (
         <div>
             <div className='fixed-top bg-white'>
-                <Header user={auth.user} />
+                <Header user={auth.user} owner={auth.user} />
             </div>
 
             <div className="py-12 mt-5 pt-5">
@@ -25,12 +25,21 @@ export default function Dashboard({ auth, products }) {
                     </div>
                 </div>
             </div>
-            
-            {auth.user.id_role === 4 &&(
-            <div>
-                <PrivateUserProducts user={auth.user} />
-            </div>
+
+            {auth.user.id_role === 4 && (
+                <div>
+                    <div className='d-flex justify-content-center my-4'>
+                        <h1 className='mb-2 px-4'>Zure produktuak</h1>
+                    </div>
+                    <hr />
+
+                    <div className='d-flex flex-column mt-4 w-auto'>
+                        <PrivateUserProducts user={auth.user} />
+                    </div>
+                    <hr /> 
+                </div>
             )}
+
 
             {/* {products ? (
                 <GustokoenProduktuak products={products} />
