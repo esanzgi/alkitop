@@ -5,6 +5,7 @@ use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\AdminController;
 use App\Models\Owner;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
@@ -147,5 +148,15 @@ Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
 
 // RATING ROUTES
 Route::post('ratings/create', [RatingController::class, 'createRating']);
+
+
+//Admin panel routes
+
+Route::get("/admin", [AdminController::class, "show"]);
+Route::get("/admin/users", [AdminController::class, 'showUsers']);
+Route::get("/admin/delete", [AdminController::class, 'delete']);
+Route::get("/admin/produktuak", [AdminController::class, 'showProducts']);
+Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);
+Route::get("/admin/rolak", [AdminController::class, 'showRoles']);
 
 require __DIR__ . '/auth.php';

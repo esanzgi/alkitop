@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->unsignedBigInteger('id_role')->default(3);
+            $table->boolean("soft_deleted")->default(0);
             $table->timestamps();
 
             $table->foreign('id_role')->references('id_role')->on('roles');
