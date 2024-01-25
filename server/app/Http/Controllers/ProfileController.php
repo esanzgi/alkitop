@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Owner;
+use App\Models\UserDetail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\UserDetail;
 
 class ProfileController extends Controller
 {
@@ -35,18 +35,31 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'name' => ['required', 'alpha'],
+            'email' => ['required'],
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = auth()->user();
+
+        if ($user) {
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+
+            $user->save();
         }
 
-        $request->user()->save();
+        $userDetail = $user->userDetails;
+
+        if ($userDetail) {
+            $userDetail->country = $request->filled('country') ? $request->input('country') : $userDetail->country;
+            $userDetail->city = $request->filled('city') ? $request->input('city') : $userDetail->city;
+            $userDetail->province = $request->filled('province') ? $request->input('province') : $userDetail->province;
+
+            $userDetail->save();
+        }
 
         return Redirect::route('profile.edit');
     }
@@ -80,12 +93,9 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        $user->soft_deleted = true;
+
         Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
 
         return Redirect::to('/');
     }
@@ -94,27 +104,22 @@ class ProfileController extends Controller
     {
         $user = UserDetail::where('id_user', $idUser)->first();
         return Inertia::render('UserPublicProfile', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
     public function avatarEguneratu(Request $request)
-{
-    $userDetailsId = $request->input('userDetails');
+    {
+        $userDetailsId = $request->input('userDetails');
 
-    $userDetail = UserDetail::findOrFail($userDetailsId);
+        $userDetail = UserDetail::findOrFail($userDetailsId);
 
-    $profileImage = $request->input('irudi');
+        $profileImage = $request->input('irudi');
 
-    $userDetail->profile_image = $profileImage;
+        $userDetail->profile_image = $profileImage;
 
-    $userDetail->save();
-    
-}
+        $userDetail->save();
 
-
-
-
-
+    }
 
 }

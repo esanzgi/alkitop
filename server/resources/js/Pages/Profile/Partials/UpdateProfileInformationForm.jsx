@@ -106,22 +106,20 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
                         className="mt-1 block w-full"
                         value={userData.email}
                         onChange={(e) => setUserData('email', e.target.value)}
-                        required
                         autoComplete="username"
+                        required
                     />
 
                     <InputError className="mt-2" message={errorsUser.email} />
                 </div>
                 <div>
-                    <InputLabel htmlFor="name" value="Country" className='me-2' />
+                    <InputLabel htmlFor="country" value="Country" className='me-2' />
 
                     <TextInput
                         id="country"
                         className="mt-1 block w-full"
-                        value={userDetails.country}
+                        placeholder={userDetails.country}
                         onChange={(e) => setUserData('country', e.target.value)}
-                        required
-                        autoComplete="name"
                     />
 
                     <InputError className="mt-2" message={errorsUser.country} />
@@ -133,9 +131,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
                     <TextInput
                         id="province"
                         className="mt-1 block w-full"
-                        value={userDetails.province}
+                        placeholder={userDetails.province}
                         onChange={(e) => setUserData('province', e.target.value)}
-                        required
                         autoComplete="province"
                     />
 
@@ -148,9 +145,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, owne
                     <TextInput
                         id="city"
                         className="mt-1 block w-full"
-                        value={userDetails.city}
+                        placeholder={userDetails.city}
                         onChange={(e) => setUserData('city', e.target.value)}
-                        required
                         autoComplete="city"
                     />
 
