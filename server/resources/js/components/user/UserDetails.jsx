@@ -2,7 +2,7 @@ import { UserProfileCircle } from "../Icons"
 import { useState, useEffect } from "react";
 import ProductCarousel from "../ProductCarousel";
 
-export const UserDetails = ({user}) => {
+export const UserDetails = ({ user }) => {
 
   const [produktuJabea, setProduktuJabea] = useState([]);
 
@@ -15,7 +15,7 @@ export const UserDetails = ({user}) => {
         }
 
         const data = await response.json();
-        setProduktuJabea(data); 
+        setProduktuJabea(data);
 
       } catch (error) {
         console.error(error);
@@ -25,7 +25,6 @@ export const UserDetails = ({user}) => {
     fetchUserProducts();
   }, [user.idUser]);
 
-  console.log('DETAILS', produktuJabea)
   return (
     <div className="mt-5">
       <div className="border-bottom pb-3 d-flex justify-content-between align-items-center">
@@ -74,18 +73,18 @@ export const UserDetails = ({user}) => {
       </div>
 
       <div className="mt-5">
-        <ProductCarousel products={produktuJabea}/>
+        <ProductCarousel products={produktuJabea} />
       </div>
 
 
       <div className="mt-5 border-bottom">
         <h1 className="h1 pb-2 pt-4">Alokatuak</h1>
       </div>
-     
+
 
       <div className="mt-5 border-bottom">
         <h1 className="h1 pb-2 pt-4">Iritziak</h1>
       </div>
-  </div>
+    </div>
   )
 }

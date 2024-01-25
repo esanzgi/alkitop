@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Owner;
 use App\Models\Product;
 use App\Models\Rating;
 use App\Models\User;
@@ -15,51 +16,43 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            // Obtener los datos del cuerpo de la solicitud
-            $jsonContent = $request->getContent();
+            DB::beginTransaction();
 
-            // Convertir el contenido JSON a un array asociativo
-            $datuakArray = json_decode($jsonContent, true);
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'isEco' => 'required|boolean',
+                'price' => 'required|numeric',
+                'location' => 'required|string|max:255',
+                'category' => 'required|string|max:255',
+                'frequency' => 'required|string|max:255',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-            // Obtener el ID del usuario autenticado (propietario)
-            $user_id = auth()->id();
-            $id_owner = DB::table("owners")->where("id_user", $user_id)->value("id_owner");
+            // Obtén el ID del usuario autenticado
+            $userId = auth()->id();
 
-            // Crear un nuevo producto en la base de datos
-            $product = new Product();
-            $product->name = $datuakArray["name"];
-            $product->description = $datuakArray["description"];
-            $product->id_owner = $id_owner;
-            $product->isEco = $datuakArray["isEco"];
-            $product->price = $datuakArray["price"];
-            $product->location = $datuakArray["location"];
-            $product->category = $datuakArray["category"];
-            $product->frequency = $datuakArray["frequency"];
-            $product->image = 'http://hutsa.jpg';
-            $product->save();
+            // Busca el propietario asociado con el ID del usuario
+            $owner = Owner::where('id_user', $userId)->first();
 
-            // Obtener el ID del nuevo producto
-            $product_id = $product->id;
+            // Crea el producto asociando el ID del propietario
+            $product = Product::create($request->except('images') + ['id_owner' => $owner->id_owner]);
 
-            // Procesar y guardar las imágenes asociadas al producto
-            $images = $datuakArray["images"];
-            foreach ($images as $image) {
-                // Generar un nombre único para la imagen
-                $imageName = uniqid('image_') . '.' . $image->getClientOriginalExtension();
-
-                // Guardar la imagen en el directorio public/images
-                $imagePath = $image->storeAs('public/images', $imageName);
-
-                // Guardar la ruta de la imagen en la base de datos
-                DB::table("product_images")->insert([
-                    'product_id' => $product_id,
-                    'image_path' => $imagePath,
-                ]);
+            // Maneja la carga de imágenes
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    // Guarda la imagen en el sistema de archivos (public/images)
+                    $path = $image->store('', 'public_images');
+                    $product->images()->create([
+                        'image_path' => $path,
+                    ]);
+                }
             }
 
-            return response()->json(['message' => 'Producto creado con éxito'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            DB::commit();
+
+        } catch (Exception $e) {
+            DB::rollBack();
         }
     }
 

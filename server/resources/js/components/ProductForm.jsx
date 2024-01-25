@@ -1,8 +1,9 @@
+import { Link, useForm } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { Form, Button, ListGroup } from 'react-bootstrap';
 
 export const ProductForm = () => {
-  const [productData, setProductData] = useState({
+  const { data: productData, setData, post } = useForm({
     name: '',
     description: '',
     images: [],
@@ -12,51 +13,40 @@ export const ProductForm = () => {
     category: '',
     frequency: '',
   });
-  console.log('Datos: ', productData)
+  console.log('data:', productData)
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProductData({ ...productData, [name]: value });
+    setData(name, value);
   };
 
   const handleImageChange = (e) => {
     const images = Array.from(e.target.files);
-    setProductData((prevProductData) => ({
-      ...prevProductData,
-      images: [...prevProductData.images, ...images],
-    }));
+    setData('images', [...productData.images, ...images]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/produktua-sartu', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      post('/produktua-sartu', {
+        onSuccess: () => {
+          console.log('Formulario enviado con éxito');
         },
-        body: JSON.stringify(productData),
+        onError: (error) => {
+          console.error('Error al enviar el formulario:', error);
+        },
       });
-
-      // if (!response.ok) {
-      //   const errorResponse = await response.json(); // Intenta leer el contenido JSON del error
-      //   throw new Error(`Error al enviar el formulario: ${errorResponse.error || 'Error desconocido'}`);
-      // }
-
-      // const result = await response.json();
-      // console.log(result.message); // Imprime el mensaje del servidor en caso de éxito
-      // // Lógica adicional en caso de éxito
-
     } catch (error) {
       console.error('Error:', error.message);
-      // Lógica para manejar errores
     }
+
   };
 
 
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} encType="multipart/form-data">
       <Form.Group controlId="formProductName">
         <Form.Label>Produktuaren izena:</Form.Label>
         <Form.Control
@@ -115,7 +105,7 @@ export const ProductForm = () => {
           label="Producto Ecológico"
           name="isEco"
           checked={productData.isEco}
-          onChange={() => setProductData({ ...productData, isEco: !productData.isEco })}
+          onChange={(e) => setData('isEco', e.target.checked)}
         />
       </Form.Group>
 

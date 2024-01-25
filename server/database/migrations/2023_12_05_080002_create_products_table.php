@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_product');
             $table->string('name');
             $table->text('description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('id_owner');
             $table->boolean('isEco');
             $table->decimal('price', 10, 2);
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('category');
             $table->string('frequency');
             $table->foreign('id_owner')->references('id_owner')->on('owners')->onDelete('cascade');
-        
+
         });
     }
 
