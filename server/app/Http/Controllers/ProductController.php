@@ -67,8 +67,29 @@ class ProductController extends Controller
     {
         $search = $request->search;
         $perPage = $request->input('perPage', 20);
-        $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
-            ->leftJoin('product_images', 'products.id_product', '=', 'product_images.product_id')
+        // $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
+        //     ->leftJoin('product_images', 'products.id_product', '=', 'product_images.product_id')
+        //     ->select(
+        //         'products.id_product',
+        //         'products.name',
+        //         'products.description',
+        //         'products.image',
+        //         'products.id_owner',
+        //         'products.isEco',
+        //         'products.price',
+        //         'products.location',
+        //         'products.category',
+        //         \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating'),
+        //         'product_images.image_path as image_path'
+        //     )
+        //     ->where('products.name', 'LIKE', "%$search%")
+        //     ->groupBy('products.id_product', 'products.name', 'products.description', 'products.image', 'products.id_owner', 'products.isEco', 'products.price', 'products.location', 'products.category', 'product_images.image_path')
+        //     ->paginate($perPage);
+
+        $products = Product::leftJoin('product_images', function ($join) {
+            $join->on('products.id_product', '=', 'product_images.product_id')
+                ->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images WHERE product_id = products.id_product)');
+        })
             ->select(
                 'products.id_product',
                 'products.name',
@@ -79,11 +100,9 @@ class ProductController extends Controller
                 'products.price',
                 'products.location',
                 'products.category',
-                \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating'),
                 'product_images.image_path as image_path'
             )
             ->where('products.name', 'LIKE', "%$search%")
-            ->groupBy('products.id_product', 'products.name', 'products.description', 'products.image', 'products.id_owner', 'products.isEco', 'products.price', 'products.location', 'products.category', 'product_images.image_path')
             ->paginate($perPage);
 
         return response()->json($products);
@@ -109,7 +128,7 @@ class ProductController extends Controller
 
         return Inertia::render('ProductDetails', [
             'product' => $newProduct,
-            'user'=> auth()->user(),
+            'user' => auth()->user(),
         ]);
     }
 
@@ -135,9 +154,6 @@ class ProductController extends Controller
             'product' => $newProduct,
         ]);
     }
-
-
-
 
     public function addFavourite(Request $request)
     {

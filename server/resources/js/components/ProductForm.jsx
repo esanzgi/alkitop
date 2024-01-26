@@ -1,3 +1,4 @@
+import { allCategories } from '@/assets/utils/constants';
 import { Link, useForm } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { Form, Button, ListGroup } from 'react-bootstrap';
@@ -13,8 +14,6 @@ export const ProductForm = () => {
     category: '',
     frequency: '',
   });
-  console.log('errors:', errors)
-  console.log('data:', productData)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -131,13 +130,19 @@ export const ProductForm = () => {
       <Form.Group controlId="formProductCategory">
         <Form.Label>Categoría</Form.Label>
         <Form.Control
-          type="text"
-          placeholder="Ingrese la categoría del producto"
+          as="select"
           name="category"
           value={productData.category}
           onChange={handleInputChange}
           isInvalid={!!errors?.category}
-        />
+        >
+          <option value="">Aukeratu</option>
+          {allCategories?.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </Form.Control>
       </Form.Group>
 
 
