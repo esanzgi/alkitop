@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ProductCarousel from "../ProductCarousel";
+import { PrivateProducts } from "./PrivateProducts";
 
 function PrivateUserProducts({ user }) {
   const [produktuJabea, setProduktuJabea] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [displayType, setDisplayType] = useState("all");
 
   useEffect(() => {
     const fetchUserProducts = async () => {
@@ -27,16 +28,33 @@ function PrivateUserProducts({ user }) {
     fetchUserProducts();
   }, [user.id_user]);
 
+  const filterProducts = (type) => {
+    switch (type) {
+      case "favorites":
+        break;
+      case "purchased":
+        break;
+      default:
+        return produktuJabea;
+    }
+  };
+
+  const filteredProducts = filterProducts(displayType);
+
   return (
     <div className="w-full">
       {loading ? (
         <p>Produktuak kargatzen...</p>
       ) : produktuJabea.length === 0 ? (
         <div>
-          <p className="text-center h4 p-4">Ez dituzu produkturik alokairuan. Anima zaitez!</p>
+          <p className="text-center h4 p-4">
+            Ez dituzu produkturik alokairuan. Anima zaitez!
+          </p>
         </div>
       ) : (
-        <ProductCarousel products={produktuJabea} />
+        <div>
+          <PrivateProducts products={produktuJabea}/>
+        </div>
       )}
     </div>
   );

@@ -5,56 +5,76 @@ import { Header } from '@/components/Header';
 import PrivateUserProducts from '@/components/user/PrivateUserProducts';
 import { useUserContext } from '@/context/userContext';
 import { Head } from '@inertiajs/react';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import React, { useState } from "react";
 
-export default function Dashboard({ auth, products }) {
-    const { login } = useUserContext()
-    login(auth.user)
+export default function Dashboard({ auth, products, owner }) {
+  const { login } = useUserContext();
+  login(auth.user);
 
+  const [displayType, setDisplayType] = useState("all");
 
+  const handleMenuOptionClick = (option) => {
+    setDisplayType(option);
+  };
 
-    return (
-        <div>
-            <div className='fixed-top bg-white'>
-                <Header user={auth.user} owner={auth.user} />
-            </div>
+  let displayComponent;
 
-            <div className="py-12 mt-5 pt-5">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="py-2 text-gray-900 mx-3 h3">Mila esker izen emateagatik</div>
-                    </div>
-                </div>
-            </div>
+  switch (displayType) {
+    case "all":
+    case "favorites":
+    case "purchased":
+      displayComponent = <PrivateUserProducts user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;
+      break;
+    default:
+      displayComponent = null;
+  }
 
-            {auth.user.id_role === 4 && (
-                <div>
-                    <div className='d-flex justify-content-center my-4'>
-                        <h1 className='mb-2 px-4'>Zure produktuak</h1>
-                    </div>
-                    <hr />
+  return (
+    <div>
+      <div className='fixed-top bg-white'>
+        <Header user={auth.user} owner={owner} />
+      </div>
 
-                    <div className='d-flex flex-column mt-4 w-auto'>
-                        <PrivateUserProducts user={auth.user} />
-                    </div>
-                    <hr /> 
-                </div>
-            )}
-
-
-            {/* {products ? (
-                <GustokoenProduktuak products={products} />
-            ) : (
-                <div className="text-red-600 mx-3 my-4 d-flex justify-content-center">
-                    <h4>Ez dituzu gordetako produkturik</h4>
-                </div>
-            )} */}
-
-            <div className='mt-5 pt-5 bg-light border-top'>
-                <div className='container-md'>
-                    <Footer />
-                </div>
-            </div>
+      <div className="py-12 mt-5 pt-5">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="py-2 text-gray-900 mx-3 h3">Mila esker izen emateagatik</div>
+          </div>
         </div>
+      </div>
 
-    );
+
+      <div className='container-fluid mt-4 ms-4'>
+        <div className='row'>
+          <div className='col-3'>
+            <DropdownButton title="Menu   " id="dropdown-menu">
+              {auth.user.id_role === 4 ? (
+                <>
+                  <Dropdown.Item onClick={() => handleMenuOptionClick("all")}>Nire produktuak</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleMenuOptionClick("favorites")}>Gustokoenak</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleMenuOptionClick("purchased")}>Alokatutak</Dropdown.Item>
+                </>
+              ) : (
+                <>
+                  <Dropdown.Item onClick={() => handleMenuOptionClick("favorites")}>Gustokoenak</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleMenuOptionClick("purchased")}>Alokautak</Dropdown.Item>
+                </>
+              )}
+            </DropdownButton>
+          </div>
+
+          <div className='col-12 mt-3'>
+            {displayComponent}
+          </div>
+        </div>
+      </div>
+
+      <div className='mt-5 pt-5 bg-light border-top'>
+        <div className='container-md'>
+          <Footer />
+        </div>
+      </div>
+    </div>
+  );
 }

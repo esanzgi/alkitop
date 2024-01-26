@@ -55,6 +55,12 @@ Route::get('/produktu-gehitu', function () {
 });
 
 Route::get('/dashboard', function () {
+    $erabiltzailea = auth()->user();
+    $owner = null;
+
+    if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+        $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+    }
     $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
         ->select(
             'products.id_product',
@@ -83,6 +89,7 @@ Route::get('/dashboard', function () {
 
     return Inertia::render('Dashboard', [
         'products' => $products,
+        'owner' => $owner,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
