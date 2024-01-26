@@ -5,12 +5,11 @@ import { useUserContext } from '@/context/userContext'
 
 export function PrivateProductCard({ product, user }) {
   const { loggedUser } = useUserContext();
-  console.log('LOGED USER', loggedUser)
-  console.log(user && user.id_user);
+  console.log('Product', product);
   const { get, post } = useForm();
 
   const handleOnClick = () => {
-    get(`/product/details/${product.id_product || product.id}`);
+    get(`/private/product/details/${product.id_product || product.id}`);
   }
 
   const addFavourite = (e) => {

@@ -111,6 +111,33 @@ class ProductController extends Controller
             'product' => $newProduct,
         ]);
     }
+
+    public function privateCard(Product $product)
+    {
+        $images = ProductImage::where('product_id', $product->id_product)->get();
+        $product->images = $images;
+
+        $newProduct = [];
+        $ratings = Rating::where('id_product', $product->id_product)->get();
+
+        $media = Rating::select(
+            \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
+        )
+            ->where('id_product', $product->id_product)
+            ->get();
+
+        $newProduct['product'] = $product;
+        $newProduct['rating'] = $ratings;
+        $newProduct['avgRating'] = $media;
+
+        return Inertia::render('PrivateProductDetails', [
+            'product' => $newProduct,
+        ]);
+    }
+
+
+
+
     public function addFavourite(Request $request)
     {
         $user = User::find($request->input('user_id'));

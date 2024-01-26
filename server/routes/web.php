@@ -147,6 +147,8 @@ Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
 Route::get('/product/details/{product}', [ProductController::class, 'goDetails'])->name('productDetails');
 
+Route::get('/private/product/details/{product}', [ProductController::class, 'privateCard'])->name('privateCard');
+
 Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
 
 Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
