@@ -1,42 +1,53 @@
-import { useUser } from "@/hooks/useUser"
-import { useEffect, useState } from "react"
+import { useUser } from "@/hooks/useUser";
+import { useEffect, useState } from "react";
 import ProductDetailCard from "./ProductDetailCard";
 import { ProductOpinions } from "./ProductOpinions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faStar, faEdit } from "@fortawesome/free-solid-svg-icons";  
 import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
 import { OpinionInput } from "./OpinionInput";
 
-export function ProductDetailsContent({ product, user }) {
-  const { users, getUserByIdOwner } = useUser()
-  const [formatedData, setFormatedData] = useState()
+export function ProductDetailsContent({ product, owner }) {
+  const { users, getUserByIdOwner } = useUser();
+  const [formatedData, setFormatedData] = useState();
+  const [isOwner, setIsOwner] = useState(false);
 
-  console.log('PRODUCT DET --> ', product)
-
-  // if(user.id_owner=product.id_owner){
-
-  // }
+  console.log('PRODUCT DET --> ', product);
 
   useEffect(() => {
     if (users.createdAt) {
-      const data = intlFormatDistance(parseISO(users.createdAt), new Date())
-      setFormatedData(data)
+      const data = intlFormatDistance(parseISO(users.createdAt), new Date());
+      setFormatedData(data);
     }
-  }, [users])
+  }, [users]);
 
   const avgRatingValue = product.avgRating.length > 0
     ? product.avgRating[0].avg_rating.replace('.', ',')
     : '0';
 
   useEffect(() => {
-    getUserByIdOwner({ idOwner: product.product.id_owner })
-  }, [getUserByIdOwner])
+    if (owner && owner.id_owner && product.product.id_owner) {
+      getUserByIdOwner({ idOwner: product.product.id_owner });
+      setIsOwner(owner.id_owner === product.product.id_owner);
+    }
+  }, [getUserByIdOwner, owner, product.product.id_owner]);
+
+  const handleEdit=()=>{
+    get
+  }
+
 
   return (
     <div className="mt-5">
       <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
         <h2 className="h2 fw-bold">{product.product.name}</h2>
+        {isOwner && (
+          <div className="btn rounded-pill bg-green ">
+            Editatu
+            <FontAwesomeIcon className="ms-3" icon={faEdit} onClick={() => handleEdit()} />
+          </div>
+        )}
         <div className="d-flex align-items-center">
           <span className="fs-5 me-2">{users.name}</span>
           <UserProfileCircle width={55} height={55} user={users} />
@@ -64,8 +75,7 @@ export function ProductDetailsContent({ product, user }) {
         <div className="col-12">
           <ProductOpinions ratings={product.rating} />
         </div>
-
       </div>
     </div>
-  )
+  );
 }

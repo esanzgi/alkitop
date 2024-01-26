@@ -113,6 +113,12 @@ class ProductController extends Controller
         $images = ProductImage::where('product_id', $product->id_product)->get();
         $product->images = $images;
 
+        $owner = null;
+
+        if (auth()->user() && auth()->user()->id_role == 4) {
+            $owner = Owner::where('id_user', auth()->user()->id_user)->first();
+        }
+
         $newProduct = [];
         $ratings = Rating::where('id_product', $product->id_product)->get();
 
@@ -129,6 +135,7 @@ class ProductController extends Controller
         return Inertia::render('ProductDetails', [
             'product' => $newProduct,
             'user' => auth()->user(),
+            'owner' => $owner,
         ]);
     }
 
