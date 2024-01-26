@@ -12,6 +12,8 @@ export function ProductDetailsContent({ product }) {
   const { users, getUserByIdOwner } = useUser()
   const [formatedData, setFormatedData] = useState()
 
+  console.log('PRODUCT DET --> ', product)
+
   useEffect(() => {
     if (users.createdAt) {
       const data = intlFormatDistance(parseISO(users.createdAt), new Date())

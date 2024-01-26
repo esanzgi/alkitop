@@ -24,26 +24,26 @@ export function ProductDetailCard({ product }) {
     'https://via.placeholder.com/640x480.png/0011dd?text=Eneko',
     'https://via.placeholder.com/640x480.png/0011dd?text=Hodei',
     'https://via.placeholder.com/640x480.png/0011dd?text=Jon',
-  ] 
+  ]
 
 
-  
+
   return (
     <div className='row justify-content-center'>
       <div className='col-10 col-sm-8 col-md-4'>
 
-        
+
         <AlkitopTooltip text='Handitu'>
           <img
             className='img-fluid rounded-4 object-fit-cover product'
-            src={product.product.image || product.product.images}
+            src={product.product.images[0].image_path}
             alt={product.product.name || product.product.title}
             onClick={openModal}
           />
         </AlkitopTooltip>
 
-        <ImagesModal isOpen={isModalOpen} onClose={closeModal} images={IMAGES_PRUEBA} />
-        
+        <ImagesModal isOpen={isModalOpen} onClose={closeModal} images={product.product.images} />
+
 
         <div className='d-flex justify-content-between align-items-center pe-2 ps-2 mt-2'>
           <span className='fs-4'>{product.product.name || product.product.title}</span>
@@ -81,20 +81,20 @@ export function ProductDetailCard({ product }) {
               )
             }
           </div>
-          
+
           <div className='mt-4'>
             <p className='fs-5'>{product.product.description}</p>
-            
+
           </div>
         </div>
 
-        
+
 
         <div className="mt-3 mb-2 md-mb-5 d-flex justify-content-center  me-5 pb-5 align-items-center">
           <button className="btn btn-success me-3 px-5 fs-5 ">Alokatu</button>
-          <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment}/></button>
-          <span className='pointer-at'><FontAwesomeIcon className='fs-2' icon={faBookmark}/></span>
-           
+          <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment} /></button>
+          <span className='pointer-at'><FontAwesomeIcon className='fs-2' icon={faBookmark} /></span>
+
         </div>
       </div>
     </div>

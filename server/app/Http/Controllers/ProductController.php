@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Owner;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Rating;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -46,6 +47,8 @@ class ProductController extends Controller
                     $product->images()->create([
                         'image_path' => $path,
                     ]);
+
+                    $attemptedImages[] = $path;
                 }
             }
 
@@ -53,6 +56,10 @@ class ProductController extends Controller
 
         } catch (Exception $e) {
             DB::rollBack();
+
+            foreach ($attemptedImages as $imagePath) {
+                Storage::disk('public_images')->delete($imagePath);
+            }
         }
     }
 
@@ -81,6 +88,9 @@ class ProductController extends Controller
 
     public function goDetails(Product $product)
     {
+        $images = ProductImage::where('product_id', $product->id_product)->get();
+        $product->images = $images;
+
         $newProduct = [];
         $ratings = Rating::where('id_product', $product->id_product)->get();
 

@@ -8,7 +8,6 @@ use App\Models\Product;
 use App\Models\Rating;
 use App\Models\Rental;
 use App\Models\Role;
-use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Database\Seeder;
 
@@ -46,12 +45,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'owner',
         ]);
 
-        User::create([
-            'name' => 'eneko',
-            'email' => 'esanzgi22wg@ikzubirimanteo.com',
-            'id_role' => \App\Models\Role::all()->random()->id_role,
-            'password' => 'eneko',
-        ]);
+        // User::create([
+        //     'name' => 'eneko',
+        //     'email' => 'esanzgi22wg@ikzubirimanteo.com',
+        //     'id_role' => \App\Models\Role::all()->random()->id_role,
+        //     'password' => 'eneko',
+        // ]);
         UserDetail::factory()->count(10)->create();
         //User::factory()->count(10)->create();
         Owner::factory()->count(5)->create();
