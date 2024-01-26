@@ -8,11 +8,15 @@ import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
 import { OpinionInput } from "./OpinionInput";
 
-export function ProductDetailsContent({ product }) {
+export function ProductDetailsContent({ product, user }) {
   const { users, getUserByIdOwner } = useUser()
   const [formatedData, setFormatedData] = useState()
 
   console.log('PRODUCT DET --> ', product)
+
+  // if(user.id_owner=product.id_owner){
+
+  // }
 
   useEffect(() => {
     if (users.createdAt) {

@@ -109,6 +109,7 @@ class ProductController extends Controller
 
         return Inertia::render('ProductDetails', [
             'product' => $newProduct,
+            'user'=> auth()->user(),
         ]);
     }
 

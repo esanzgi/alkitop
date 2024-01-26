@@ -9,6 +9,8 @@ import { PUBLIC_IMAGES_URL } from '@/assets/utils/constants';
 
 
 export function ProductDetailCard({ product }) {
+
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
@@ -30,7 +32,6 @@ export function ProductDetailCard({ product }) {
   return (
     <div className='row justify-content-center'>
       <div className='col-10 col-sm-8 col-md-4'>
-
 
         <AlkitopTooltip text='Handitu'>
           <img

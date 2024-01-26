@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PrivateProducts } from "./PrivateProducts";
+import { Products } from "../Products";
 
 function PrivateUserProducts({ user }) {
   const [produktuJabea, setProduktuJabea] = useState([]);
@@ -53,7 +53,7 @@ function PrivateUserProducts({ user }) {
         </div>
       ) : (
         <div>
-          <PrivateProducts products={produktuJabea}/>
+          <Products products={produktuJabea}/>
         </div>
       )}
     </div>

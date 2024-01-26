@@ -13,7 +13,10 @@ class RestProductController extends Controller
         $user = User::find($idUser);
         $owner = Owner::where('id_user', $user->id_user)->first();
 
-        $products = Product::leftJoin('product_images', 'products.id_product', '=', 'product_images.product_id')
+        $products = Product::leftJoin('product_images', function ($join) {
+            $join->on('products.id_product', '=', 'product_images.product_id')
+                ->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images WHERE product_id = products.id_product)');
+        })
             ->where('id_owner', $owner->id_owner)
             ->select(
                 'products.id_product',
@@ -28,7 +31,6 @@ class RestProductController extends Controller
                 'product_images.image_path as image_path'
             )
             ->get();
-
         return response()->json($products);
     }
 
