@@ -4,6 +4,7 @@ import { AlkitopTooltip, NextArrow, PrevArrow } from '../Icons'
 import RatingStars from 'react-rating-stars-component';
 import { useState } from 'react';
 import ImagesModal from './ImagesModal';
+import { PUBLIC_IMAGES_URL } from '@/assets/utils/constants';
 
 
 
@@ -26,8 +27,6 @@ export function ProductDetailCard({ product }) {
     'https://via.placeholder.com/640x480.png/0011dd?text=Jon',
   ]
 
-
-
   return (
     <div className='row justify-content-center'>
       <div className='col-10 col-sm-8 col-md-4'>
@@ -36,7 +35,7 @@ export function ProductDetailCard({ product }) {
         <AlkitopTooltip text='Handitu'>
           <img
             className='img-fluid rounded-4 object-fit-cover product'
-            src={product.product.images[0].image_path}
+            src={PUBLIC_IMAGES_URL + product.product.images[0].image_path}
             alt={product.product.name || product.product.title}
             onClick={openModal}
           />

@@ -9,9 +9,7 @@ import { useProductsPaginate } from '@/hooks/useProductsPaginate';
 
 function ProductsPage({ search, page }) {
   const [showFiltersModal, setShowFiltersModal] = useState(false);
-  console.log('INITIAL PAGE VALUE', page)
   const { loading, products, currentPage, totalPages, loadNextPage } = useProductsPaginate(search, 1)
-  console.log('LAZY', products)
 
   const handleOpenFiltersModal = () => {
     setShowFiltersModal(true);
@@ -22,7 +20,7 @@ function ProductsPage({ search, page }) {
   };
 
   const handleLoadMore = () => {
-    loadNextPage(); 
+    loadNextPage();
   };
 
   return (
@@ -45,9 +43,9 @@ function ProductsPage({ search, page }) {
           <div className='text-center'>
             <Products products={products} />
             {currentPage < totalPages && (
-                <button onClick={loadNextPage} disabled={loading} className='btn btn-success mt-5 px-4'>
-                    Gehiago ikusi
-                </button>
+              <button onClick={loadNextPage} disabled={loading} className='btn btn-success mt-5 px-4'>
+                Gehiago ikusi
+              </button>
             )}
           </div>
         )}

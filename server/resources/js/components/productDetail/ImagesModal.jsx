@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { NextArrow, PrevArrow } from '../Icons';
 import Slider from 'react-slick';
+import { PUBLIC_IMAGES_URL } from '@/assets/utils/constants';
 
 const ImagesModal = ({ isOpen, onClose, images }) => {
   const settings = {
@@ -16,7 +17,7 @@ const ImagesModal = ({ isOpen, onClose, images }) => {
   };
 
   if (!images) {
-    console.log('IMAGES', images)
+    console.log('IMAGES', PUBLIC_IMAGES_URL)
   }
 
   return (
@@ -29,11 +30,12 @@ const ImagesModal = ({ isOpen, onClose, images }) => {
           {images?.map((image, index) => (
             <div key={index} className=''>
               <img
-                src={image.image_path}
+                src={PUBLIC_IMAGES_URL + image.image_path}
                 alt={image.image_path}
                 className='img-fluid object-fit-contain mx-auto rounded-3'
 
               />
+
             </div>
           ))}
         </Slider>

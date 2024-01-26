@@ -12,7 +12,6 @@ export const OpinionModal = ({ isOpen, onClose, onSubmit, product }) => {
     review: '',
     rating: 0,
   });
-  console.log('OPINION MODAL LOGGED', loggedUser)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

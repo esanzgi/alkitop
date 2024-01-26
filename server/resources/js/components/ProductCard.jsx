@@ -4,16 +4,15 @@ import IMAGE from '../assets/images/moto.jpg'
 import IMAGE2 from '../assets/images/moto2.jpg'
 import { useForm } from '@inertiajs/react'
 import { useUserContext } from '@/context/userContext'
+import { PUBLIC_IMAGES_URL } from '@/assets/utils/constants'
 
 export function ProductCard({ product, user }) {
   const { loggedUser } = useUserContext();
-  console.log('Product', product);
   const { get, post } = useForm();
 
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`);
   }
-
   const addFavourite = (e) => {
     e.preventDefault();
 
@@ -33,7 +32,7 @@ export function ProductCard({ product, user }) {
 
       <div className='col-12 text-center shadow-sm '>
         <img
-          src={product.image}
+          src={PUBLIC_IMAGES_URL + product.image_path}
           alt={product.title || product.name}
           className='img-fluid object-fit-cover mx-auto rounded-3 shadow-sm'
           style={{ height: '250px' }}

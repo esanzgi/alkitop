@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id_product')->on('products')->onDelete('cascade');
-            $table->string('image_path', 500);
+            $table->string('image_path', 500)->default('i4721859428.webp');
             $table->timestamps();
         });
     }

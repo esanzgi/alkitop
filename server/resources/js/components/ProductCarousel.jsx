@@ -10,7 +10,7 @@ import { NextArrow, PrevArrow } from './Icons';
 const ProductCarousel = ({ products, user }) => {
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,

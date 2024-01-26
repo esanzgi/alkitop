@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Owner;
 use App\Models\Product;
 use App\Models\User;
-use App\Models\Owner;
-
 
 class RestProductController extends Controller
 {
@@ -15,8 +13,23 @@ class RestProductController extends Controller
         $user = User::find($idUser);
         $owner = Owner::where('id_user', $user->id_user)->first();
 
-        $products = Product::where('id_owner', $owner->id_owner)->get();
+        $products = Product::leftJoin('product_images', 'products.id_product', '=', 'product_images.product_id')
+            ->where('id_owner', $owner->id_owner)
+            ->select(
+                'products.id_product',
+                'products.name',
+                'products.description',
+                'products.image',
+                'products.id_owner',
+                'products.isEco',
+                'products.price',
+                'products.location',
+                'products.category',
+                'product_images.image_path as image_path'
+            )
+            ->get();
 
         return response()->json($products);
     }
+
 }

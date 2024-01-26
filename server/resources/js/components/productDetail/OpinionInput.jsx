@@ -9,7 +9,6 @@ import { useUserContext } from "@/context/userContext";
 export const OpinionInput = ({ onSubmit, user, product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const inputRef = useRef(null);
-  console.log('RATINGS OPINION', product)
 
   const handleOpenModal = () => {
     setIsModalOpen(true);

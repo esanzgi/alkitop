@@ -19,7 +19,7 @@ class ProductImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'image_path' => $this->faker->imageUrl(),
+            'image_path' => 'i4721859428.webp',
         ];
     }
 }

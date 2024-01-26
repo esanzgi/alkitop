@@ -28,6 +28,7 @@ class HomeController extends Controller
         //$products = Product::all();
 
         $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
+            ->leftJoin('product_images', 'products.id_product', '=', 'product_images.product_id')
             ->select(
                 'products.id_product',
                 'products.name',
@@ -38,7 +39,8 @@ class HomeController extends Controller
                 'products.price',
                 'products.location',
                 'products.category',
-                DB::raw("COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating")
+                DB::raw("COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating"),
+                'product_images.image_path as image_path'
             )
             ->groupBy(
                 'products.id_product',
@@ -49,7 +51,8 @@ class HomeController extends Controller
                 'products.isEco',
                 'products.price',
                 'products.location',
-                'products.category'
+                'products.category',
+                'product_images.image_path'
             )
             ->get();
 
@@ -69,7 +72,7 @@ class HomeController extends Controller
         $search = $request->input('search');
 
         return Inertia::render('ProductsPage', [
-            'search' => $search
+            'search' => $search,
         ]);
     }
 

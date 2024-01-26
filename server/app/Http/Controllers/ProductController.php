@@ -27,7 +27,7 @@ class ProductController extends Controller
                 'location' => 'required|string|max:255',
                 'category' => 'required|string|max:255',
                 'frequency' => 'required|string|max:255',
-                'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             ]);
 
             // Obtén el ID del usuario autenticado
@@ -64,9 +64,11 @@ class ProductController extends Controller
     }
 
     public function getProductBySearch(Request $request)
-    {$search = $request->search;
+    {
+        $search = $request->search;
         $perPage = $request->input('perPage', 20);
         $products = Product::leftJoin('ratings', 'products.id_product', '=', 'ratings.id_product')
+            ->leftJoin('product_images', 'products.id_product', '=', 'product_images.product_id')
             ->select(
                 'products.id_product',
                 'products.name',
@@ -77,10 +79,11 @@ class ProductController extends Controller
                 'products.price',
                 'products.location',
                 'products.category',
-                \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
+                \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating'),
+                'product_images.image_path as image_path'
             )
             ->where('products.name', 'LIKE', "%$search%")
-            ->groupBy('products.id_product', 'products.name', 'products.description', 'products.image', 'products.id_owner', 'products.isEco', 'products.price', 'products.location', 'products.category')
+            ->groupBy('products.id_product', 'products.name', 'products.description', 'products.image', 'products.id_owner', 'products.isEco', 'products.price', 'products.location', 'products.category', 'product_images.image_path')
             ->paginate($perPage);
 
         return response()->json($products);
