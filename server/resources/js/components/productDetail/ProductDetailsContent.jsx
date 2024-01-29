@@ -9,6 +9,7 @@ import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
 import { OpinionInput } from "./OpinionInput";
 import { useUserContext } from "@/context/userContext";
+import { Link } from '@inertiajs/react';
 
 export function ProductDetailsContent({ product, owner }) {
   const { loggedUser } = useUserContext()
