@@ -31,13 +31,13 @@ const Admin = ({ users }) => {
               <td>{user.email}</td>
               <td>{user.id_role}</td>
               <td>
-                <form action="">
-                  <input type="hidden" id="user_id" value={user.id_user} />
+                <form action="/admin/users/edit">
+                  <input type="hidden" id="user_id" name='user_id' value={user.id_user} />
                   <input type="submit" className="btn btn-primary" value="Edit" />
                 </form>
               </td>
               <td>
-                <form action="admin/delete">
+                <form action="/admin/users/delete">
                   <input type="hidden" id="user_id" name="user_id" value={user.id_user} />
                   <input type="submit" className="btn btn-danger" value="Delete" />
                 </form>

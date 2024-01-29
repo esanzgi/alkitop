@@ -156,9 +156,18 @@ Route::post('ratings/create', [RatingController::class, 'createRating']);
 //Admin panel routes
 
 Route::get("/admin", [AdminController::class, "show"]);
+
 Route::get("/admin/users", [AdminController::class, 'showUsers']);
-Route::get("/admin/delete", [AdminController::class, 'delete']);
+Route::get("/admin/users/edit",[AdminController::class, "editUser"]);
+Route::get("/admin/users/update",[AdminController::class, "UserUpdate"]);
+Route::get("/admin/users/delete", [AdminController::class, 'delete']);
+
 Route::get("/admin/produktuak", [AdminController::class, 'showProducts']);
+Route::get("/admin/produktuak/edit",[AdminController::class, "editProduct"]);
+Route::get("/admin/produktuak/update",[AdminController::class, "productUpdate"]);
+Route::post("/admin/produktuak/delete", [AdminController::class, 'productDelete']);
+
+
 Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);
 Route::get("/admin/rolak", [AdminController::class, 'showRoles']);
 

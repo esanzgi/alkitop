@@ -8,7 +8,7 @@ const Admin = ({ products }) => {
       <Header />
       <AdminMenu />
       <h1 className="text-center pt-3 mb-1">ADMIN PANEL</h1>
-      <h3 className="text-center pt-1 mb-5">Manage products</h3>
+      <h3 className="text-center pt-1 mb-5">Produktuak kudeatu</h3>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -36,13 +36,13 @@ const Admin = ({ products }) => {
               <td>{product.location}</td>
               <td>{product.category}</td>
               <td>
-                <form action="">
-                  <input type="hidden" id="product_id" value={product.id_product} />
+                <form action="/admin/produktuak/edit" method='get'>
+                  <input type="hidden" id="product_id" name='product_id' value={product.id_product} />
                   <input type="submit" className="btn btn-primary" value="Edit" />
                 </form>
               </td>
               <td>
-                <form action="admin/delete" method="post">
+                <form action="/admin/produktuak/delete" method="post">
                   <input type="hidden" id="product_id" name="product_id" value={product.id_product} />
                   <input type="submit" className="btn btn-danger" value="Delete" />
                 </form>
