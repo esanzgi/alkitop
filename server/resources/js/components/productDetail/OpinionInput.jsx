@@ -5,14 +5,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceGrinBeam, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
 import { useUserContext } from "@/context/userContext";
+import { useForm } from "@inertiajs/react";
 
 export const OpinionInput = ({ onSubmit, user, product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const inputRef = useRef(null);
+  const { get } = useForm()
+  const { loggedUser } = useUserContext()
 
   const handleOpenModal = () => {
-    setIsModalOpen(true);
-    inputRef.current.blur();
+    if (loggedUser) {
+      setIsModalOpen(true);
+      inputRef.current.blur();
+    } else {
+      get('/login')
+    }
   };
 
   const handleCloseModal = () => {

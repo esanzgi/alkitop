@@ -5,7 +5,6 @@ import { useUserContext } from "@/context/userContext"
 
 function UserPublicProfile({ user }) {
   const { user: userLogged } = useUserContext()
-  console.log('USER LOGED', user)
   return (
     <div>
       <div className='fixed-top bg-white'>

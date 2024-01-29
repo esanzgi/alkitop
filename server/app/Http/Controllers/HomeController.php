@@ -39,6 +39,7 @@ class HomeController extends Controller
                 'products.price',
                 'products.location',
                 'products.category',
+                'products.frequency',
                 DB::raw("COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating"),
                 'product_images.image_path as image_path'
             )
@@ -52,6 +53,7 @@ class HomeController extends Controller
                 'products.price',
                 'products.location',
                 'products.category',
+                'products.frequency',
                 'product_images.image_path'
             )
             ->get();

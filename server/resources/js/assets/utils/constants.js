@@ -6,7 +6,7 @@ export const PUBLIC_AVATARS_URL = '/avatars/'
 export const DEFAULT_USER_PROFILE = 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg'
 
 export const allCategories = [
-  'Autoak',
+  'Kotxeak',
   'TB, audioa, argazkia',
   'Kontsolak eta bideojokoak',
   'Motorrak',
@@ -22,7 +22,8 @@ export const allCategories = [
   'Zinema, Liburuak eta Musika',
   'Inmobiliaria',
   'Elurra',
-  'Zerbitzuak'
+  'Zerbitzuak',
+  'Musika'
 ]
 
 export const roles = {
@@ -32,3 +33,16 @@ export const roles = {
   'owner': 4,
 };
 
+
+export function traducirFrecuencia(frequency) {
+  switch (frequency) {
+    case "daily":
+      return "eguna";
+    case "weekly":
+      return "astea";
+    case "monthly":
+      return "hilabetea";
+    default:
+      return frequency; // Mantén el valor original si no hay traducción definida
+  }
+}

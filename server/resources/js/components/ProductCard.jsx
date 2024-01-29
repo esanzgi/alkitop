@@ -4,11 +4,13 @@ import IMAGE from '../assets/images/moto.jpg'
 import IMAGE2 from '../assets/images/moto2.jpg'
 import { useForm } from '@inertiajs/react'
 import { useUserContext } from '@/context/userContext'
-import { PUBLIC_IMAGES_URL } from '@/assets/utils/constants'
+import { PUBLIC_IMAGES_URL, traducirFrecuencia } from '@/assets/utils/constants'
+import { useEffect } from 'react'
 
 export function ProductCard({ product, user }) {
   const { loggedUser } = useUserContext();
   const { get, post } = useForm();
+
 
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`);
@@ -44,7 +46,7 @@ export function ProductCard({ product, user }) {
             <span className='fs-6 me-1'>
               {product.price}€
             </span>
-            día
+            {traducirFrecuencia(product.frequency)}
           </div>
           <span>
             <FontAwesomeIcon className='me-1' icon={faStar} />

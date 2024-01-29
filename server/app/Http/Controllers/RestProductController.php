@@ -28,6 +28,7 @@ class RestProductController extends Controller
                 'products.price',
                 'products.location',
                 'products.category',
+                'products.frequency',
                 'product_images.image_path as image_path'
             )
             ->get();

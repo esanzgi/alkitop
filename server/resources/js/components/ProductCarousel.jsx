@@ -9,6 +9,9 @@ import { NextArrow, PrevArrow } from './Icons';
 
 const ProductCarousel = ({ products, user }) => {
 
+  console.log('CAROUSEL PRODUCTs', products)
+
+
   const settings = {
     dots: false,
     infinite: true,

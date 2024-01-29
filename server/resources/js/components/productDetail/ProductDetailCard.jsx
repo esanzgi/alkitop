@@ -4,13 +4,13 @@ import { AlkitopTooltip, NextArrow, PrevArrow } from '../Icons'
 import RatingStars from 'react-rating-stars-component';
 import { useState } from 'react';
 import ImagesModal from './ImagesModal';
-import { PUBLIC_IMAGES_URL } from '@/assets/utils/constants';
+import { PUBLIC_IMAGES_URL, traducirFrecuencia } from '@/assets/utils/constants';
 
 
 
 export function ProductDetailCard({ product }) {
 
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
@@ -45,7 +45,7 @@ export function ProductDetailCard({ product }) {
         <ImagesModal isOpen={isModalOpen} onClose={closeModal} images={product.product.images} />
 
 
-        <div className='d-flex justify-content-between align-items-center pe-2 ps-2 mt-2'>
+        <div className='d-flex flex-wrap justify-content-between align-items-center pe-2 ps-2 mt-2'>
           <span className='fs-4'>{product.product.name || product.product.title}</span>
           <span className='badge bg-secondary px-3 fs-7'>{product.product.category}</span>
         </div>
@@ -69,7 +69,7 @@ export function ProductDetailCard({ product }) {
         <div className='d-flex justify-content-between flex-column '>
           <div className='d-flex justify-content-between align-items-center'>
             <span className='fs-4 me-1 fw-bold'>
-              {product.product.price}€ <span className='font-normal'>/ Eguna</span>
+              {product.product.price}€ <span className='font-normal'>/ {traducirFrecuencia(product.product.frequency)}</span>
             </span>
 
             {

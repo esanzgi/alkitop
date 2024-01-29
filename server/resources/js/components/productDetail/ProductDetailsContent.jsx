@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import ProductDetailCard from "./ProductDetailCard";
 import { ProductOpinions } from "./ProductOpinions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faStar, faEdit } from "@fortawesome/free-solid-svg-icons";  
+import { faMinus, faStar, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
 import { OpinionInput } from "./OpinionInput";
+import { useUserContext } from "@/context/userContext";
 
 export function ProductDetailsContent({ product, owner }) {
+  const { loggedUser } = useUserContext()
   const { users, getUserByIdOwner } = useUser();
   const [formatedData, setFormatedData] = useState();
   const [isOwner, setIsOwner] = useState(false);
-
-  console.log('PRODUCT DET --> ', product);
 
   useEffect(() => {
     if (users.createdAt) {
@@ -33,7 +33,7 @@ export function ProductDetailsContent({ product, owner }) {
     }
   }, [getUserByIdOwner, owner, product.product.id_owner]);
 
-  const handleEdit=()=>{
+  const handleEdit = () => {
     get
   }
 

@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RatingController;
-use App\Http\Controllers\AdminController;
 use App\Models\Owner;
 use App\Models\Product;
 use Illuminate\Foundation\Application;
@@ -25,6 +25,7 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products/search', [HomeController::class, 'search']);
+Route::get('/products/category/{category}', [ProductController::class, 'productsByCategory']);
 
 // Route::get('/', function () {
 //     return Inertia::render('Home', [
@@ -114,7 +115,6 @@ Route::post('/produktu-gehitu', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
-
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -122,7 +122,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profileOwner', [ProfileController::class, 'updateOwner'])->name('profileOwner.update');
 
     Route::post('/profileOwner', [ProfileController::class, 'updateOwner'])->name('profileOwner.update');
-
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -149,13 +148,10 @@ Route::get('/product/details/{product}', [ProductController::class, 'goDetails']
 
 Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
 
-Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
-
-
+Route::post('/avatarEguneratu', [ProfileController::class, 'avatarEguneratu']);
 
 // RATING ROUTES
 Route::post('ratings/create', [RatingController::class, 'createRating']);
-
 
 //Admin panel routes
 
