@@ -148,7 +148,12 @@ Route::get('/product/details/{product}', [ProductController::class, 'goDetails']
 
 Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
 
-Route::post('/avatarEguneratu', [ProfileController::class, 'avatarEguneratu']);
+Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
+
+Route::get('/editProduct/{id_product}', [ProductController::class, 'editPage']);
+
+Route::post('/products/{id}/addImage',[ProductController::class,'addImage']);
+
 
 // RATING ROUTES
 Route::post('ratings/create', [RatingController::class, 'createRating']);

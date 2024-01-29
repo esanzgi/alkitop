@@ -172,6 +172,33 @@ class ProductController extends Controller
             return Inertia::render('Dashboard');
         }
     }
+    public function editPage($product){
+        $product=Product::find($product);
+        $images = ProductImage::where('product_id', $product->id_product)->get();
+        $product->images = $images;
+
+        $owner = null;
+
+        if (auth()->user() && auth()->user()->id_role == 4) {
+            $owner = Owner::where('id_user', auth()->user()->id_user)->first();
+        }
+
+        return Inertia::render('EditProduct', [
+            'product' => $product,
+            'user' => auth()->user(),
+            'owner' => $owner,
+        ]);    
+    }
+
+    public function addImage($id){
+        $product=Product::find($id);
+        // $irudiBerria=ProductImage::create({
+
+        // })
+        $images = ProductImage::where('product_id', $product->id_product)->get();
+        $product->images = $images;
+
+    }
 
     public function productsByCategory($category)
     {
@@ -216,4 +243,5 @@ class ProductController extends Controller
         ]);
     }
 
+    
 }

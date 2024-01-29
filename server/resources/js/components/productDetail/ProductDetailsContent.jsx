@@ -4,6 +4,7 @@ import ProductDetailCard from "./ProductDetailCard";
 import { ProductOpinions } from "./ProductOpinions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faStar, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faStar, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
 import { OpinionInput } from "./OpinionInput";
@@ -33,20 +34,15 @@ export function ProductDetailsContent({ product, owner }) {
     }
   }, [getUserByIdOwner, owner, product.product.id_owner]);
 
-  const handleEdit = () => {
-    get
-  }
-
-
   return (
     <div className="mt-5">
       <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
         <h2 className="h2 fw-bold">{product.product.name}</h2>
         {isOwner && (
-          <div className="btn rounded-pill bg-green ">
+          <Link href={`/editProduct/${product.product.id_product}`} className="btn rounded-pill bg-green">
             Editatu
-            <FontAwesomeIcon className="ms-3" icon={faEdit} onClick={() => handleEdit()} />
-          </div>
+            <FontAwesomeIcon className="ms-3" icon={faEdit} />
+          </Link>
         )}
         <div className="d-flex align-items-center">
           <span className="fs-5 me-2">{users.name}</span>
