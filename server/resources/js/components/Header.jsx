@@ -86,13 +86,15 @@ import { Dropdown } from 'react-bootstrap';
   function botoia() {
     if (roleId == 3) {
       return <button type='submit' className='btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}> <FontAwesomeIcon icon={faPlus} className='me-2' />Produktu igo</button>
-    } else if(roleId ==4 || roleId==1 || roleId==3) {
+    } else if(roleId ==4 || roleId==1 || roleId==2) {
       return <Link to='/produktu-gehitu' href='/produktu-gehitu' className='btn btn-outline-light ms-2 rounded-pill'> <FontAwesomeIcon icon={faPlus} className='me-2' /> Produktu igo </Link>
     }
   }
 
   function isAdmin(){
-    return <Link to="/admin" href='/admin' className='btn btn-outline-light ms-2 rounded-pill'>Admin</Link>
+    if (roleId==1) {
+      return <Link to="/admin" href='/admin' className='btn btn-outline-light ms-2 rounded-pill'>Admin</Link>
+    }
   }
 
 }
