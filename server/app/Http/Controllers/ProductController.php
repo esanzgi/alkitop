@@ -244,12 +244,19 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'No se encontró el producto');
         }
 
+        if($request->input('isEco')=="on"){
+            $eco=true;
+        }
+        else{
+            $eco=false;
+        }
         $product->update([
             'price' => $request->input('price'),
             'description' => $request->input('description'),
             'location' => $request->input('location'),
             'category' => $request->input('category'),
             'frequency' => $request->input('frequency'),
+            'isEco'=>$eco,
         ]);
         $product->save();
 

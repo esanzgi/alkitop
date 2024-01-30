@@ -14,7 +14,7 @@ export function ProductDetailsContent({ product, owner, user }) {
   const { users, getUserByIdOwner } = useUser();
   const [formatedData, setFormatedData] = useState();
   const [isOwner, setIsOwner] = useState(false);
-  const isOwnerOrAdmin = isOwner || user.id_role === 1;
+  const isOwnerOrAdmin = isOwner || user.id_role === 1 || user.id_role === 2;
   useEffect(() => {
     if (users.createdAt) {
       const data = intlFormatDistance(parseISO(users.createdAt), new Date());
