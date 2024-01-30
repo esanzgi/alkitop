@@ -10,12 +10,11 @@ import { OpinionInput } from "./OpinionInput";
 import { useUserContext } from "@/context/userContext";
 import { Link } from '@inertiajs/react';
 
-export function ProductDetailsContent({ product, owner }) {
-  const { loggedUser } = useUserContext()
+export function ProductDetailsContent({ product, owner, user }) {
   const { users, getUserByIdOwner } = useUser();
   const [formatedData, setFormatedData] = useState();
   const [isOwner, setIsOwner] = useState(false);
-
+  const isOwnerOrAdmin = isOwner || user.id_role === 1;
   useEffect(() => {
     if (users.createdAt) {
       const data = intlFormatDistance(parseISO(users.createdAt), new Date());
@@ -38,12 +37,12 @@ export function ProductDetailsContent({ product, owner }) {
     <div className="mt-5">
       <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
         <h2 className="h2 fw-bold">{product.product.name}</h2>
-        {isOwner && (
-          <Link href={`/editProduct/${product.product.id_product}`} className="btn rounded-pill bg-green">
-            Editatu
-            <FontAwesomeIcon className="ms-3" icon={faEdit} />
-          </Link>
-        )}
+        {isOwnerOrAdmin && (
+        <Link href={`/editProduct/${product.product.id_product}`} className="btn rounded-pill bg-green">
+          Editatu
+          <FontAwesomeIcon className="ms-3" icon={faEdit} />
+        </Link>
+      )}
         <div className="d-flex align-items-center">
           <span className="fs-5 me-2">{users.name}</span>
           <UserProfileCircle width={55} height={55} user={users} />

@@ -33,7 +33,7 @@ const PRODUCT = {
       </div>
 
       <div className='container-md mt-5 pt-5'>
-        <ProductDetailsContent product={product} owner={owner} />
+        <ProductDetailsContent product={product} owner={owner} user={user}/>
       </div>
 
       <div className='mt-5 pt-5 bg-light border-top'>
