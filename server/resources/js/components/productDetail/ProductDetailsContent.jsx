@@ -4,7 +4,6 @@ import ProductDetailCard from "./ProductDetailCard";
 import { ProductOpinions } from "./ProductOpinions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faStar, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faMinus, faStar, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { UserProfileCircle } from "../Icons";
 import { intlFormatDistance, parseISO } from "date-fns";
 import { OpinionInput } from "./OpinionInput";

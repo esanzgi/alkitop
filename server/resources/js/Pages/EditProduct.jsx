@@ -8,6 +8,7 @@
 
   export default function EditProduct({user,owner,product}) {
     const { login } = useUserContext();
+    login(user)
     return (
       <div> 
         <main className=''>

@@ -152,7 +152,11 @@ Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
 
 Route::get('/editProduct/{id_product}', [ProductController::class, 'editPage']);
 
-Route::post('/products/{id}/addImage',[ProductController::class,'addImage']);
+Route::post('/products/addImage',[ProductController::class,'addImage']);
+
+Route::post('/deleteImage',[ProductController::class,'deleteImage']);
+
+Route::post('/updateProduct',[ProductController::class,'updateProduct']);
 
 
 // RATING ROUTES

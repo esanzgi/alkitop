@@ -172,8 +172,9 @@ class ProductController extends Controller
             return Inertia::render('Dashboard');
         }
     }
-    public function editPage($product){
-        $product=Product::find($product);
+    public function editPage($product)
+    {
+        $product = Product::find($product);
         $images = ProductImage::where('product_id', $product->id_product)->get();
         $product->images = $images;
 
@@ -187,18 +188,76 @@ class ProductController extends Controller
             'product' => $product,
             'user' => auth()->user(),
             'owner' => $owner,
-        ]);    
+        ]);
     }
 
-    public function addImage($id){
-        $product=Product::find($id);
-        // $irudiBerria=ProductImage::create({
+    public function addImage(Request $request)
+    {
+        $id_product = $request->input('id');
+        $image = $request->file('irudia');
 
-        // })
-        $images = ProductImage::where('product_id', $product->id_product)->get();
-        $product->images = $images;
+        if ($image) {
+            $path = $image->store('', 'public_images');
+
+            ProductImage::create([
+                'product_id' => $id_product,
+                'image_path' => $path,
+            ]);
+
+            return redirect("/editProduct/{$id_product}");
+        }
+        else{
+            return view('welcome');
+        }
+    }
+
+
+    public function deleteImage(Request $request)
+    {
+        $image = ProductImage::find($request->input('irudia'));
+        $id_product = $request->input('id');
+
+
+
+        if ($image) {
+            $image->delete();
+            return redirect("/editProduct/{$id_product}");
+        }
+        else{
+            return view('welcome');
+        }
+    }
+
+    public function updateProduct(Request $request)
+    {
+        $request->validate([
+            'price' => 'required|numeric',
+            'description' => 'required|string',
+            'location' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'frequency' => 'required|string|max:255',
+        ]);
+
+        $product = Product::find($request->input('id'));
+
+        if (!$product) {
+            return redirect()->back()->with('error', 'No se encontró el producto');
+        }
+
+        $product->update([
+            'price' => $request->input('price'),
+            'description' => $request->input('description'),
+            'location' => $request->input('location'),
+            'category' => $request->input('category'),
+            'frequency' => $request->input('frequency'),
+        ]);
+        $product->save();
+
+          return redirect("/editProduct/{$request->input('id')}");
 
     }
+
+
 
     public function productsByCategory($category)
     {
@@ -242,7 +301,5 @@ class ProductController extends Controller
             'products' => $products,
         ]);
     }
-
-    
 
 }
