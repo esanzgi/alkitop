@@ -1,6 +1,8 @@
 import React from 'react';
 import { Header } from '@/components/Header';
 import AdminMenu from '@/components/AdminMenu';
+import { Link } from '@inertiajs/react';
+
 
 const Admin = ({ products }) => {
   return (
