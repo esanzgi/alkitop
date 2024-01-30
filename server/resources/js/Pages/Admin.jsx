@@ -1,12 +1,12 @@
 // resources/js/Pages/Admin.jsx
 
-import React from 'react';
+import React, {useState, useEffect }from 'react';
 import { Header } from '@/components/Header';
 import AdminCard from '@/components/AdminCard';
 
 
 
-const Admin = ({ users }) => {
+const Admin = () => {
   return (
     <div>
       <Header />

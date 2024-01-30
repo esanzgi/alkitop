@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
 
 class AdminController extends Controller
 {
     public function show(){
         
-        return Inertia::render("Admin");
+        if (Gate::allows("is_admin")) {
+            return Inertia::render("Admin");
+        }
+        
     }
 
     public function showUsers(){
@@ -72,7 +76,22 @@ class AdminController extends Controller
     }
 
     public function productUpdate(Request $request){
+        $data = $request->all();
 
+        DB::table("products")
+        ->where("id_product",$request->input("id"))
+        ->update([
+            "name" => $data["productName"],
+            "description" => $data["productDescription"],
+            "id_owner" => $data["ownerId"],
+            "isEco" => $data["isEco"],
+            "price" => $data["productPrice"],
+            "location" => $data["productLocation"],
+            "category" => $data["productCategory"],
+            "frequency" => $data["productFrequency"],
+        ]);
+
+        return $this->showProducts();
     }
 
     public function editProduct(Request $request){
@@ -93,7 +112,12 @@ class AdminController extends Controller
     }
 
     public function showRatings(){
+
+        $ratings=DB::table("ratings")->get();
+        $users=DB::table("users")->where("soft_deleted",0)->get();
         
+
+        return Inertia::render("ManageRatings",["ratings"=>$ratings, "users"=>$users]);
     }
 
     public function showRoles(){

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Owner;
 use App\Models\UserDetail;
+use Illuminate\Support\Facades\Auth;
 
 class RestUserController extends Controller
 {

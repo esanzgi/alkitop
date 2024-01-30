@@ -4,12 +4,12 @@ import React from 'react'
 export default function EditProduct({product}) {
   var product=product[0]
 
-  console.log(product)
-
   return (
     <div>
       <Header></Header>
-      <form action="" class="container mt-4">
+      <form action="/admin/produktuak/update" class="container mt-4">
+        <input type="hidden" name='id' id='id' value={product.id_product} />
+
         <div class="mb-3">
           <label for="productName" class="form-label">Product Name</label>
           <input type="text" id="productName" name="productName" class="form-control" defaultValue={product.name} />
@@ -50,7 +50,7 @@ export default function EditProduct({product}) {
           <input type="text" id="productFrequency" name="productFrequency" class="form-control" defaultValue={product.frequency} />
         </div>
         
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Editatu</button>
       </form>
 
     </div>

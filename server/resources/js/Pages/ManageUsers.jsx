@@ -11,7 +11,7 @@ const Admin = ({ users }) => {
       <Header />
       <AdminMenu/>
       <h1 className="text-center pt-3 mb-1">ADMIN PANEL</h1>
-      <h3 className="text-center pt-1 mb-5" >Manage users</h3>
+      <h3 className="text-center pt-1 mb-5" >Erabiltzaileak Kudeatu</h3>
       <table className="table table-striped">
         <thead>
           <tr>

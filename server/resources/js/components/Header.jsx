@@ -15,6 +15,20 @@ import { Dropdown } from 'react-bootstrap';
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAlokatzaile, setShowAlokatzaile] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(!!loggedUser);
+  const [roleId, setRoleId] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/user/role')
+      .then(response => response.json())
+      .then(data => {
+        setRoleId(data);
+      })
+      .catch(error => {
+        console.error('Error fetching user ID:', error);
+      });
+
+  }, []);
+  
   useEffect(() => {
     setIsAuthenticated(!!loggedUser);
   }, [loggedUser]);
@@ -58,26 +72,28 @@ import { Dropdown } from 'react-bootstrap';
           </Link>
         )}
 
-        {isAuthenticated && botoia(owner)}
-
-
+        {isAuthenticated && botoia()}
+        {isAuthenticated && isAdmin()}
 
 
         <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
         <AlokatzaileRegister show={showAlokatzaile} handleClose={handleCloseRegisterAlokatzaile} />
-
+      
       </div>
     </nav>
   );
 
-  function botoia(owner) {
-    if (owner == null) {
+  function botoia() {
+    if (roleId == 3) {
       return <button type='submit' className='btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}> <FontAwesomeIcon icon={faPlus} className='me-2' />Produktu igo</button>
-    } else {
+    } else if(roleId ==4 || roleId==1 || roleId==3) {
       return <Link to='/produktu-gehitu' href='/produktu-gehitu' className='btn btn-outline-light ms-2 rounded-pill'> <FontAwesomeIcon icon={faPlus} className='me-2' /> Produktu igo </Link>
     }
   }
 
+  function isAdmin(){
+    return <Link to="/admin" href='/admin' className='btn btn-outline-light ms-2 rounded-pill'>Admin</Link>
+  }
 
 }
 

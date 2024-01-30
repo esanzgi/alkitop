@@ -171,4 +171,9 @@ Route::post("/admin/produktuak/delete", [AdminController::class, 'productDelete'
 Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);
 Route::get("/admin/rolak", [AdminController::class, 'showRoles']);
 
+
+Route::get("/api/user/role",function(){
+    return response()->json(auth()->user()->id_role);
+});
+
 require __DIR__ . '/auth.php';
