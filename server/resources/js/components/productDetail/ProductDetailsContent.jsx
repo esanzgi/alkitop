@@ -50,7 +50,7 @@ export function ProductDetailsContent({ product, owner, user }) {
       </div>
 
       <div className="mt-4">
-        <ProductDetailCard product={product} />
+        <ProductDetailCard product={product}  />
       </div>
 
       <div className='row mt-5'>

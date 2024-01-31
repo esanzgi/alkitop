@@ -112,40 +112,55 @@ class ProductController extends Controller
     }
 
     public function goDetails(Product $product)
-    {
-        $images = ProductImage::where('product_id', $product->id_product)->get();
-        $product->images = $images;
+{
+    $images = ProductImage::where('product_id', $product->id_product)->get();
+    $product->images = $images;
 
-        $owner = null;
+    $latestRental = $product->rentals()->latest('end_date')->first();
 
-        if (auth()->user() && auth()->user()->id_role == 4) {
-            $owner = Owner::where('id_user', auth()->user()->id_user)->first();
-        }
-
-        $newProduct = [];
-        $ratings = Rating::where('id_product', $product->id_product)->get();
-
-        $media = Rating::select(
-            \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
-        )
-            ->where('id_product', $product->id_product)
-            ->get();
-
-        $newProduct['product'] = $product;
-        $newProduct['rating'] = $ratings;
-        $newProduct['avgRating'] = $media;
-
-        return Inertia::render('ProductDetails', [
-            'product' => $newProduct,
-            'user' => auth()->user(),
-            'owner' => $owner,
-        ]);
+    if ($latestRental && now() < $latestRental->end_date) {
+        $latestRental->status = 'En curso';
+        $latestRental->save();
+    } elseif ($latestRental) {
+        $latestRental->status = 'Finalizado';
+        $latestRental->save();
     }
+
+    $owner = null;
+
+    if (auth()->user() && auth()->user()->id_role == 4) {
+        $owner = Owner::where('id_user', auth()->user()->id_user)->first();
+    }
+
+    $newProduct = [];
+    $ratings = Rating::where('id_product', $product->id_product)->get();
+
+    $media = Rating::select(
+        \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
+    )
+        ->where('id_product', $product->id_product)
+        ->get();
+
+    $newProduct['product'] = $product;
+    $newProduct['rating'] = $ratings;
+    $newProduct['avgRating'] = $media;
+    $newProduct['latestRental'] = $latestRental;
+
+    return Inertia::render('ProductDetails', [
+        'product' => $newProduct,
+        'user' => auth()->user(),
+        'owner' => $owner,
+    ]);
+}
+
+
 
     public function privateCard(Product $product)
     {
         $images = ProductImage::where('product_id', $product->id_product)->get();
         $product->images = $images;
+
+        $product->rentals=$rentals;
 
         $newProduct = [];
         $ratings = Rating::where('id_product', $product->id_product)->get();
@@ -308,6 +323,23 @@ class ProductController extends Controller
         return Inertia::render('ProductsByCategory', [
             'user' => auth()->user(),
             'products' => $products,
+        ]);
+    }
+
+    public function alokatuPage(Request $request){
+        $erabiltzailea = auth()->user();
+        $owner = null;
+
+        if ($erabiltzailea && $erabiltzailea->id_role == 4) {
+            $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
+        }
+
+        $product=Product::find($request->input('product'));
+
+        return Inertia::render('ProductAlokatu',[
+            'product' => $product,
+            'user' => $erabiltzailea,
+            'owner' => $owner,
         ]);
     }
 

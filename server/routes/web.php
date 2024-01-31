@@ -158,6 +158,9 @@ Route::post('/deleteImage',[ProductController::class,'deleteImage']);
 
 Route::post('/updateProduct',[ProductController::class,'updateProduct']);
 
+Route::get('/ProductAlokatu',[ProductController::class,'alokatuPage']);
+
+
 
 // RATING ROUTES
 Route::post('ratings/create', [RatingController::class, 'createRating']);

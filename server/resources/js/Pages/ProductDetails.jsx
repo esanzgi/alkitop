@@ -26,6 +26,7 @@ const PRODUCT = {
  function ProductDetails ({ product,user,owner }) {
   const { login } = useUserContext();
     login(user)
+    
   return (
     < main className='' >
       <div className='fixed-top bg-white'>
@@ -33,7 +34,7 @@ const PRODUCT = {
       </div>
 
       <div className='container-md mt-5 pt-5'>
-        <ProductDetailsContent product={product} owner={owner} user={user}/>
+        <ProductDetailsContent product={product} owner={owner} user={user} />
       </div>
 
       <div className='mt-5 pt-5 bg-light border-top'>
