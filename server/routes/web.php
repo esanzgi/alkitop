@@ -178,7 +178,10 @@ Route::post("/admin/produktuak/delete", [AdminController::class, 'productDelete'
 
 
 Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);
+
+
 Route::get("/admin/rolak", [AdminController::class, 'showRoles']);
+Route::post("/admin/rolak/update", [AdminController::class, 'updateRole']);
 
 
 Route::get("/api/user/role",function(){

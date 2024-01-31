@@ -98,7 +98,7 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit} className="text-white">
+            <form onSubmit={submit} >
             <div className='flex'>
                     <InputLabel htmlFor="name" value="Izena" className='row w-100 m-auto' />
 

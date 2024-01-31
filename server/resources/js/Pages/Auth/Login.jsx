@@ -75,12 +75,12 @@ export default function Login({ status, canResetPassword, errors }) {
     }, []);
   
   return (
-    <GuestLayout>
+    <GuestLayout >
       <Head title="Log in" />
-
+      <div>
       {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-      <form onSubmit={submit} className="text-white">
+      <form onSubmit={submit} >
         {formErrors.login && (
           <div className="mb-4 font-medium text-sm text-red-600">
             {formErrors.login}
@@ -131,21 +131,21 @@ export default function Login({ status, canResetPassword, errors }) {
           </label>
         </div>
 
-        <div className="flex items-center justify-end mt-4">
+        <div className="d-flex flex-column align-items-center justify-content-center mt-4 ">
           {canResetPassword && (
             <Link
               href={route('password.request')}
-              className="underline text-sm text-white hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="underline text-sm text-black hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Forgot your password?
             </Link>
           )}
-
-          <Link href="/register" className="text-white">
+          <br />
+          <Link href="/register" className="text-white mt-2">
             ¿No tienes cuenta? Registrarse
           </Link>
 
-          <PrimaryButton className="ms-4 btn btn-secondary" disabled={processing}>
+          <PrimaryButton className="ms-4 btn btn-secondary mt-2 " disabled={processing}>
             Log in
           </PrimaryButton>
         </div>
@@ -156,6 +156,7 @@ export default function Login({ status, canResetPassword, errors }) {
           <button onClick={closePopup}>Cerrar</button>
         </div>
       )}
+      </div>
     </GuestLayout>
   );
 }

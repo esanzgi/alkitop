@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         "/products/addImage",
         "/deleteImage",
         "/updateProduct",
-        "/admin/produktuak/delete"
+        "/admin/produktuak/delete",
+        "/admin/rolak/update"
     ];
 }

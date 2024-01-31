@@ -61,6 +61,8 @@ class ProductController extends Controller
                 Storage::disk('public_images')->delete($imagePath);
             }
         }
+
+        return redirect("/dashboard");
     }
 
     public function getProductBySearch(Request $request)

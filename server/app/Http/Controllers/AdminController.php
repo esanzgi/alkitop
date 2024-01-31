@@ -121,7 +121,17 @@ class AdminController extends Controller
     }
 
     public function showRoles(){
-        
+        $users=DB::table("users")->get();
+
+        return Inertia::render("ManageRole",["users"=>$users]);
+    }
+
+    public function updateRole(Request $request){
+        DB::table("users")
+        ->where("id_user",$request->input("userId"))
+        ->update(["id_role"=>$request->input("role")]);
+
+        return redirect("/admin/rolak");
     }
 
 }
