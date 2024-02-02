@@ -7,9 +7,11 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Rating;
 use App\Models\User;
+use App\Models\Rental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -329,12 +331,15 @@ class ProductController extends Controller
     public function alokatuPage(Request $request){
         $erabiltzailea = auth()->user();
         $owner = null;
+        
 
         if ($erabiltzailea && $erabiltzailea->id_role == 4) {
             $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
         }
 
         $product=Product::find($request->input('product'));
+        $images = ProductImage::where('product_id', $product->id_product)->get();
+        $product->images = $images;
 
         return Inertia::render('ProductAlokatu',[
             'product' => $product,
@@ -342,5 +347,24 @@ class ProductController extends Controller
             'owner' => $owner,
         ]);
     }
+
+    public function alokatu(Request $request)
+    {
+        $product = Product::find($request->input('product'));
+        $user = User::find($request->input('user'));
+
+        $startDate = Carbon::parse($request->input('startDate'));
+        $endDate = Carbon::parse($request->input('endDate'));
+
+        $rental = Rental::create([
+            'id_product' => $request->input('product'),
+            'id_user' => $request->input('user'),
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'total_cost' => $request->input('price'),
+        ]);
+
+        return redirect('/');
+   }
 
 }

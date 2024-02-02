@@ -21,6 +21,8 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $frequencyOptions = ['daily', 'weekly', 'monthly'];
+
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->paragraph,
@@ -30,10 +32,9 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 1, 100),
             'location' => $this->faker->city,
             'category' => $this->faker->word,
-            'frequency' => $this->faker->word,
+            'frequency' => $this->faker->randomElement($frequencyOptions),
         ];
     }
-
     public function configure()
     {
         return $this->afterCreating(function (Product $product) {

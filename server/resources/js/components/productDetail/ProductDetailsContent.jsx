@@ -14,7 +14,8 @@ export function ProductDetailsContent({ product, owner, user }) {
   const { users, getUserByIdOwner } = useUser();
   const [formatedData, setFormatedData] = useState();
   const [isOwner, setIsOwner] = useState(false);
-  const isOwnerOrAdmin = isOwner || user.id_role === 1 || user.id_role === 2;
+  const isOwnerOrAdmin = isOwner || (user && (user.id_role === 1 || user.id_role === 2));
+
   useEffect(() => {
     if (users.createdAt) {
       const data = intlFormatDistance(parseISO(users.createdAt), new Date());
@@ -38,19 +39,19 @@ export function ProductDetailsContent({ product, owner, user }) {
       <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
         <h2 className="h2 fw-bold">{product.product.name}</h2>
         {isOwnerOrAdmin && (
-        <Link href={`/editProduct/${product.product.id_product}`} className="btn rounded-pill bg-green">
-          Editatu
-          <FontAwesomeIcon className="ms-3" icon={faEdit} />
-        </Link>
-      )}
+          <Link href={`/editProduct/${product.product.id_product}`} className="btn rounded-pill bg-green">
+            Editatu
+            <FontAwesomeIcon className="ms-3" icon={faEdit} />
+          </Link>
+        )}
         <div className="d-flex align-items-center">
-          <span className="fs-5 me-2">{users.name}</span>
-          <UserProfileCircle width={55} height={55} user={users} />
+          {user && <span className="fs-5 me-2">{users.name}</span>}
+          {user && <UserProfileCircle width={55} height={55} user={users} />}
         </div>
       </div>
 
       <div className="mt-4">
-        <ProductDetailCard product={product}  />
+        <ProductDetailCard product={product} />
       </div>
 
       <div className='row mt-5'>
@@ -65,7 +66,7 @@ export function ProductDetailsContent({ product, owner, user }) {
         </div>
 
         <div className="d-flex justify-content-center mt-5 mb-4">
-          <OpinionInput user={users} product={product.product} />
+          {user && <OpinionInput user={users} product={product.product} />}
         </div>
         <div className="col-12">
           <ProductOpinions ratings={product.rating} />
