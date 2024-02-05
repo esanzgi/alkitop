@@ -1,16 +1,25 @@
 import { Header } from '@/components/Header'
-import React from 'react'
+import React,{useEffect} from 'react'
+import { useUserContext } from '@/context/userContext'
+import AdminMenu from '@/components/AdminMenu'
 
 
-export default function EditUser({user, details}) {
+export default function EditUser({user, details,erabiltzailea}) {
   var user=user[0]
   var details=details[0]
 
+  const { login } = useUserContext()
+
+  useEffect(() => {
+    login(erabiltzailea)
+  }, [])
+  login(erabiltzailea)
+
   return (
     <div>
-      <Header />
-      
-      <h2>{user.name} ren informazioa</h2>
+      <Header user={erabiltzailea}/>
+      <AdminMenu></AdminMenu>
+      <h2 className='text-center  pt-2 '>{user.name} ren informazioa</h2>
 
 
       <div className="container mt-5">
@@ -99,7 +108,7 @@ export default function EditUser({user, details}) {
     </div>
 
     <br />
-    <button type="submit" className="btn btn-primary">Submit</button>
+    <button type="submit" className="btn btn-primary">Aldatu</button>
   </form>
 </div>
 

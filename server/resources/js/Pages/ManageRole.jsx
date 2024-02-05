@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header';
 import React, { useEffect } from 'react';
 import { useUserContext } from '@/context/userContext'
+import AdminMenu from '@/components/AdminMenu';
 
 export default function ManageRole({ users,user }) {
   const { login } = useUserContext()
@@ -13,6 +14,7 @@ export default function ManageRole({ users,user }) {
   return (
     <div>
       <Header user={user}/>
+      <AdminMenu></AdminMenu>
       <h1 className="text-center pt-3 mb-1">ADMIN PANEL</h1>
       <h3 className="text-center pt-1 mb-5">Rolak kudeatu</h3>
 

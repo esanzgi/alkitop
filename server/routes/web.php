@@ -184,8 +184,8 @@ Route::get("/admin/produktuak", [AdminController::class, 'showProducts']);
 Route::get("/admin/produktuak/edit",[AdminController::class, "editProduct"]);
 Route::get("/admin/produktuak/update",[AdminController::class, "productUpdate"]);
 Route::post("/admin/produktuak/delete", [AdminController::class, 'productDelete']);
-Route::post("/admin/produktuak/restore",[AdminController::class, "restoreProduct"]);
-Route::post("/admin/produktuak/berreskuratu",[AdminController::class, "restoreProduct"]);
+Route::get("/admin/produktuak/restore",[AdminController::class, "restoreProduct"]);
+Route::post("/admin/produktuak/berreskuratu",[AdminController::class, "produktuaBerreskuratu"]);
 
 
 Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Product;
+use App\Models\ProductImage;
 
 class AdminController extends Controller
 {
@@ -55,7 +57,7 @@ class AdminController extends Controller
         $user=DB::table("users")->where("id_user",$id_user)->get();
         $details=DB::table("user_details")->where("id_user",$id_user)->get();
 
-        return Inertia::render("EditUser",["user"=>$user, "details"=>$details]);
+        return Inertia::render("EditUser",["user"=>$user, "details"=>$details,"erabiltzailea"=>auth()->user()]);
     }
 
     public function delete(Request $request){
@@ -88,7 +90,7 @@ class AdminController extends Controller
     }
 
     public function showProducts(){
-        $prods=DB::table("products")->get();
+        $prods=DB::table("products")->where("soft_deleted",0)->get();
 
         return Inertia::render("ManageProducts",["products"=>$prods,"user"=>auth()->user()]);
     }
@@ -113,25 +115,29 @@ class AdminController extends Controller
     }
 
     public function editProduct(Request $request){
-        $product=DB::table("products")->where("id_product", $request->input("product_id"))->get();
+        //$product=DB::table("products")->where("id_product", $request->input("product_id"))->get();
 
-        return Inertia::render("EditProduct", ["product"=>$product, "user"=>auth()->user()]);
+        $product = Product::find($request->input("product_id"));
+        $images = ProductImage::where('product_id', $request->input("product_id"))->get();
+        $product->images = $images;
+
+        return Inertia::render("AdminEditProduct", ["product"=>$product, "user"=>auth()->user()]);
     }
 
     public function productDelete(Request $request){
         $id=$request->input("product_id");
-        echo $id;
 
         DB::table("products")
         ->where("id_product",$id)
-        ->delete();
+        ->update(["soft_deleted"=>1]);
+
 
         return redirect("/admin/produktuak");
     }
 
     public function showRatings(){
 
-        $ratings=DB::table("ratings")->get();
+        $ratings=DB::table("ratings")->where("soft_deleted",0)->get();
         $users=DB::table("users")->where("soft_deleted",0)->get();
         
 
@@ -152,7 +158,21 @@ class AdminController extends Controller
         return redirect("/admin/rolak");
     }
 
-    public function restoreProduct(){}
+    public function restoreProduct(){
+        $products=DB::table("products")
+        ->where("soft_deleted",1)
+        ->get();
+
+        return Inertia::render("RestoreProduct", ["user"=>auth()->user(), "products"=>$products]);
+    }
+
+    public function produktuaBerreskuratu(Request $request){
+        DB::table("products")
+        ->where("id_product",$request->input("id_product"))
+        ->update(["soft_deleted"=>0]);
+
+        return $this->restoreProduct();
+    }
 
 
     

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->unsignedBigInteger('id_owner');
             $table->boolean('isEco');
+            $table->boolean('soft_deleted')->default(0);
             $table->decimal('price', 10, 2);
             $table->string('location');
             $table->string('category');

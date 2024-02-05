@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('review');
             $table->integer('rating');
+            $table->boolean('soft_deleted')->default(0);
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
             $table->foreign('id_product')->references('id_product')->on('products')->onDelete('cascade');
             $table->timestamps();
