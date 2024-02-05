@@ -11,10 +11,12 @@ import { useUserContext } from "@/context/userContext";
 import { Link } from '@inertiajs/react';
 
 export function ProductDetailsContent({ product, owner, user }) {
-  const { users, getUserByIdOwner } = useUser();
+  const { loggedUser } = useUserContext()
+  const { users, getUserByIdOwner, userDetails, getUserDetailsByIdUser } = useUser();
   const [formatedData, setFormatedData] = useState();
   const [isOwner, setIsOwner] = useState(false);
   const isOwnerOrAdmin = isOwner || (user && (user.id_role === 1 || user.id_role === 2));
+
 
   useEffect(() => {
     if (users.createdAt) {
@@ -27,12 +29,18 @@ export function ProductDetailsContent({ product, owner, user }) {
     ? product.avgRating[0].avg_rating.replace('.', ',')
     : '0';
 
+  console.log('OWNER', owner)
+
   useEffect(() => {
+    getUserByIdOwner({ idOwner: product.product.id_owner });
+    getUserDetailsByIdUser({ idUser: loggedUser?.id_user })
     if (owner && owner.id_owner && product.product.id_owner) {
-      getUserByIdOwner({ idOwner: product.product.id_owner });
       setIsOwner(owner.id_owner === product.product.id_owner);
     }
   }, [getUserByIdOwner, owner, product.product.id_owner]);
+
+  console.log('USSERdetails', loggedUser)
+
 
   return (
     <div className="mt-5">
@@ -45,8 +53,8 @@ export function ProductDetailsContent({ product, owner, user }) {
           </Link>
         )}
         <div className="d-flex align-items-center">
-          {user && <span className="fs-5 me-2">{users.name}</span>}
-          {user && <UserProfileCircle width={55} height={55} user={users} />}
+          <span className="fs-5 me-2">{users.name}</span>
+          <UserProfileCircle width={55} height={55} user={users} />
         </div>
       </div>
 
@@ -66,7 +74,7 @@ export function ProductDetailsContent({ product, owner, user }) {
         </div>
 
         <div className="d-flex justify-content-center mt-5 mb-4">
-          {user && <OpinionInput user={users} product={product.product} />}
+          <OpinionInput user={userDetails} product={product.product} />
         </div>
         <div className="col-12">
           <ProductOpinions ratings={product.rating} />

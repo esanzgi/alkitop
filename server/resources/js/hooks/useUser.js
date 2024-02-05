@@ -7,7 +7,7 @@ export function useUser() {
   const [userDetails, setUserDetails] = useState({})
 
   const getUserByIdOwner = useCallback(async ({ idOwner }) => {
-
+    if (!idOwner) return null
     try {
 
       const newUsers = await getUserDetailsByIdOwnerService({ idOwner })
@@ -19,11 +19,11 @@ export function useUser() {
 
 
   const getUserDetailsByIdUser = useCallback(async ({ idUser }) => {
-
+    console.log('IDUSER', idUser)
     try {
-
       const newUsersDetails = await getUserDetailsByIdUserService({ idUser })
       setUserDetails(newUsersDetails)
+      console.log('USER DETAILS TRY', newUsersDetails)
     } catch (e) {
       console.error('Error al obtener los detalles del usuario: ' + idUser);
     }

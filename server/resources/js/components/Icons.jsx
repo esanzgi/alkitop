@@ -42,16 +42,15 @@ export const PrevArrow = ({ className, style, onClick }) => {
   );
 };
 
-export const UserProfileCircle = ({ user, width, height, enableTooltip = true , enableLink = true }) => {
+export const UserProfileCircle = ({ user, width, height, enableTooltip = true, enableLink = true }) => {
   if (!user) return null;
-
   const tooltipText = 'Perfila ikusi';
 
   const renderContent = () => (
     <div className="d-flex align-items-center justify-content-center border-success rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
-      <img 
-        src={(user.profileImage || user.profile_image) ?? DEFAULT_USER_PROFILE} 
-        alt="Imagen de perfil" 
+      <img
+        src={(user.profileImage || user.profile_image) ?? DEFAULT_USER_PROFILE}
+        alt="Imagen de perfil"
         className="w-100 h-100 object-fit-cover rounded-circle" />
     </div>
   );
