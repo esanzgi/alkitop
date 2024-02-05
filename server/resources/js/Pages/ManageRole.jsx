@@ -1,10 +1,18 @@
 import { Header } from '@/components/Header';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useUserContext } from '@/context/userContext'
 
-export default function ManageRole({ users }) {
+export default function ManageRole({ users,user }) {
+  const { login } = useUserContext()
+
+  useEffect(() => {
+    login(user)
+  }, [])
+  login(user)
+
   return (
     <div>
-      <Header />
+      <Header user={user}/>
       <h1 className="text-center pt-3 mb-1">ADMIN PANEL</h1>
       <h3 className="text-center pt-1 mb-5">Rolak kudeatu</h3>
 

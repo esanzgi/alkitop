@@ -177,11 +177,15 @@ Route::get("/admin/users", [AdminController::class, 'showUsers']);
 Route::get("/admin/users/edit",[AdminController::class, "editUser"]);
 Route::get("/admin/users/update",[AdminController::class, "UserUpdate"]);
 Route::get("/admin/users/delete", [AdminController::class, 'delete']);
+Route::get("/admin/users/restore",[AdminController::class, "restoreUser"]);
+Route::post("/admin/users/berreskuratu",[AdminController::class, "berreskuratu"]);
 
 Route::get("/admin/produktuak", [AdminController::class, 'showProducts']);
 Route::get("/admin/produktuak/edit",[AdminController::class, "editProduct"]);
 Route::get("/admin/produktuak/update",[AdminController::class, "productUpdate"]);
 Route::post("/admin/produktuak/delete", [AdminController::class, 'productDelete']);
+Route::post("/admin/produktuak/restore",[AdminController::class, "restoreProduct"]);
+Route::post("/admin/produktuak/berreskuratu",[AdminController::class, "restoreProduct"]);
 
 
 Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);

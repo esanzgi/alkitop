@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function show(){
         
         if (Gate::allows("is_admin")) {
-            return Inertia::render("Admin");
+            return Inertia::render("Admin",["user"=>auth()->user()]);
         }
         
     }
@@ -23,7 +23,8 @@ class AdminController extends Controller
         ->get();
 
         return Inertia::render("ManageUsers",[
-            "users"=>$users
+            "users"=>$users,
+            "user"=>auth()->user()
         ]);
     }
 
@@ -69,10 +70,27 @@ class AdminController extends Controller
         return redirect("admin/users");
     }
 
+    public function restoreUser(){
+        $deletedUsers=DB::table("users")
+        ->where("soft_deleted", 1)
+        ->get();
+
+
+        return Inertia::render("RestoreUser",["users"=>$deletedUsers, "user"=>auth()->user()]);
+    }
+
+    public function berreskuratu(Request $request){
+        DB::table("users")
+        ->where("id_user",$request->input("id_user"))
+        ->update(["soft_deleted"=>0]);
+
+        return $this->restoreUser();;
+    }
+
     public function showProducts(){
         $prods=DB::table("products")->get();
 
-        return Inertia::render("ManageProducts",["products"=>$prods]);
+        return Inertia::render("ManageProducts",["products"=>$prods,"user"=>auth()->user()]);
     }
 
     public function productUpdate(Request $request){
@@ -97,7 +115,7 @@ class AdminController extends Controller
     public function editProduct(Request $request){
         $product=DB::table("products")->where("id_product", $request->input("product_id"))->get();
 
-        return Inertia("EditProduct", ["product"=>$product]);
+        return Inertia::render("EditProduct", ["product"=>$product, "user"=>auth()->user()]);
     }
 
     public function productDelete(Request $request){
@@ -123,7 +141,7 @@ class AdminController extends Controller
     public function showRoles(){
         $users=DB::table("users")->get();
 
-        return Inertia::render("ManageRole",["users"=>$users]);
+        return Inertia::render("ManageRole",["users"=>$users, "user"=>auth()->user()]);
     }
 
     public function updateRole(Request $request){
@@ -134,4 +152,8 @@ class AdminController extends Controller
         return redirect("/admin/rolak");
     }
 
+    public function restoreProduct(){}
+
+
+    
 }

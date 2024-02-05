@@ -1,14 +1,21 @@
 // resources/js/Pages/Admin.jsx
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Header } from '@/components/Header';
 import AdminMenu from '@/components/AdminMenu';
+import { useUserContext } from '@/context/userContext'
 
+const Admin = ({ users,user }) => {
+  const { login } = useUserContext()
 
-const Admin = ({ users }) => {
+  useEffect(() => {
+    login(user)
+  }, [])
+  login(user)
+
   return (
     <div>
-      <Header />
+      <Header user={user}/>
       <AdminMenu/>
       <h1 className="text-center pt-3 mb-1">ADMIN PANEL</h1>
       <h3 className="text-center pt-1 mb-5" >Erabiltzaileak Kudeatu</h3>

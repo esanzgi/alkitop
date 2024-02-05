@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 import { Header } from '@/components/Header';
 import AdminMenu from '@/components/AdminMenu';
 import { Link } from '@inertiajs/react';
+import { useUserContext } from '@/context/userContext'
 
+const Admin = ({ products,user }) => {
+  const { login } = useUserContext()
 
-const Admin = ({ products }) => {
+  useEffect(() => {
+    login(user)
+  }, [])
+  login(user)
+
   return (
     <div>
-      <Header />
-      <AdminMenu />
+      <Header user={user} />
+      <AdminMenu/>
       <h1 className="text-center pt-3 mb-1">ADMIN PANEL</h1>
       <h3 className="text-center pt-1 mb-5">Produktuak kudeatu</h3>
       <table className="table table-striped">

@@ -14,6 +14,7 @@ export default function Home({ products, user, owner }) {
     login(user)
   }, [])
   login(user)
+  
   return (
     <main className=''>
       <div className='fixed-top bg-white'>
