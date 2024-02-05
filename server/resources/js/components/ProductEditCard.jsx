@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { PUBLIC_IMAGES_URL } from '@/assets/utils/constants';
 import { allCategories } from '@/assets/utils/constants';
 
-export default function ProductEditCard({ product }) {
+export default function ProductEditCard({ product, user }) {
   const { register, handleSubmit, setValue } = useForm();
 
   React.useEffect(() => {
@@ -132,8 +132,9 @@ export default function ProductEditCard({ product }) {
               <button type='submit' className='btn btn-primary'>Editatu</button>
             </div>
           </form>
-          <form action='' method=''>
+          <form action='/produktua/delete' method='post'>
             <input type='submit' className='btn btn-danger my-3' value="Produktua ezabatu"/>
+            <input type='hidden' name='product_id' value={user.id_user}/>
           </form>
         </div>
       </div>

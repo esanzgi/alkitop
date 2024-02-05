@@ -158,6 +158,8 @@ Route::post('/deleteImage',[ProductController::class,'deleteImage']);
 
 Route::post('/updateProduct',[ProductController::class,'updateProduct']);
 
+Route::post('/produktua/delete',[ProductController::class,'deleteProduct']);
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/ProductAlokatu', [ProductController::class, 'alokatuPage']);
 

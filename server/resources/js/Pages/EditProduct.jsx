@@ -16,7 +16,7 @@
           <Header user={user} owner={owner} />
         </div>
         <div className='mx-5 my-5 px-5'>
-          <ProductEditCard product={product}/>
+          <ProductEditCard product={product} user={user}/>
         </div>
         
         <div className='mt-5 pt-5 bg-light border-top'>

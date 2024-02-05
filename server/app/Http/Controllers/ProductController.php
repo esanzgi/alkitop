@@ -367,4 +367,14 @@ class ProductController extends Controller
         return redirect('/');
    }
 
+   public function deleteProduct(Request $request){
+    $id=$request->input("product_id");
+
+    DB::table("products")
+    ->where("id_product",$id)
+    ->delete(["soft_deleted"=>1]);
+
+
+    return redirect("/dashboard");
+}
 }
