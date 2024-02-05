@@ -37,3 +37,6 @@ Route::post('/rating/create', [RestRatingController::class, 'createRating']);
 // Product
 Route::get('/products/user/{idUser}', [RestProductController::class, 'getProductByIdUser']);
 Route::get('/products', [ProductController::class, 'getProductBySearch']);
+Route::get('/products/rental/user/{idUser}', [RestProductController::class, 'getRentalsByIdUser']);
+Route::get('/products/old/rental/user/{idUser}', [RestProductController::class, 'getOldRentalsByIdUser']);
+

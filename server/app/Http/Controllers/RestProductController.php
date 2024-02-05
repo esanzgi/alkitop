@@ -34,5 +34,83 @@ class RestProductController extends Controller
             ->get();
         return response()->json($products);
     }
+    public function getRentalsByIdUser($idUser)
+{
+    $user = User::find($idUser);
+        
+    $rentals = $user->rentals;
 
+    $products = [];
+
+    foreach ($rentals as $rental) {
+        $now = now();  // Obten la fecha y hora actual
+
+        if ($rental->end_date >= $now) {
+            $product = Product::leftJoin('product_images', function ($join) {
+                $join->on('products.id_product', '=', 'product_images.product_id')
+                    ->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images WHERE product_id = products.id_product)');
+            })
+                ->where('id_product', $rental->id_product)
+                ->select(
+                    'products.id_product',
+                    'products.name',
+                    'products.description',
+                    'products.image',
+                    'products.id_owner',
+                    'products.isEco',
+                    'products.price',
+                    'products.location',
+                    'products.category',
+                    'products.frequency',
+                    'product_images.image_path as image_path'
+                )
+                ->first();
+
+            if ($product) {
+                $products[] = $product;
+            }
+        }
+    }
+
+    return response()->json($products);
+}
+
+public function getOldRentalsByIdUser($idUser)
+{
+    $user = User::find($idUser);
+        
+    $rentals = $user->rentals;
+
+    $products = [];
+
+    foreach ($rentals as $rental) {
+        $now = now();  // Obten la fecha y hora actual
+
+            $product = Product::leftJoin('product_images', function ($join) {
+                $join->on('products.id_product', '=', 'product_images.product_id')
+                    ->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images WHERE product_id = products.id_product)');
+            })
+                ->where('id_product', $rental->id_product)
+                ->select(
+                    'products.id_product',
+                    'products.name',
+                    'products.description',
+                    'products.image',
+                    'products.id_owner',
+                    'products.isEco',
+                    'products.price',
+                    'products.location',
+                    'products.category',
+                    'products.frequency',
+                    'product_images.image_path as image_path'
+                )
+                ->first();
+
+            if ($product) {
+                $products[] = $product;
+            }
+        }
+
+    return response()->json($products);
+}
 }

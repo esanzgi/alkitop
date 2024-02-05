@@ -132,6 +132,9 @@ export default function ProductEditCard({ product }) {
               <button type='submit' className='btn btn-primary'>Editatu</button>
             </div>
           </form>
+          <form action='' method=''>
+            <input type='submit' className='btn btn-danger my-3' value="Produktua ezabatu"/>
+          </form>
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@ import { Footer } from '@/components/Footer';
 import { GustokoenProduktuak } from '@/components/GustokoenProduktuak';
 import { Header } from '@/components/Header';
 import PrivateUserProducts from '@/components/user/PrivateUserProducts';
+import PrivateAlokatutak from '@/components/user/PrivateAlokatutak';
+
 import { useUserContext } from '@/context/userContext';
 import { Head } from '@inertiajs/react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
@@ -12,7 +14,7 @@ export default function Dashboard({ auth, products, owner }) {
   const { login } = useUserContext();
   login(auth.user);
 
-  const [displayType, setDisplayType] = useState("all");
+  const [displayType, setDisplayType] = useState("purchased");
 
   const handleMenuOptionClick = (option) => {
     setDisplayType(option);
@@ -22,9 +24,13 @@ export default function Dashboard({ auth, products, owner }) {
 
   switch (displayType) {
     case "all":
-    case "favorites":
-    case "purchased":
       displayComponent = <PrivateUserProducts user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;
+      break;
+    case "favorites":
+      displayComponent = <PrivateUserProducts user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;
+      break;
+    case "purchased":
+      displayComponent = <PrivateAlokatutak user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;
       break;
     default:
       displayComponent = null;
@@ -36,8 +42,8 @@ export default function Dashboard({ auth, products, owner }) {
         <Header user={auth.user} owner={owner} />
       </div>
 
-      <div className="py-12 mt-5 pt-5">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="py-12 mt-5 pt-5 mx-4">
+        <div className=" sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div className="py-2 text-gray-900 mx-3 h3">Mila esker izen emateagatik</div>
           </div>
@@ -58,12 +64,12 @@ export default function Dashboard({ auth, products, owner }) {
               ) : (
                 <>
                   <Dropdown.Item onClick={() => handleMenuOptionClick("favorites")}>Gustokoenak</Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleMenuOptionClick("purchased")}>Alokautak</Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleMenuOptionClick("purchased")}>Alokatutak</Dropdown.Item>
                 </>
               )}
             </DropdownButton>
-          </div>
 
+          </div>
           <div className='col-12 mt-3'>
             {displayComponent}
           </div>
