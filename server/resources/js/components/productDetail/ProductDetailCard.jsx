@@ -6,9 +6,11 @@ import RatingStars from 'react-rating-stars-component';
 import ImagesModal from './ImagesModal';
 import { PUBLIC_IMAGES_URL, traducirFrecuencia } from '@/assets/utils/constants';
 import { useForm } from 'react-hook-form';
+import MapComponent from '../MapComponent';
 
 function ProductDetailCard({ product }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false); // Nuevo estado para controlar el hover
   const [isAvailableForRental, setIsAvailableForRental] = useState(checkAvailability(product.latestRental));
 
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
@@ -19,6 +21,14 @@ function ProductDetailCard({ product }) {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   return (
@@ -47,9 +57,14 @@ function ProductDetailCard({ product }) {
             edit={false}
           />
         </div>
-        <div className='ps-2 mt-2'>
+        <div className='ps-2 mt-2'> {/* Agregar eventos de mouse */}
           <FontAwesomeIcon className='text-success' icon={faLocationDot} />
-          <span className='fs-6 fst-italic ms-2'>{product.product.location}</span>
+          <span className='fs-6 fst-italic ms-2' onMouseEnter={handleMouseEnter} >{product.product.location}</span>
+          {isHovered && ( // Mostrar MapComponent solo cuando se hace hover
+            <div style={{ position: 'absolute', zIndex: 999, width: '50%', height: '200px' }} onMouseLeave={handleMouseLeave}>
+              <MapComponent location={'Los Angeles'} />
+            </div>
+          )}
         </div>
       </div>
 
@@ -74,15 +89,15 @@ function ProductDetailCard({ product }) {
 
         <div className="mt-3 mb-2 md-mb-5 d-flex justify-content-center  me-5 pb-5 align-items-center">
           <form action='/ProductAlokatu' method='get'>
-            <input type='hidden' name='product' value={product.product.id_product}/>
-          <input
-            type='submit'
-            className="btn btn-success me-3 px-5 fs-5"
-            disabled={!isAvailableForRental}
-            value="Alokatu"
-          />
+            <input type='hidden' name='product' value={product.product.id_product} />
+            <input
+              type='submit'
+              className="btn btn-success me-3 px-5 fs-5"
+              disabled={!isAvailableForRental}
+              value="Alokatu"
+            />
           </form>
-          
+
           <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment} /></button>
           <span className='pointer-at'><FontAwesomeIcon className='fs-2' icon={faBookmark} /></span>
         </div>

@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer"
 import { Header } from "@/components/Header"
+import MapComponent from "@/components/MapComponent";
 import { ProductDetailsContent } from "@/components/productDetail/ProductDetailsContent"
 import { useUserContext } from '@/context/userContext';
 
@@ -23,10 +24,10 @@ const PRODUCT = {
   }
 }
 
- function ProductDetails ({ product,user,owner }) {
+function ProductDetails({ product, user, owner }) {
   const { login } = useUserContext();
-    login(user)
-    
+  login(user)
+
   return (
     < main className='' >
       <div className='fixed-top bg-white'>
@@ -41,6 +42,10 @@ const PRODUCT = {
         <div className='container-md'>
           <Footer />
         </div>
+      </div>
+      <div>
+        <h1>MAPA</h1>
+        <MapComponent location={'Los Angeles'} />
       </div>
     </main >
   )

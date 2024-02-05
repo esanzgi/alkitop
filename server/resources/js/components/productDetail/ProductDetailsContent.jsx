@@ -29,8 +29,6 @@ export function ProductDetailsContent({ product, owner, user }) {
     ? product.avgRating[0].avg_rating.replace('.', ',')
     : '0';
 
-  console.log('OWNER', owner)
-
   useEffect(() => {
     getUserByIdOwner({ idOwner: product.product.id_owner });
     getUserDetailsByIdUser({ idUser: loggedUser?.id_user })
@@ -38,8 +36,6 @@ export function ProductDetailsContent({ product, owner, user }) {
       setIsOwner(owner.id_owner === product.product.id_owner);
     }
   }, [getUserByIdOwner, owner, product.product.id_owner]);
-
-  console.log('USSERdetails', loggedUser)
 
 
   return (
