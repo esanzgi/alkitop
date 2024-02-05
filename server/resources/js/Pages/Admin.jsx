@@ -31,8 +31,8 @@ const Admin = ({user}) => {
       <div className='d-flex'>
         <AdminCard  title={"Erabiltzaielak berreskuratu"} url={"/admin/users/restore"} />
         <AdminCard  title={"Produktuak berreskuratu"} url={"/admin/produktuak/restore"} />
-        <AdminCard  title={"Iritziak editau"} url={"/admin/iritziak/restore"} />
-        <AdminCard  title={"Estatistikak"} url={"/panel"} />
+        <AdminCard  title={"Iritziak berreskuratu"} url={"/admin/iritziak/berreskuratu"} />
+        <AdminCard  title={"Estatistikak"} url={"/admin/rolak"} />
       </div>
 
     </div>

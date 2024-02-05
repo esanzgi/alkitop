@@ -20,6 +20,9 @@ class VerifyCsrfToken extends Middleware
         "/admin/rolak/update",
         "/ProductAlokatu",
         "/admin/users/berreskuratu",
-        "/admin/produktuak/berreskuratu"
+        "/admin/produktuak/berreskuratu",
+        "/admin/iritziak/delete",
+        "/admin/produktuak/berreskuratu",
+        "/admin/iritziak/restore"
     ];
 }

@@ -135,15 +135,6 @@ class AdminController extends Controller
         return redirect("/admin/produktuak");
     }
 
-    public function showRatings(){
-
-        $ratings=DB::table("ratings")->where("soft_deleted",0)->get();
-        $users=DB::table("users")->where("soft_deleted",0)->get();
-        
-
-        return Inertia::render("ManageRatings",["ratings"=>$ratings, "users"=>$users]);
-    }
-
     public function showRoles(){
         $users=DB::table("users")->get();
 
@@ -174,6 +165,60 @@ class AdminController extends Controller
         return $this->restoreProduct();
     }
 
+    public function showRatings(){
+
+        $ratings=DB::table("ratings")->where("soft_deleted",0)->get();
+        $users=DB::table("users")->where("soft_deleted",0)->get();
+        
+
+        return Inertia::render("ManageRatings",["ratings"=>$ratings, "users"=>$users,"user"=>auth()->user()]);
+    }
+
+    public function ratingDelete(Request $request){
+        DB::table("ratings")
+        ->where("id_rating",$request->input("id_rating"))
+        ->update(["soft_deleted"=>1]);
+
+        return redirect("/admin/iritziak");
+    }
+
+    public function restoreRating(){
+        $ratings=DB::table("ratings")->where("soft_deleted",1)->get();
+
+        return Inertia::render("RestoreRatings", ["user"=>auth()->user(), "ratings"=>$ratings]);
+    }
+
+    public function iritziaBerreskuratu(Request $request){
+        DB::table("ratings")
+        ->where("id_rating",$request->input("id_rating"))
+        ->update(["soft_deleted"=>0]);
+
+        return $this->restoreRating();
+    }
+
+    public function iritziakEditatu(Request $request){
+        $rating=DB::table("ratings")
+        ->where("id_rating",$request->input("id_rating"))
+        ->get();
+
+        return Inertia::render("EditIritziak",["user"=>auth()->user(),"rating"=>$rating] );
+    }
+
+    public function iritziakEguneratu(Request $request){
+
+        DB::table("ratings")
+        ->where("id_rating",$request->input("id"))
+        ->update([
+            'id_user' => $request->input("userId"),
+            'id_product' => $request->input("productId"),
+            'title' => $request->input("title"),
+            'review' => $request->input("review"),
+            'rating' => $request->input("rating"),
+        ]);
+        
+
+    return redirect("/admin/iritziak");
+    }
 
     
 }

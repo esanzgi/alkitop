@@ -189,6 +189,11 @@ Route::post("/admin/produktuak/berreskuratu",[AdminController::class, "produktua
 
 
 Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);
+Route::post("/admin/iritziak/delete", [AdminController::class, 'ratingDelete']);
+Route::get("/admin/iritziak/berreskuratu", [AdminController::class, 'restoreRating']);
+Route::post("/admin/iritziak/restore", [AdminController::class, 'iritziaBerreskuratu']);
+Route::get("/admin/iritziak/editatu",[AdminController::class, "iritziakEditatu"]);
+Route::get("/admin/iritziak/update",[AdminController::class, "iritziakEguneratu"]);
 
 
 Route::get("/admin/rolak", [AdminController::class, 'showRoles']);
