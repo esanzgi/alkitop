@@ -2,28 +2,43 @@ import { faLeaf, faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IMAGE from '../assets/images/moto.jpg'
 import IMAGE2 from '../assets/images/moto2.jpg'
-import { useForm } from '@inertiajs/react'
-import { useUserContext } from '@/context/userContext'
-import { PUBLIC_IMAGES_URL, traducirFrecuencia } from '@/assets/utils/constants'
-import { useEffect } from 'react'
+import { useForm } from '@inertiajs/react';
+import { PUBLIC_IMAGES_URL, traducirFrecuencia } from '@/assets/utils/constants';
+import { useEffect } from 'react';
 
 export function ProductCard({ product, user }) {
-  const { loggedUser } = useUserContext();
-  const { get, post } = useForm();
-
+  const { get} = useForm();
 
   const handleOnClick = () => {
     get(`/product/details/${product.id_product || product.id}`);
-  }
-  const addFavourite = (e) => {
-    e.preventDefault();
+  };
+
+  const addFavourite = async (e) => {
+    e.preventDefault(); 
 
     try {
-      const response = post(`/addFavourite`);
+      const response = await fetch('/addFavourite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: user.id_user,
+          product_id: product.id_product,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Favorito añadido correctamente');
+      } else {
+        console.error('Error al añadir favorito');
+      }
     } catch (error) {
-      console.error('Error al guardar el producto como favorito', error);
+      console.error('Error en la solicitud:', error);
     }
   };
+
+  
   return (
     <div className='' onClick={handleOnClick}>
       {
@@ -56,12 +71,11 @@ export function ProductCard({ product, user }) {
         <div className='d-flex justify-content-between'>
           <p className='text-truncate mt-2'>{product.title || product.name}</p>
           <form onSubmit={addFavourite}>
-            {/* <input type='hidden' value={loggedUser.id_user} name='user_id' /> */}
-            <input type='hidden' value={product.id_product} name='product_id' />
-            <button type="submit" className='btn btn-link'>
-              <FontAwesomeIcon className=' mt-3' icon={faHeart} />
-            </button>
-          </form>
+        <input type='hidden' value={product.id_product} name='product_id' />
+        <button type="submit" className='btn btn-link'>
+          <FontAwesomeIcon className=' mt-3' icon={faHeart} />
+        </button>
+      </form>
 
 
         </div>

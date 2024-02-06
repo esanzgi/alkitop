@@ -14,14 +14,15 @@ class Saved extends Model
         'id_user',
         'id_product',
     ];
+    protected $table ="saved";
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
+        return $this->belongsTo(User::class, 'id_user');
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'id_product', 'id_product');
+        return $this->belongsTo(Product::class, 'id_product');
     }
 }

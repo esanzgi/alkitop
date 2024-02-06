@@ -64,14 +64,16 @@ function PrivateAlokatutak({ user }) {
           </p>
         </div>
       ) : (
-        <div className="px-5 d-flex flex-column">
-          <div className="align-self-center">
+        <div className="px-5 d-flex flex-column ">
+         <h1 className="text-center">Alokatzen zauden produktuak</h1>
+
+          <div className="align-self-start">
           <input
             type="checkbox"
             onChange={handleCheckboxChange}
             checked={showOldProducts}
           />
-          <label>Orain alokatzen ez zauden produktuak ere ikusi</label>
+          <label className="mx-2">Alokatu dituzun produktuak ere ikusi</label>
           </div>
          
           <Products products={produktuJabea} />

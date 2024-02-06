@@ -146,7 +146,6 @@ Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
 Route::get('/product/details/{product}', [ProductController::class, 'goDetails'])->name('productDetails');
 
-Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
 
 Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
 
@@ -164,9 +163,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ProductAlokatu', [ProductController::class, 'alokatuPage']);
 
     Route::post('/ProductAlokatu',[ProductController::class,'alokatu']);
+
+Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
+
 });
 
-
+Route::post('/checkFavorite', [ProductController::class, 'checkFavorite']);
 
 // RATING ROUTES
 Route::post('ratings/create', [RatingController::class, 'createRating']);

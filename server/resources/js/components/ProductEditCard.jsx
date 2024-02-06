@@ -134,7 +134,7 @@ export default function ProductEditCard({ product, user }) {
           </form>
           <form action='/produktua/delete' method='post'>
             <input type='submit' className='btn btn-danger my-3' value="Produktua ezabatu"/>
-            <input type='hidden' name='product_id' value={user.id_user}/>
+            <input type='hidden' name='product_id' value={product.id_product}/>
           </form>
         </div>
       </div>

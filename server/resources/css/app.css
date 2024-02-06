@@ -112,6 +112,14 @@ body {
   color: green;
 }
 
+.fa-bookmark {
+  color: green;
+}
+
+/* .fa-bookmark {
+  color: white;
+} */
+
 .pointer-at {
   cursor: pointer;
 

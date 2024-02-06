@@ -1,12 +1,9 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Footer } from '@/components/Footer';
-import { GustokoenProduktuak } from '@/components/GustokoenProduktuak';
 import { Header } from '@/components/Header';
 import PrivateUserProducts from '@/components/user/PrivateUserProducts';
 import PrivateAlokatutak from '@/components/user/PrivateAlokatutak';
-
+import PrivateFavourites from '@/components/user/PrivateFavourites';
 import { useUserContext } from '@/context/userContext';
-import { Head } from '@inertiajs/react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import React, { useState } from "react";
 
@@ -27,7 +24,7 @@ export default function Dashboard({ auth, products, owner }) {
       displayComponent = <PrivateUserProducts user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;
       break;
     case "favorites":
-      displayComponent = <PrivateUserProducts user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;
+      displayComponent = <PrivateFavourites user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;
       break;
     case "purchased":
       displayComponent = <PrivateAlokatutak user={auth.user} displayType={displayType} setDisplayType={setDisplayType} />;

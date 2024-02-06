@@ -54,4 +54,9 @@ class Product extends Model
         return $this->hasMany(Rental::class, 'id_product');
     }
 
+    public function favourites()
+    {
+        return $this->hasMany(Saved::class, 'id_product');
+    }
+
 }

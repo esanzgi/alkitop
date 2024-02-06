@@ -6,12 +6,13 @@ use App\Models\Owner;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Rating;
-use App\Models\User;
 use App\Models\Rental;
+use App\Models\User;
+use App\Models\Saved;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -114,55 +115,54 @@ class ProductController extends Controller
     }
 
     public function goDetails(Product $product)
-{
-    $images = ProductImage::where('product_id', $product->id_product)->get();
-    $product->images = $images;
+    {
+        $images = ProductImage::where('product_id', $product->id_product)->get();
+        $product->images = $images;
 
-    $latestRental = $product->rentals()->latest('end_date')->first();
+        $latestRental = $product->rentals()->latest('end_date')->first();
 
-    if ($latestRental && now() < $latestRental->end_date) {
-        $latestRental->status = 'En curso';
-        $latestRental->save();
-    } elseif ($latestRental) {
-        $latestRental->status = 'Finalizado';
-        $latestRental->save();
+        if ($latestRental && now() < $latestRental->end_date) {
+            $latestRental->status = 'En curso';
+            $latestRental->save();
+        } elseif ($latestRental) {
+            $latestRental->status = 'Finalizado';
+            $latestRental->save();
+        }
+
+        $owner = null;
+
+        if (auth()->user() && auth()->user()->id_role == 4) {
+            $owner = Owner::where('id_user', auth()->user()->id_user)->first();
+        }
+
+        $newProduct = [];
+        $ratings = Rating::where('id_product', $product->id_product)->get();
+
+        $media = Rating::select(
+            \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
+        )
+            ->where('id_product', $product->id_product)
+            ->get();
+
+        $newProduct['product'] = $product;
+        $newProduct['rating'] = $ratings;
+        $newProduct['avgRating'] = $media;
+        $newProduct['latestRental'] = $latestRental;
+
+
+        return Inertia::render('ProductDetails', [
+            'product' => $newProduct,
+            'user' => auth()->user(),
+            'owner' => $owner,
+        ]);
     }
-
-    $owner = null;
-
-    if (auth()->user() && auth()->user()->id_role == 4) {
-        $owner = Owner::where('id_user', auth()->user()->id_user)->first();
-    }
-
-    $newProduct = [];
-    $ratings = Rating::where('id_product', $product->id_product)->get();
-
-    $media = Rating::select(
-        \DB::raw('COALESCE(FORMAT(AVG(ratings.rating), IF(AVG(ratings.rating) = ROUND(AVG(ratings.rating)), 0, 1)), 0) as avg_rating')
-    )
-        ->where('id_product', $product->id_product)
-        ->get();
-
-    $newProduct['product'] = $product;
-    $newProduct['rating'] = $ratings;
-    $newProduct['avgRating'] = $media;
-    $newProduct['latestRental'] = $latestRental;
-
-    return Inertia::render('ProductDetails', [
-        'product' => $newProduct,
-        'user' => auth()->user(),
-        'owner' => $owner,
-    ]);
-}
-
-
 
     public function privateCard(Product $product)
     {
         $images = ProductImage::where('product_id', $product->id_product)->get();
         $product->images = $images;
 
-        $product->rentals=$rentals;
+        $product->rentals = $rentals;
 
         $newProduct = [];
         $ratings = Rating::where('id_product', $product->id_product)->get();
@@ -183,14 +183,43 @@ class ProductController extends Controller
     }
 
     public function addFavourite(Request $request)
-    {
-        $user = User::find($request->input('user_id'));
-        $product = Product::find($request->input('product_id'));
+{
+    $user_id = $request->input('user_id');
+    $product_id = $request->input('product_id');
 
-        if (!$user) {
-            return Inertia::render('Dashboard');
-        }
+    $existingSaved = Saved::where('id_user', $user_id)
+        ->where('id_product', $product_id)
+        ->first();
+
+    if ($existingSaved) {
+        $existingSaved->delete();
+        $existingSaved->save();
     }
+
+    Saved::create([
+        'id_user' => $user_id,
+        'id_product' => $product_id,
+    ]);
+
+    return redirect('/');
+}
+
+
+public function checkFavorite(Request $request)
+{
+    $user = User::find($request->input('user_id'));
+    $product = Product::find($request->input('product_id'));
+
+    $isFavorite = Saved::where('id_user', $user->id_user)
+        ->where('id_product', $product->id_product)
+        ->exists();
+
+    return response()->json(['isFavorite' => $isFavorite]);
+}
+
+
+
+
     public function editPage($product)
     {
         $product = Product::find($product);
@@ -224,25 +253,20 @@ class ProductController extends Controller
             ]);
 
             return redirect("/editProduct/{$id_product}");
-        }
-        else{
+        } else {
             return view('welcome');
         }
     }
-
 
     public function deleteImage(Request $request)
     {
         $image = ProductImage::find($request->input('irudia'));
         $id_product = $request->input('id');
 
-
-
         if ($image) {
             $image->delete();
             return redirect("/editProduct/{$id_product}");
-        }
-        else{
+        } else {
             return view('welcome');
         }
     }
@@ -263,11 +287,10 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'No se encontró el producto');
         }
 
-        if($request->input('isEco')=="on"){
-            $eco=true;
-        }
-        else{
-            $eco=false;
+        if ($request->input('isEco') == "on") {
+            $eco = true;
+        } else {
+            $eco = false;
         }
         $product->update([
             'price' => $request->input('price'),
@@ -275,15 +298,13 @@ class ProductController extends Controller
             'location' => $request->input('location'),
             'category' => $request->input('category'),
             'frequency' => $request->input('frequency'),
-            'isEco'=>$eco,
+            'isEco' => $eco,
         ]);
         $product->save();
 
-          return redirect("/editProduct/{$request->input('id')}");
+        return redirect("/editProduct/{$request->input('id')}");
 
     }
-
-
 
     public function productsByCategory($category)
     {
@@ -328,20 +349,20 @@ class ProductController extends Controller
         ]);
     }
 
-    public function alokatuPage(Request $request){
+    public function alokatuPage(Request $request)
+    {
         $erabiltzailea = auth()->user();
         $owner = null;
-        
 
         if ($erabiltzailea && $erabiltzailea->id_role == 4) {
             $owner = Owner::where('id_user', $erabiltzailea->id_user)->first();
         }
 
-        $product=Product::find($request->input('product'));
+        $product = Product::find($request->input('product'));
         $images = ProductImage::where('product_id', $product->id_product)->get();
         $product->images = $images;
 
-        return Inertia::render('ProductAlokatu',[
+        return Inertia::render('ProductAlokatu', [
             'product' => $product,
             'user' => $erabiltzailea,
             'owner' => $owner,
@@ -365,16 +386,17 @@ class ProductController extends Controller
         ]);
 
         return redirect('/');
-   }
+    }
 
-   public function deleteProduct(Request $request){
-    $id=$request->input("product_id");
+    public function deleteProduct(Request $request)
+    {
+        $id = $request->input("product_id");
 
-    DB::table("products")
-    ->where("id_product",$id)
-    ->delete(["soft_deleted"=>1]);
+        DB::table("products")
+            ->where("id_product", $id)
+            ->update(["soft_deleted" => 1]);
 
+        return redirect("/dashboard");
+    }
 
-    return redirect("/dashboard");
-}
 }

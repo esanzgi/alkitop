@@ -52,7 +52,8 @@ function PrivateUserProducts({ user }) {
           </p>
         </div>
       ) : (
-        <div>
+        <div className="d-flex flex-column">
+          <h1 className="align-self-center">Zure Produktuak</h1>
           <Products products={produktuJabea}/>
         </div>
       )}

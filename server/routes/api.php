@@ -39,4 +39,6 @@ Route::get('/products/user/{idUser}', [RestProductController::class, 'getProduct
 Route::get('/products', [ProductController::class, 'getProductBySearch']);
 Route::get('/products/rental/user/{idUser}', [RestProductController::class, 'getRentalsByIdUser']);
 Route::get('/products/old/rental/user/{idUser}', [RestProductController::class, 'getOldRentalsByIdUser']);
+Route::get('/products/favourites/user/{idUser}', [RestProductController::class, 'getFavouritesByIdUser']);
+
 

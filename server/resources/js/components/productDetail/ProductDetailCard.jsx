@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { faStar, faLocationDot, faLeaf, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AlkitopTooltip } from '../Icons';
@@ -8,10 +8,11 @@ import { PUBLIC_IMAGES_URL, traducirFrecuencia } from '@/assets/utils/constants'
 import { useForm } from 'react-hook-form';
 import MapComponent from '../MapComponent';
 
-function ProductDetailCard({ product }) {
+function ProductDetailCard({ product, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false); // Nuevo estado para controlar el hover
   const [isAvailableForRental, setIsAvailableForRental] = useState(checkAvailability(product.latestRental));
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
@@ -23,13 +24,63 @@ function ProductDetailCard({ product }) {
     setIsModalOpen(false);
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
+  const handleBookmarkClick = async () => {
+    try {
+      if (!user) {
+        window.location.href = '/login';
+        return;
+      }
+
+      const response = await fetch('/addFavourite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: user.id_user,
+          product_id: product.product.id_product,
+        }),
+      });
+
+      if (response.ok) {
+        setIsFavorite(!isFavorite);
+      } else {
+        console.error('Error al agregar el producto a favoritos');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud', error);
+    }
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  useEffect(() => {
+    const checkFavoriteStatus = async () => {
+      try {
+        if (user) {
+          const response = await fetch('/checkFavorite', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_id: user.id_user,
+              product_id: product.product.id_product,
+            }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setIsFavorite(data.isFavorite);
+          } else {
+            console.error('Error al verificar el estado del favorito');
+          }
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud', error);
+      }
+    };
+
+    checkFavoriteStatus();
+  }, [user, product.product.id_product]);
 
   return (
     <div className='row justify-content-center'>
@@ -99,8 +150,10 @@ function ProductDetailCard({ product }) {
           </form>
 
           <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment} /></button>
-          <span className='pointer-at'><FontAwesomeIcon className='fs-2' icon={faBookmark} /></span>
-        </div>
+          <span className='pointer-at' onClick={handleBookmarkClick}>
+            <FontAwesomeIcon className={`fs-2 ${isFavorite ? 'text-black' : 'text-muted'}`} icon={faBookmark} />
+          </span>        
+          </div>
       </div>
     </div>
   );
@@ -111,3 +164,4 @@ function checkAvailability(latestRental) {
 }
 
 export default ProductDetailCard;
+
