@@ -27,7 +27,6 @@ function MapComponent({ location }) {
               zoom: 4
             })
           });
-          console.log('DATA', data[0])
         } else {
           console.error('No se encontraron resultados de geocodificación para la ubicación:', location);
         }
@@ -37,7 +36,7 @@ function MapComponent({ location }) {
       });
   }, [location]);
 
-  return <div id="map" style={{ width: '50%', height: '400px' }}></div>;
+  return <div id="map" style={{ width: '100%', height: '400px' }}></div>;
 }
 
 export default MapComponent;

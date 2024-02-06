@@ -24,10 +24,10 @@ function ProductDetailCard({ product, user }) {
     setIsModalOpen(false);
   };
 
-  const handleMouseEnter=()=>{
+  const handleMouseEnter = () => {
     setIsHovered(true);
   }
-  const handleMouseLeave=()=>{
+  const handleMouseLeave = () => {
     setIsHovered(false);
   }
 
@@ -160,8 +160,8 @@ function ProductDetailCard({ product, user }) {
           <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment} /></button>
           <span className='pointer-at' onClick={handleBookmarkClick}>
             <FontAwesomeIcon className={`fs-2 ${isFavorite ? 'text-black' : 'text-muted'}`} icon={faBookmark} />
-          </span>        
-          </div>
+          </span>
+        </div>
       </div>
     </div>
   );
