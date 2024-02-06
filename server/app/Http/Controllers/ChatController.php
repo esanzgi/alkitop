@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateChatRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Chat;
+use Inertia\Inertia;
 
 class ChatController extends Controller
 {
@@ -15,7 +16,10 @@ class ChatController extends Controller
      */
     public function index()
     {
-        //
+        $erabiltzailea = auth()->user();
+
+        return Inertia::render('ChatPage', [
+            'user' => $erabiltzailea]);
     }
 
     /**

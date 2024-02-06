@@ -140,6 +140,9 @@ function UserDropdown({ isAuthenticated, handleRegisterAlokatzaile, roleId }) {
         <Dropdown.Item className='d-block d-md-none' onClick={handleProduct}>
           Produktua igo
         </Dropdown.Item>
+        <Dropdown.Item as={Link} href='/chat'>
+          Chat
+        </Dropdown.Item>
         {roleId === 1 && (
           <Dropdown.Item as={Link} href='/admin'>
             Admin

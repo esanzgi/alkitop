@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
@@ -24,6 +25,9 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
  */
+
+// CHAT
+Route::get('/chat', [ChatController::class, 'index']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products/search', [HomeController::class, 'search']);
@@ -148,25 +152,24 @@ Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
 Route::get('/product/details/{product}', [ProductController::class, 'goDetails'])->name('productDetails');
 
-
-Route::post('/avatarEguneratu',[ProfileController::class, 'avatarEguneratu']);
+Route::post('/avatarEguneratu', [ProfileController::class, 'avatarEguneratu']);
 
 Route::get('/editProduct/{id_product}', [ProductController::class, 'editPage']);
 
-Route::post('/products/addImage',[ProductController::class,'addImage']);
+Route::post('/products/addImage', [ProductController::class, 'addImage']);
 
-Route::post('/deleteImage',[ProductController::class,'deleteImage']);
+Route::post('/deleteImage', [ProductController::class, 'deleteImage']);
 
-Route::post('/updateProduct',[ProductController::class,'updateProduct']);
+Route::post('/updateProduct', [ProductController::class, 'updateProduct']);
 
-Route::post('/produktua/delete',[ProductController::class,'deleteProduct']);
+Route::post('/produktua/delete', [ProductController::class, 'deleteProduct']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/ProductAlokatu', [ProductController::class, 'alokatuPage']);
 
-    Route::post('/ProductAlokatu',[ProductController::class,'alokatu']);
+    Route::post('/ProductAlokatu', [ProductController::class, 'alokatu']);
 
-Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
+    Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
 
 });
 
@@ -180,37 +183,33 @@ Route::post('ratings/create', [RatingController::class, 'createRating']);
 Route::get("/admin", [AdminController::class, "show"]);
 
 Route::get("/admin/users", [AdminController::class, 'showUsers']);
-Route::get("/admin/users/edit",[AdminController::class, "editUser"]);
-Route::get("/admin/users/update",[AdminController::class, "UserUpdate"]);
+Route::get("/admin/users/edit", [AdminController::class, "editUser"]);
+Route::get("/admin/users/update", [AdminController::class, "UserUpdate"]);
 Route::get("/admin/users/delete", [AdminController::class, 'delete']);
-Route::get("/admin/users/restore",[AdminController::class, "restoreUser"]);
-Route::post("/admin/users/berreskuratu",[AdminController::class, "berreskuratu"]);
+Route::get("/admin/users/restore", [AdminController::class, "restoreUser"]);
+Route::post("/admin/users/berreskuratu", [AdminController::class, "berreskuratu"]);
 
 Route::get("/admin/produktuak", [AdminController::class, 'showProducts']);
-Route::get("/admin/produktuak/edit",[AdminController::class, "editProduct"]);
-Route::get("/admin/produktuak/update",[AdminController::class, "productUpdate"]);
+Route::get("/admin/produktuak/edit", [AdminController::class, "editProduct"]);
+Route::get("/admin/produktuak/update", [AdminController::class, "productUpdate"]);
 Route::post("/admin/produktuak/delete", [AdminController::class, 'productDelete']);
-Route::get("/admin/produktuak/restore",[AdminController::class, "restoreProduct"]);
-Route::post("/admin/produktuak/berreskuratu",[AdminController::class, "produktuaBerreskuratu"]);
-
+Route::get("/admin/produktuak/restore", [AdminController::class, "restoreProduct"]);
+Route::post("/admin/produktuak/berreskuratu", [AdminController::class, "produktuaBerreskuratu"]);
 
 Route::get("/admin/iritziak", [AdminController::class, 'showRatings']);
 Route::post("/admin/iritziak/delete", [AdminController::class, 'ratingDelete']);
 Route::get("/admin/iritziak/berreskuratu", [AdminController::class, 'restoreRating']);
 Route::post("/admin/iritziak/restore", [AdminController::class, 'iritziaBerreskuratu']);
-Route::get("/admin/iritziak/editatu",[AdminController::class, "iritziakEditatu"]);
-Route::get("/admin/iritziak/update",[AdminController::class, "iritziakEguneratu"]);
-
+Route::get("/admin/iritziak/editatu", [AdminController::class, "iritziakEditatu"]);
+Route::get("/admin/iritziak/update", [AdminController::class, "iritziakEguneratu"]);
 
 Route::get("/admin/rolak", [AdminController::class, 'showRoles']);
 Route::post("/admin/rolak/update", [AdminController::class, 'updateRole']);
 
-
-Route::get("/api/user/role",function(){
+Route::get("/api/user/role", function () {
     return response()->json(auth()->user()->id_role);
 });
 
-
-Route::post("/sendMessage",[ChatController::class,'sendMessage']);
+Route::post("/sendMessage", [ChatController::class, 'sendMessage']);
 
 require __DIR__ . '/auth.php';
