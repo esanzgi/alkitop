@@ -208,4 +208,7 @@ Route::get("/api/user/role",function(){
     return response()->json(auth()->user()->id_role);
 });
 
+
+Route::post("/sendMessage",[ChatController::class,'sendMessage']);
+
 require __DIR__ . '/auth.php';

@@ -1,3 +1,5 @@
+// ProductDetailCard.js
+
 import React, { useState, useEffect } from 'react';
 import { faStar, faLocationDot, faLeaf, faComment, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,12 +9,16 @@ import ImagesModal from './ImagesModal';
 import { PUBLIC_IMAGES_URL, traducirFrecuencia } from '@/assets/utils/constants';
 import { useForm } from 'react-hook-form';
 import MapComponent from '../MapComponent';
+import ChatModal from '../ChatModal';
 
 function ProductDetailCard({ product, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false); // Nuevo estado para controlar el hover
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [isAvailableForRental, setIsAvailableForRental] = useState(checkAvailability(product.latestRental));
   const [isFavorite, setIsFavorite] = useState(false);
+
+  console.log(product);
 
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
@@ -24,13 +30,21 @@ function ProductDetailCard({ product, user }) {
     setIsModalOpen(false);
   };
 
+  const openChatModal = () => {
+    setIsChatModalOpen(true);
+  };
+
+  const closeChatModal = () => {
+    setIsChatModalOpen(false);
+  };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
-  }
+  };
+
   const handleMouseLeave = () => {
     setIsHovered(false);
-  }
-
+  };
 
   const handleBookmarkClick = async () => {
     try {
@@ -109,17 +123,14 @@ function ProductDetailCard({ product, user }) {
           <span className='badge bg-secondary px-3 fs-7'>{product.product.category}</span>
         </div>
         <div className='ps-2'>
-          <RatingStars
-            value={avgRatingValue}
-            size={24}
-            activeColor="#ffd700"
-            edit={false}
-          />
+          <RatingStars value={avgRatingValue} size={24} activeColor="#ffd700" edit={false} />
         </div>
-        <div className='ps-2 mt-2'> {/* Agregar eventos de mouse */}
+        <div className='ps-2 mt-2'>
           <FontAwesomeIcon className='text-success' icon={faLocationDot} />
-          <span className='fs-6 fst-italic ms-2' onMouseEnter={handleMouseEnter} >{product.product.location}</span>
-          {isHovered && ( // Mostrar MapComponent solo cuando se hace hover
+          <span className='fs-6 fst-italic ms-2' onMouseEnter={handleMouseEnter}>
+            {product.product.location}
+          </span>
+          {isHovered && (
             <div style={{ position: 'absolute', zIndex: 999, width: '50%', height: '200px' }} onMouseLeave={handleMouseLeave}>
               <MapComponent location={product.product.location} />
             </div>
@@ -157,19 +168,23 @@ function ProductDetailCard({ product, user }) {
             />
           </form>
 
-          <button className="btn btn-outline-success me-3 fs-5"><span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment} /></button>
+          <button className="btn btn-outline-success me-3 fs-5" onClick={openChatModal}>
+            <span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment} />
+          </button>
+        <ChatModal isOpen={isChatModalOpen} onClose={closeChatModal} user={user}/>
+
           <span className='pointer-at' onClick={handleBookmarkClick}>
             <FontAwesomeIcon className={`fs-2 ${isFavorite ? 'text-black' : 'text-muted'}`} icon={faBookmark} />
           </span>
         </div>
       </div>
+
     </div>
   );
 }
 
 function checkAvailability(latestRental) {
-  return !latestRental || latestRental.status === "Finalizado";
+  return !latestRental || latestRental.status === 'Finalizado';
 }
 
 export default ProductDetailCard;
-

@@ -43,10 +43,6 @@ function ProductDetails({ product, user, owner }) {
           <Footer />
         </div>
       </div>
-      <div>
-        <h1>MAPA</h1>
-        <MapComponent location={'Los Angeles'} />
-      </div>
     </main >
   )
 }

@@ -17,7 +17,6 @@ export function ProductDetailsContent({ product, owner, user }) {
   const [isOwner, setIsOwner] = useState(false);
   const isOwnerOrAdmin = isOwner || (user && (user.id_role === 1 || user.id_role === 2));
 
-
   useEffect(() => {
     if (users.createdAt) {
       const data = intlFormatDistance(parseISO(users.createdAt), new Date());
@@ -38,6 +37,7 @@ export function ProductDetailsContent({ product, owner, user }) {
   }, [getUserByIdOwner, owner, product.product.id_owner]);
 
 
+  console.log(users.name);
   return (
     <div className="mt-5">
       <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
@@ -55,7 +55,7 @@ export function ProductDetailsContent({ product, owner, user }) {
       </div>
 
       <div className="mt-4">
-        <ProductDetailCard product={product} user={user} />
+        <ProductDetailCard product={product} user={user}/>
       </div>
 
       <div className='row mt-5'>
