@@ -24,6 +24,14 @@ function ProductDetailCard({ product, user }) {
     setIsModalOpen(false);
   };
 
+  const handleMouseEnter=()=>{
+    setIsHovered(true);
+  }
+  const handleMouseLeave=()=>{
+    setIsHovered(false);
+  }
+
+
   const handleBookmarkClick = async () => {
     try {
       if (!user) {
