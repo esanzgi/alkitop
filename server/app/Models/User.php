@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Owner;
 use App\Models\Product;
 use App\Models\Rating;
 use App\Models\Rental;
 use App\Models\UserDetail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -89,8 +89,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Rental::class, 'id_user');
     }
 
-    public function favourites(){
-        return $this->hasMany(Saved::class,'id_user');
+    public function favourites()
+    {
+        return $this->hasMany(Saved::class, 'id_user');
+    }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'id_from')
+            ->orWhere('id_to', $this->id_user);
     }
 
 }

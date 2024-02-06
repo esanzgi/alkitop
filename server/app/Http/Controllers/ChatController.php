@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreChatRequest;
 use App\Http\Requests\UpdateChatRequest;
+use Illuminate\Http\Request;
+
 use App\Models\Chat;
 
 class ChatController extends Controller
@@ -66,5 +68,19 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request){
         $id_from=$request->input('user');
+        $id_to=$request->input('owner');
+        $mezua=$request->input('mezua');
+
+        $chat=Chat::create([
+            'id_from'=>$id_from,
+            'id_to'=>$id_to,
+            'mezua'=>$mezua,
+        ]);
+        
+
+    }
+
+    public function getChatsById($id){
+        $chat=Chat::all();
     }
 }

@@ -11,14 +11,13 @@ import { useForm } from 'react-hook-form';
 import MapComponent from '../MapComponent';
 import ChatModal from '../ChatModal';
 
-function ProductDetailCard({ product, user }) {
+function ProductDetailCard({ product, user, owner }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isAvailableForRental, setIsAvailableForRental] = useState(checkAvailability(product.latestRental));
   const [isFavorite, setIsFavorite] = useState(false);
 
-  console.log(product);
 
   const avgRatingValue = product.avgRating.length > 0 ? parseFloat(product.avgRating[0].avg_rating) : 0;
 
@@ -171,7 +170,7 @@ function ProductDetailCard({ product, user }) {
           <button className="btn btn-outline-success me-3 fs-5" onClick={openChatModal}>
             <span className='me-1'>Chat</span> <FontAwesomeIcon icon={faComment} />
           </button>
-        <ChatModal isOpen={isChatModalOpen} onClose={closeChatModal} user={user}/>
+        <ChatModal isOpen={isChatModalOpen} onClose={closeChatModal} user={user} owner={owner}/>
 
           <span className='pointer-at' onClick={handleBookmarkClick}>
             <FontAwesomeIcon className={`fs-2 ${isFavorite ? 'text-black' : 'text-muted'}`} icon={faBookmark} />

@@ -37,7 +37,6 @@ export function ProductDetailsContent({ product, owner, user }) {
   }, [getUserByIdOwner, owner, product.product.id_owner]);
 
 
-  console.log(users.name);
   return (
     <div className="mt-5">
       <div className="border-bottom d-flex justify-content-between align-items-center pb-2">
@@ -55,7 +54,7 @@ export function ProductDetailsContent({ product, owner, user }) {
       </div>
 
       <div className="mt-4">
-        <ProductDetailCard product={product} user={user}/>
+        <ProductDetailCard product={product} user={user} owner={users}/>
       </div>
 
       <div className='row mt-5'>

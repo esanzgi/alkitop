@@ -6,6 +6,8 @@ use App\Http\Controllers\OwnerControler;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ChatController;
+
 use App\Models\Owner;
 use App\Models\Product;
 use Illuminate\Foundation\Application;

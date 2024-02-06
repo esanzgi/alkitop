@@ -22,6 +22,7 @@ class VerifyCsrfToken extends Middleware
         "/admin/users/berreskuratu",
         "/admin/produktuak/berreskuratu",
         "/produktua/delete",
-        "/addFavourite"
+        "/addFavourite",
+        "/sendMessage"
     ];
 }
