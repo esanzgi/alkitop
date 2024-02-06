@@ -10,7 +10,7 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { useUserContext } from '@/context/userContext';
 import { Dropdown } from 'react-bootstrap';
 
- export function Header({ user, owner }) {
+export function Header({ user, owner }) {
   const { loggedUser } = useUserContext()
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAlokatzaile, setShowAlokatzaile] = useState(false);
@@ -26,9 +26,8 @@ import { Dropdown } from 'react-bootstrap';
       .catch(error => {
         console.error('Error fetching user ID:', error);
       });
-
   }, []);
-  
+
   useEffect(() => {
     setIsAuthenticated(!!loggedUser);
   }, [loggedUser]);
@@ -62,10 +61,7 @@ import { Dropdown } from 'react-bootstrap';
         <Search />
 
         {isAuthenticated ? (
-          // <Link className='btn btn-outline-light rounded-pill' type='button' href="/profile">
-          //   <label>{loggedUser?.name}</label>
-          // </Link>
-          <UserDropdown />
+          <UserDropdown isAuthenticated={isAuthenticated} handleRegisterAlokatzaile={handleRegisterAlokatzaile} roleId={roleId} />
         ) : (
           <Link href='/login' className='btn btn-outline-light rounded-pill'>
             Sign in
@@ -73,35 +69,31 @@ import { Dropdown } from 'react-bootstrap';
         )}
 
         {isAuthenticated && botoia()}
-        {isAuthenticated && isAdmin()}
 
 
         <Login show={showLoginModal} handleClose={handleCloseLoginModal} />
         <AlokatzaileRegister show={showAlokatzaile} handleClose={handleCloseRegisterAlokatzaile} />
-      
       </div>
     </nav>
   );
 
   function botoia() {
     if (roleId == 3) {
-      return <button type='submit' className='btn btn-outline-light ms-2 rounded-pill' onClick={handleRegisterAlokatzaile}> <FontAwesomeIcon icon={faPlus} className='me-2' />Produktu igo</button>
-    } else if(roleId ==4 || roleId==1 || roleId==2) {
-      return <Link to='/produktu-gehitu' href='/produktu-gehitu' className='btn btn-outline-light ms-2 rounded-pill'> <FontAwesomeIcon icon={faPlus} className='me-2' /> Produktu igo </Link>
+      return <button type='submit' className='btn btn-outline-light ms-2 rounded-pill d-none d-md-block' onClick={handleRegisterAlokatzaile}> <FontAwesomeIcon icon={faPlus} className='me-2' />Produktu igo</button>
+    } else if (roleId == 4 || roleId == 1 || roleId == 2) {
+      return <Link to='/produktu-gehitu' href='/produktu-gehitu' className='btn btn-outline-light ms-2 rounded-pill d-none d-md-block'> <FontAwesomeIcon icon={faPlus} className='me-2' /> Produktu igo </Link>
     }
   }
 
-  function isAdmin(){
-    if (roleId==1) {
-      return <Link to="/admin" href='/admin' className='btn btn-outline-light ms-2 rounded-pill'>Admin</Link>
+  function isAdmin() {
+    if (roleId == 1) {
+      return <Link to="/admin" href='/admin' className='btn btn-outline-light ms-2 rounded-pill d-none d-md-block'>Kudeaketa</Link>
     }
   }
-
 }
 
-
-function UserDropdown() {
-  const { post } = useForm()
+function UserDropdown({ isAuthenticated, handleRegisterAlokatzaile, roleId }) {
+  const { post, get } = useForm()
   const { loggedUser, logout } = useUserContext();
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -120,6 +112,20 @@ function UserDropdown() {
       });
   };
 
+  const handleProduct = () => {
+    if (roleId == 3) {
+      handleRegisterAlokatzaile()
+    } else if (roleId == 4 || roleId == 1 || roleId == 2) {
+      get('/produktu-gehitu')
+    }
+  }
+
+  const handleAdmin = () => {
+    if (roleId == 1) {
+      return <Link to="/admin" href='/admin' className='btn btn-outline-light ms-2 rounded-pill d-none d-md-block'>Kudeaketa</Link>
+    }
+  }
+
   return (
     <Dropdown show={showDropdown} onToggle={handleDropdownToggle}>
       <Dropdown.Toggle variant='outline-light' id='user-dropdown' className='rounded-pill'>
@@ -131,6 +137,14 @@ function UserDropdown() {
         <Dropdown.Item as={Link} href='/profile' onClick={() => setShowDropdown(false)}>
           Profile
         </Dropdown.Item>
+        <Dropdown.Item className='d-block d-md-none' onClick={handleProduct}>
+          Produktua igo
+        </Dropdown.Item>
+        {roleId === 1 && (
+          <Dropdown.Item as={Link} href='/admin'>
+            Admin
+          </Dropdown.Item>
+        )}
         <Dropdown.Item as="button" onClick={handleLogout}>
           Logout <FontAwesomeIcon icon={faSignOutAlt} className='ms-2' />
         </Dropdown.Item>

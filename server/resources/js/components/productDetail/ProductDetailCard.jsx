@@ -62,7 +62,7 @@ function ProductDetailCard({ product }) {
           <span className='fs-6 fst-italic ms-2' onMouseEnter={handleMouseEnter} >{product.product.location}</span>
           {isHovered && ( // Mostrar MapComponent solo cuando se hace hover
             <div style={{ position: 'absolute', zIndex: 999, width: '50%', height: '200px' }} onMouseLeave={handleMouseLeave}>
-              <MapComponent location={'Los Angeles'} />
+              <MapComponent location={product.product.location} />
             </div>
           )}
         </div>

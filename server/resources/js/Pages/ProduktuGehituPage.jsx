@@ -13,11 +13,6 @@ function ProduktuGehituPage({ user, owner }) {
     <main className=''>
       <div className='fixed-top bg-white'>
         <Header user={user} owner={owner} />
-        <div className='shadow-sm bg-light'>
-          <div className='container-md pt-2'>
-            <FilterNav />
-          </div>
-        </div>
       </div>
 
       <div className='home-content container pb-5'>
