@@ -24,6 +24,7 @@ class VerifyCsrfToken extends Middleware
         "/produktua/delete",
         "/addFavourite",
         "/sendMessage",
-        "/profile/addImage"
+        "/profile/addImage",
+        "/admin/iritziak/delete"
     ];
 }
