@@ -1,0 +1,1 @@
+import{j as r}from"./app-90a17816.js";function u({className:s="",disabled:t,children:n,...o}){return r.jsx("button",{...o,className:`btn btn-success font-weight-bold  ${t?"disabled":""} ${s}`,disabled:t,children:n})}export{u as P};
