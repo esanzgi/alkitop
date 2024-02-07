@@ -4,6 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@inertiajs/react';
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { PUBLIC_AVATARS_URL } from '@/assets/utils/constants';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+
 
 
 
@@ -43,15 +47,25 @@ export const PrevArrow = ({ className, style, onClick }) => {
 };
 
 export const UserProfileCircle = ({ user, width, height, enableTooltip = true, enableLink = true }) => {
+
+  const Avatar = user?.profileImage || user?.profile_image || DEFAULT_USER_PROFILE;
+
+  if(!Avatar){
+    Avatar=DEFAULT_USER_PROFILE;
+  }
+
+  console.log('AVATAR', Avatar)
+  console.log('User', user)
+
   if (!user) return null;
   const tooltipText = 'Perfila ikusi';
 
   const renderContent = () => (
     <div className="d-flex align-items-center justify-content-center border-success rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
       <img
-        src={(user.profileImage || user.profile_image) ?? DEFAULT_USER_PROFILE}
+        src={PUBLIC_AVATARS_URL + Avatar}
         alt="Imagen de perfil"
-        className="w-100 h-100 object-fit-cover rounded-circle" />
+         className="img-fluid rounded-circle" />
     </div>
   );
 

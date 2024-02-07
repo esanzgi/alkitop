@@ -151,7 +151,7 @@ Route::post("/produktua-sartu", [ProductController::class, 'store']);
 
 Route::get('/product/details/{product}', [ProductController::class, 'goDetails'])->name('productDetails');
 
-Route::post('/avatarEguneratu', [ProfileController::class, 'avatarEguneratu']);
+Route::post('/profile/addImage', [ProfileController::class, 'avatarEguneratu']);
 
 Route::get('/editProduct/{id_product}', [ProductController::class, 'editPage']);
 
@@ -168,9 +168,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/ProductAlokatu', [ProductController::class, 'alokatu']);
 
-    Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
 
 });
+
+Route::post('/addFavourite', [ProductController::class, 'addFavourite']);
+
 
 Route::post('/checkFavorite', [ProductController::class, 'checkFavorite']);
 

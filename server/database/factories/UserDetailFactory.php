@@ -26,7 +26,7 @@ class UserDetailFactory extends Factory
             'country' => $this->faker->country,
             'province' => $this->faker->state,
             'city' => $this->faker->city,
-            'profile_image' => $this->faker->imageUrl(),
+            'profile_image' => null,
             'birthdate' => $this->faker->date,
             'gender' => $this->faker->randomElement(['Gizona', 'Emakumea', 'Beste bat']),
             'bio' => $this->faker->paragraph,

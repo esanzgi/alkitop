@@ -30,8 +30,14 @@ function ProductDetailCard({ product, user, owner }) {
   };
 
   const openChatModal = () => {
+    if (!user) {
+      window.location.href = '/login';
+      return;
+    }
+  
     setIsChatModalOpen(true);
   };
+  
 
   const closeChatModal = () => {
     setIsChatModalOpen(false);

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
+
 class ProfileController extends Controller
 {
     /**
@@ -114,14 +115,42 @@ class ProfileController extends Controller
     {
         $userDetailsId = $request->input('userDetails');
 
-        $userDetail = UserDetail::findOrFail($userDetailsId);
+        $userDetail = UserDetail::find($userDetailsId);
 
-        $profileImage = $request->input('irudi');
+        $profileImage = $request->file('irudi');
 
         $userDetail->profile_image = $profileImage;
 
+
+        if ($profileImage) {
+            $path = $profileImage->store('', 'public_avatars');
+            $userDetail->update([
+                'profile_image' => $path,
+            ]);
+        } else {
+            echo 'No se proporcionó ninguna imagen.';
+        }
+
         $userDetail->save();
 
+        return Redirect::route('profile.edit');
+
+    }
+    public function addImage(Request $request)
+    {
+        $id_product = $request->input('id');
+        $image = $request->file('irudia');
+
+        if ($image) {
+            $path = $image->store('', 'public_images');
+
+            ProductImage::create([
+                'product_id' => $id_product,
+                'image_path' => $path,
+            ]);
+
+            return redirect("/editProduct/{$id_product}");
+        }
     }
 
 }

@@ -13,8 +13,8 @@ const ChatModal = ({ isOpen, onClose, user, owner }) => {
       </Modal.Header>
       <Modal.Body>
         <form action='/sendMessage' method='post' className='d-flex flex-column align-content-center'>
-          <input type='hidden' value={user.id_user} name='user'/>
-          <input type='hidden' value={owner.idUser} name='owner'/>
+          <input type='hidden' value={user?.id_user} name='user'/>
+          <input type='hidden' value={owner?.idUser} name='owner'/>
           <div className="mb-3">
             <input type='text' className="form-control" id='mezua' name='mezua' placeholder="Mezua" />
           </div>
