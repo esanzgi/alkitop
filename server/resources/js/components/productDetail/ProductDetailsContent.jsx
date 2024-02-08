@@ -17,6 +17,8 @@ export function ProductDetailsContent({ product, owner, user }) {
   const [isOwner, setIsOwner] = useState(false);
   const isOwnerOrAdmin = isOwner || (user && (user.id_role === 1 || user.id_role === 2));
 
+
+
   useEffect(() => {
     if (users.createdAt) {
       const data = intlFormatDistance(parseISO(users.createdAt), new Date());
@@ -28,14 +30,21 @@ export function ProductDetailsContent({ product, owner, user }) {
     ? product.avgRating[0].avg_rating.replace('.', ',')
     : '0';
 
+
+
+
   useEffect(() => {
-    getUserByIdOwner({ idOwner: product.product.id_owner });
+    console.log('OWNER2', product.id_owner)
     getUserDetailsByIdUser({ idUser: loggedUser?.id_user })
+    getUserByIdOwner({ idOwner: product.id_owner })
     if (owner && owner.id_owner && product.product.id_owner) {
       setIsOwner(owner.id_owner === product.product.id_owner);
     }
-  }, [getUserByIdOwner, owner, product.product.id_owner]);
+  }, [getUserByIdOwner]);
 
+
+  console.log('PRODUCT2', product.id_owner)
+  console.log('OWNERS', users)
 
   return (
     <div className="mt-5">
@@ -49,12 +58,12 @@ export function ProductDetailsContent({ product, owner, user }) {
         )}
         <div className="d-flex align-items-center">
           <span className="fs-5 me-2">{users.name}</span>
-          <UserProfileCircle width={55} height={55} user={users} />
+          <UserProfileCircle width={55} height={55} user={users} productOwner={product.id_owner}/>
         </div>
       </div>
 
       <div className="mt-4">
-        <ProductDetailCard product={product} user={user} owner={users}/>
+        <ProductDetailCard product={product} user={user} owner={users} />
       </div>
 
       <div className='row mt-5'>

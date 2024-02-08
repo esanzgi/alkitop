@@ -7,6 +7,7 @@ export function useUser() {
   const [userDetails, setUserDetails] = useState({})
 
   const getUserByIdOwner = useCallback(async ({ idOwner }) => {
+    console.log('API OWNER', idOwner)
     if (!idOwner) return null
     try {
 

@@ -46,16 +46,13 @@ export const PrevArrow = ({ className, style, onClick }) => {
   );
 };
 
-export const UserProfileCircle = ({ user, width, height, enableTooltip = true, enableLink = true }) => {
+export const UserProfileCircle = ({ user, width, height, enableTooltip = true, enableLink = true, productOwner }) => {
 
-  const Avatar = user?.profileImage || user?.profile_image || DEFAULT_USER_PROFILE;
+  const avatar = user?.profileImage || user?.profile_image || DEFAULT_USER_PROFILE;
 
-  if(!Avatar){
-    Avatar=DEFAULT_USER_PROFILE;
+  if (!avatar) {
+    avatar = DEFAULT_USER_PROFILE;
   }
-
-  console.log('AVATAR', Avatar)
-  console.log('User', user)
 
   if (!user) return null;
   const tooltipText = 'Perfila ikusi';
@@ -63,9 +60,9 @@ export const UserProfileCircle = ({ user, width, height, enableTooltip = true, e
   const renderContent = () => (
     <div className="d-flex align-items-center justify-content-center border-success rounded-circle overflow-hidden pointer-at" style={{ width: `${width}px`, height: `${height}px` }}>
       <img
-        src={PUBLIC_AVATARS_URL + Avatar}
+        src={PUBLIC_AVATARS_URL + avatar}
         alt="Imagen de perfil"
-         className="img-fluid rounded-circle" />
+        className="img-fluid rounded-circle" />
     </div>
   );
 

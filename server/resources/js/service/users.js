@@ -5,7 +5,7 @@ export const getUserDetailsByIdOwnerService = async ({ idOwner }) => {
   //127.0.0.1
   //
   try {
-    const response = await fetch(`${APP_URL}/api/users/${idOwner}`)
+    const response = await fetch(`/api/users/${idOwner}`)
     const user = await response.json()
     return {
       idUser: user.id_user,
@@ -21,6 +21,7 @@ export const getUserDetailsByIdOwnerService = async ({ idOwner }) => {
       profileImage: user.profile_image,
       bio: user.bio,
       phoneNumber: user.phone_number,
+      id_owner: user.id_owner
     };
   } catch (error) {
     throw new Error('Error searching user with idOwner:  ' + idOwner)

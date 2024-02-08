@@ -27,6 +27,7 @@ const PRODUCT = {
 function ProductDetails({ product, user, owner }) {
   const { login } = useUserContext();
   login(user)
+  console.log('PRODUCT', product)
 
   return (
     < main className='' >

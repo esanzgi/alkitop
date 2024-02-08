@@ -7,8 +7,8 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Rating;
 use App\Models\Rental;
-use App\Models\User;
 use App\Models\Saved;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -148,7 +148,7 @@ class ProductController extends Controller
         $newProduct['rating'] = $ratings;
         $newProduct['avgRating'] = $media;
         $newProduct['latestRental'] = $latestRental;
-
+        $newProduct['id_owner'] = $product->id_owner;
 
         return Inertia::render('ProductDetails', [
             'product' => $newProduct,
@@ -183,42 +183,38 @@ class ProductController extends Controller
     }
 
     public function addFavourite(Request $request)
-{
-    $user_id = $request->input('user_id');
-    $product_id = $request->input('product_id');
+    {
+        $user_id = $request->input('user_id');
+        $product_id = $request->input('product_id');
 
-    $existingSaved = Saved::where('id_user', $user_id)
-        ->where('id_product', $product_id)
-        ->first();
+        $existingSaved = Saved::where('id_user', $user_id)
+            ->where('id_product', $product_id)
+            ->first();
 
-    if ($existingSaved) {
-        $existingSaved->delete();
-        $existingSaved->save();
+        if ($existingSaved) {
+            $existingSaved->delete();
+            $existingSaved->save();
+        }
+
+        Saved::create([
+            'id_user' => $user_id,
+            'id_product' => $product_id,
+        ]);
+
+        return redirect('/');
     }
 
-    Saved::create([
-        'id_user' => $user_id,
-        'id_product' => $product_id,
-    ]);
+    public function checkFavorite(Request $request)
+    {
+        $user = User::find($request->input('user_id'));
+        $product = Product::find($request->input('product_id'));
 
-    return redirect('/');
-}
+        $isFavorite = Saved::where('id_user', $user->id_user)
+            ->where('id_product', $product->id_product)
+            ->exists();
 
-
-public function checkFavorite(Request $request)
-{
-    $user = User::find($request->input('user_id'));
-    $product = Product::find($request->input('product_id'));
-
-    $isFavorite = Saved::where('id_user', $user->id_user)
-        ->where('id_product', $product->id_product)
-        ->exists();
-
-    return response()->json(['isFavorite' => $isFavorite]);
-}
-
-
-
+        return response()->json(['isFavorite' => $isFavorite]);
+    }
 
     public function editPage($product)
     {
