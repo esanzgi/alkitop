@@ -32,7 +32,7 @@ const Admin = ({user}) => {
         <AdminCard  title={"Erabiltzaielak berreskuratu"} url={"/admin/users/restore"} />
         <AdminCard  title={"Produktuak berreskuratu"} url={"/admin/produktuak/restore"} />
         <AdminCard  title={"Iritziak berreskuratu"} url={"/admin/iritziak/berreskuratu"} />
-        <AdminCard  title={"Estatistikak"} url={"/admin/rolak"} />
+        <AdminCard  title={"Estatistikak"} url={"/panel"} />
       </div>
 
     </div>
