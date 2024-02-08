@@ -1,4 +1,4 @@
-import { APP_URL } from "@/assets/utils/constants";
+//import { APP_URL } from "@/assets/utils/constants";
 
 export const getUserDetailsByIdOwnerService = async ({ idOwner }) => {
   if (!idOwner) return null
@@ -31,7 +31,7 @@ export const getUserDetailsByIdUserService = async ({ idUser }) => {
   if (!idUser) return null
 
   try {
-    const response = await fetch(`${APP_URL}/api/users/details/${idUser}`)
+    const response = await fetch(`/api/users/details/${idUser}`)
     const user = await response.json()
     return {
       idDetail: user.id,

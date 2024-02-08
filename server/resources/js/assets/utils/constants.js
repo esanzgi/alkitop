@@ -1,9 +1,9 @@
-export const APP_URL = 'http://127.0.0.1:8000'
+//export const APP_URL = ''
 
-export const PUBLIC_IMAGES_URL = APP_URL + '/images/'
+export const PUBLIC_IMAGES_URL = '/images/'
 export const PUBLIC_AVATARS_URL = '/avatars/'
 
-export const DEFAULT_USER_PROFILE =  'default-avatar.jpg'
+export const DEFAULT_USER_PROFILE = 'default-avatar.jpg'
 
 export const allCategories = [
   'Kotxeak',
@@ -43,6 +43,6 @@ export function traducirFrecuencia(frequency) {
     case "monthly":
       return "hilabetea";
     default:
-      return frequency; // Mantén el valor original si no hay traducción definida
+      return frequency;
   }
 }
